@@ -1,0 +1,234 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div class="ct-section" id="ct-{{ section.id }}">
+  <div class="ct-inner">
+    {%- if s.heading != blank -%}
+      <h2 class="ct-heading">{{ s.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if s.subheading != blank -%}
+      <p class="ct-sub">{{ s.subheading | escape }}</p>
+    {%- endif -%}
+    <div class="ct-table-wrap">
+      <table class="ct-table">
+        <thead>
+          <tr>
+            <th class="ct-th ct-feature-col">Feature</th>
+            <th class="ct-th ct-store-col">{{ s.store_col_header | default: shop.name | escape }}</th>
+            <th class="ct-th ct-comp-col">{{ s.comp_col_header | default: 'Other Brands' | escape }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <td class="ct-td ct-feature-name">{{ block.settings.feature_name | escape }}</td>
+              <td class="ct-td ct-store-val">
+                {%- if block.settings.store_has -%}
+                  <span class="ct-icon" aria-label="Yes">&#x2705;</span>
+                {%- else -%}
+                  <span class="ct-icon" aria-label="No">&#x274C;</span>
+                {%- endif -%}
+              </td>
+              <td class="ct-td ct-comp-val">
+                {%- if block.settings.comp_has -%}
+                  <span class="ct-icon" aria-label="Yes">&#x2705;</span>
+                {%- else -%}
+                  <span class="ct-icon" aria-label="No">&#x274C;</span>
+                {%- endif -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+    {%- if s.cta_text != blank -%}
+      <div class="ct-cta-wrap">
+        <a href="{{ s.cta_link | default: '#' }}" class="ct-cta-btn">{{ s.cta_text | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+#ct-{{ section.id }} {
+  --ct-highlight: {{ s.store_color }};
+  --ct-store-header-bg: #1a1a1a;
+  --ct-store-header-fg: #ffffff;
+  --ct-row-alt: #f7f7f7;
+  --ct-border: #e0e0e0;
+  --ct-btn-bg: #1a1a1a;
+  --ct-btn-fg: #ffffff;
+}
+#ct-{{ section.id }} .ct-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 20px;
+  text-align: center;
+}
+#ct-{{ section.id }} .ct-heading {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+#ct-{{ section.id }} .ct-sub {
+  font-size: 1rem;
+  margin: 0 0 32px;
+  opacity: 0.7;
+}
+#ct-{{ section.id }} .ct-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+#ct-{{ section.id }} .ct-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.95rem;
+}
+#ct-{{ section.id }} .ct-th {
+  padding: 14px 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--ct-border);
+}
+#ct-{{ section.id }} .ct-feature-col {
+  text-align: left;
+  background: #f4f4f4;
+  color: #333333;
+  width: 50%;
+}
+#ct-{{ section.id }} .ct-store-col {
+  background: var(--ct-store-header-bg);
+  color: var(--ct-store-header-fg);
+  width: 25%;
+}
+#ct-{{ section.id }} .ct-comp-col {
+  background: #f4f4f4;
+  color: #555555;
+  width: 25%;
+}
+#ct-{{ section.id }} .ct-table tbody tr:nth-child(even) {
+  background: var(--ct-row-alt);
+}
+#ct-{{ section.id }} .ct-td {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--ct-border);
+}
+#ct-{{ section.id }} .ct-feature-name {
+  text-align: left;
+  font-weight: 500;
+}
+#ct-{{ section.id }} .ct-store-val {
+  background: var(--ct-highlight);
+}
+#ct-{{ section.id }} .ct-icon {
+  font-size: 1.2rem;
+}
+#ct-{{ section.id }} .ct-cta-wrap {
+  margin-top: 32px;
+}
+#ct-{{ section.id }} .ct-cta-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--ct-btn-bg);
+  color: var(--ct-btn-fg);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+#ct-{{ section.id }} .ct-cta-btn:hover {
+  opacity: 0.85;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Why Choose Us?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "See how we stack up against the competition"
+    },
+    {
+      "type": "text",
+      "id": "store_col_header",
+      "label": "Store column header",
+      "default": "Our Brand"
+    },
+    {
+      "type": "text",
+      "id": "comp_col_header",
+      "label": "Competitor column header",
+      "default": "Other Brands"
+    },
+    {
+      "type": "color",
+      "id": "store_color",
+      "label": "Store column highlight color",
+      "default": "#e8f5e9"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_row",
+      "name": "Feature row",
+      "limit": 15,
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_name",
+          "label": "Feature name",
+          "default": "Feature"
+        },
+        {
+          "type": "checkbox",
+          "id": "store_has",
+          "label": "Our brand has this",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "comp_has",
+          "label": "Competitor has this",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        { "type": "feature_row", "settings": { "feature_name": "Free Shipping", "store_has": true, "comp_has": false } },
+        { "type": "feature_row", "settings": { "feature_name": "30-Day Returns", "store_has": true, "comp_has": false } },
+        { "type": "feature_row", "settings": { "feature_name": "Lifetime Warranty", "store_has": true, "comp_has": false } },
+        { "type": "feature_row", "settings": { "feature_name": "24/7 Support", "store_has": true, "comp_has": true } },
+        { "type": "feature_row", "settings": { "feature_name": "Premium Quality Materials", "store_has": true, "comp_has": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}
