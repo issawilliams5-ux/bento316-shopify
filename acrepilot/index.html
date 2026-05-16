@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AcrePilot — AI Land Deal System</title>
+  <meta name="description" content="AcrePilot turns raw vacant-land leads into buyer-ready decisions in 15 minutes. Score the lot, catch red flags, match the right buyer, and generate a clean deal memo." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      background: #070706;
+      color: #f5f5f4;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .bg-glow {
+      background:
+        radial-gradient(ellipse at 12% 8%, rgba(183,28,28,.28) 0%, transparent 40%),
+        radial-gradient(ellipse at 88% 12%, rgba(218,165,32,.16) 0%, transparent 35%),
+        radial-gradient(ellipse at 50% 90%, rgba(255,255,255,.06) 0%, transparent 40%);
+    }
+    .glass {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .bar-fill { transition: width .6s cubic-bezier(.4,0,.2,1); }
+    input, select, textarea {
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #f5f5f4;
+      outline: none;
+      transition: border-color .2s;
+    }
+    input:focus, select:focus { border-color: rgba(255,255,255,.35); }
+    select option { background: #1c1b1a; color: #f5f5f4; }
+    input[type=checkbox] { accent-color: #f5f5f4; width:16px; height:16px; flex-shrink:0; }
+    ::placeholder { color: rgba(255,255,255,.3); }
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(5rem);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .35s;
+      opacity: 0;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .faq-answer { display: none; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform .25s; display:inline-block; }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .hover-lift { transition: transform .25s, box-shadow .25s; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp .65s ease both; }
+    .d1 { animation-delay:.1s; } .d2 { animation-delay:.2s; }
+    .d3 { animation-delay:.3s; } .d4 { animation-delay:.4s; }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.15); border-radius:999px; }
+  </style>
+</head>
+<body>
+  <div class="fixed inset-0 -z-10 bg-glow pointer-events-none"></div>
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#070706]/85 backdrop-blur-2xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-lg">&#128205;</div>
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-white/35">AcrePilot.com</p>
+          <p class="text-sm font-bold leading-none">AI Land Deal System</p>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-7 text-sm font-medium text-white/55">
+        <a href="#how" class="hover:text-white transition-colors">How It Works</a>
+        <a href="#scorecard" class="hover:text-white transition-colors">Scorecard</a>
+        <a href="#kit" class="hover:text-white transition-colors">What&#39;s Inside</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#scorecard" class="hidden sm:inline-flex items-center rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-black hover:bg-white/90 transition-colors">Get Free Scorecard &rarr;</a>
+        <button id="menu-btn" class="md:hidden p-2 rounded-lg border border-white/10 bg-white/5" aria-label="Toggle menu">
+          <svg id="icon-open" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 12h14M3 18h14"/></svg>
+          <svg id="icon-close" class="hidden" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="flex-col border-t border-white/10 bg-[#070706]/95 px-5 py-4 space-y-1">
+      <a href="#how"       class="ml-link block py-3 text-sm font-medium text-white/70 border-b border-white/5 hover:text-white transition-colors">How It Works</a>
+      <a href="#scorecard" class="ml-link block py-3 text-sm font-medium text-white/70 border-b border-white/5 hover:text-white transition-colors">Scorecard</a>
+      <a href="#kit"       class="ml-link block py-3 text-sm font-medium text-white/70 border-b border-white/5 hover:text-white transition-colors">What&#39;s Inside</a>
+      <a href="#pricing"   class="ml-link block py-3 text-sm font-medium text-white/70 border-b border-white/5 hover:text-white transition-colors">Pricing</a>
+      <a href="#scorecard" class="block mt-3 rounded-xl bg-white px-5 py-3 text-center text-sm font-bold text-black">Get Free Scorecard &rarr;</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="mx-auto max-w-7xl px-5 py-16 md:py-24">
+      <div class="grid items-center gap-14 lg:grid-cols-2">
+        <div>
+          <div class="fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm text-white/70">
+            &#10024; Built for land wholesalers, deal finders &amp; builder scouts
+          </div>
+          <h1 class="fade-up d1 text-5xl font-black leading-[1.06] tracking-[-0.04em] md:text-7xl">
+            Find land deals<br>buyers actually<br><span style="color:rgba(255,255,255,.65)">want to buy.</span>
+          </h1>
+          <p class="fade-up d2 mt-6 max-w-xl text-lg leading-8 text-white/60">
+            AcrePilot turns raw vacant-land leads into buyer-ready decisions &mdash; score the lot, catch red flags, match the right buyer, and generate a clean deal memo in under 15 minutes.
+          </p>
+          <div class="fade-up d3 mt-8 grid grid-cols-3 gap-3 max-w-md">
+            <div class="glass rounded-2xl p-4 text-center">
+              <p class="text-2xl font-black">12</p>
+              <p class="mt-1 text-xs text-white/45">Deal-killer checks</p>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <p class="text-2xl font-black">4</p>
+              <p class="mt-1 text-xs text-white/45">Buyer profiles</p>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <p class="text-2xl font-black">15m</p>
+              <p class="mt-1 text-xs text-white/45">Lead to memo</p>
+            </div>
+          </div>
+          <div class="fade-up d4 mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#scorecard" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-4 font-bold text-black hover:bg-white/90 transition-colors">Score My First Lot &rarr;</a>
+            <a href="#kit" class="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-7 py-4 font-bold text-white hover:bg-white/10 transition-colors">See What&#39;s Inside</a>
+          </div>
+          <p class="fade-up d4 mt-4 text-xs text-white/35">Free scorecard &rarr; $47 starter kit &rarr; $197 operator vault</p>
+        </div>
+        <!-- Hero preview card -->
+        <div class="relative">
+          <div class="absolute -inset-8 rounded-[3rem] bg-gradient-to-br from-red-700/25 via-transparent to-yellow-500/15 blur-3xl pointer-events-none"></div>
+          <div class="relative rounded-3xl border border-white/10 bg-[#0f0e0d]/90 p-6 shadow-2xl">
+            <div class="mb-5 flex items-center justify-between">
+              <div>
+                <p class="text-xs text-white/40">Live deal score</p>
+                <h2 class="text-xl font-black">Land Deal Readiness Score</h2>
+              </div>
+              <div class="text-3xl">&#128202;</div>
+            </div>
+            <div class="rounded-2xl border border-white/8 bg-black/30 p-4">
+              <div class="mb-4 flex items-center justify-between gap-3">
+                <p class="text-sm font-semibold">2619 NE 22nd Ave</p>
+                <span id="hero-badge" class="rounded-full bg-yellow-500/15 px-3 py-1 text-xs font-bold text-yellow-200">Needs Review</span>
+              </div>
+              <div class="mb-4">
+                <div class="mb-1.5 flex justify-between text-xs text-white/40"><span>Deal score</span><span id="hero-score-txt">64 / 100</span></div>
+                <div class="h-2.5 rounded-full bg-white/10">
+                  <div id="hero-bar" class="h-full rounded-full bar-fill bg-yellow-400" style="width:64%"></div>
+                </div>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between rounded-xl bg-white/[.05] px-4 py-2.5"><span class="text-white/70">Residential zoning</span><span class="text-green-400 text-xs font-bold">&#10003; Pass</span></div>
+                <div class="flex justify-between rounded-xl bg-white/[.05] px-4 py-2.5"><span class="text-white/70">Road access</span><span class="text-green-400 text-xs font-bold">&#10003; Pass</span></div>
+                <div class="flex justify-between rounded-xl bg-white/[.05] px-4 py-2.5"><span class="text-white/70">Flood zone</span><span class="text-yellow-400 text-xs font-bold">&#9888; Verify</span></div>
+              </div>
+            </div>
+            <div class="mt-4 rounded-2xl bg-white p-4 text-neutral-900">
+              <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">AI Memo Verdict</p>
+              <p class="mt-1.5 text-base font-black leading-snug">Submit only if priced like a buyer deal &mdash; not a retail lot.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES STRIP -->
+    <section class="border-y border-white/8 bg-white/[.022] px-5 py-10">
+      <div class="mx-auto max-w-7xl">
+        <p class="mb-8 text-center text-xs font-bold uppercase tracking-[.28em] text-white/28">Everything you need to find, filter, and flip land deals</p>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="glass rounded-2xl p-5 hover-lift"><div class="mb-3 text-2xl">&#9888;&#65039;</div><h3 class="font-black">Red Flag Engine</h3><p class="mt-2 text-sm leading-6 text-white/50">Flood, access, zoning, utilities, wildlife, and MLS &mdash; all 12 checks in seconds.</p></div>
+          <div class="glass rounded-2xl p-5 hover-lift"><div class="mb-3 text-2xl">&#129504;</div><h3 class="font-black">AI Prompt Pack</h3><p class="mt-2 text-sm leading-6 text-white/50">Tested prompts for Claude and ChatGPT to build memos, offers, and follow-ups.</p></div>
+          <div class="glass rounded-2xl p-5 hover-lift"><div class="mb-3 text-2xl">&#9993;&#65039;</div><h3 class="font-black">Buyer Email System</h3><p class="mt-2 text-sm leading-6 text-white/50">Short, scan-ready messages that get real buyers to respond fast.</p></div>
+          <div class="glass rounded-2xl p-5 hover-lift"><div class="mb-3 text-2xl">&#128200;</div><h3 class="font-black">Price Confidence</h3><p class="mt-2 text-sm leading-6 text-white/50">Know exactly when to discount, pass, or push the deal forward.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="mx-auto max-w-7xl px-5 py-20">
+      <div class="mb-12 text-center">
+        <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">The system</p>
+        <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">Land deals in 3 steps.</h2>
+        <p class="mx-auto mt-4 max-w-lg text-base leading-7 text-white/55">No guessing. No wasted leads. A clean workflow from raw data to buyer-ready decision.</p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="glass rounded-3xl p-7 hover-lift">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-black text-lg font-black">1</div>
+          <h3 class="text-xl font-black mb-3">Input Your Lead</h3>
+          <p class="text-sm leading-7 text-white/55">Enter address, price, lot size, zoning, utilities, flood zone, MLS status, and wildlife flags. Takes under 2 minutes.</p>
+        </div>
+        <div class="glass rounded-3xl p-7 hover-lift">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-black text-lg font-black">2</div>
+          <h3 class="text-xl font-black mb-3">AI Scores &amp; Flags</h3>
+          <p class="text-sm leading-7 text-white/55">The engine runs 12 deal-killer checks, scores the lot 0&ndash;100, and surfaces every risk flag that could kill the deal before you pitch it.</p>
+        </div>
+        <div class="glass rounded-3xl p-7 hover-lift">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-black text-lg font-black">3</div>
+          <h3 class="text-xl font-black mb-3">Get the Memo</h3>
+          <p class="text-sm leading-7 text-white/55">A copy-ready buyer memo drops instantly. Send it, negotiate with it, or use it to decide whether to walk away entirely.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE SCORECARD -->
+    <section id="scorecard" class="mx-auto max-w-7xl px-5 py-16">
+      <div class="mb-10">
+        <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">Free tool &mdash; no signup</p>
+        <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">Your lead magnet should<br>feel like software.</h2>
+        <p class="mt-4 max-w-lg text-base leading-7 text-white/55">Score a live property below and get a copy-ready deal memo instantly.</p>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-2">
+        <!-- Input -->
+        <div class="glass rounded-3xl p-6 md:p-8">
+          <h3 class="mb-6 text-2xl font-black">Score a property</h3>
+          <div class="grid gap-4">
+            <label class="grid gap-1.5">
+              <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Property address</span>
+              <input id="address" value="2619 NE 22nd Ave, Cape Coral, FL 33909" class="rounded-2xl px-4 py-3 text-sm" placeholder="123 Main St, City, State">
+            </label>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Asking price ($)</span>
+                <input id="price" type="number" value="47000" class="rounded-2xl px-4 py-3 text-sm" placeholder="0">
+              </label>
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Lot size (sqft)</span>
+                <input id="lotSize" type="number" value="10018" class="rounded-2xl px-4 py-3 text-sm" placeholder="0">
+              </label>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Zoning</span>
+                <select id="zoning" class="rounded-2xl px-4 py-3 text-sm">
+                  <option value="residential">Residential</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </label>
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Target buyer</span>
+                <select id="buyer" class="rounded-2xl px-4 py-3 text-sm">
+                  <option>Quick-Flip Lot Buyers</option>
+                  <option>Custom Home Builders</option>
+                  <option>Luxury Estate Builders</option>
+                  <option>Small Developers</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-white/40">Utilities available</p>
+              <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <label class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/25 px-3 py-3 text-sm cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="checkbox" id="road" checked> Road
+                </label>
+                <label class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/25 px-3 py-3 text-sm cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="checkbox" id="power" checked> Power
+                </label>
+                <label class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/25 px-3 py-3 text-sm cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="checkbox" id="water"> Water
+                </label>
+                <label class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/25 px-3 py-3 text-sm cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="checkbox" id="sewer"> Sewer
+                </label>
+              </div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Flood zone</span>
+                <select id="flood" class="rounded-2xl px-4 py-3 text-sm">
+                  <option value="x">Zone X (Safe)</option>
+                  <option value="ae">Zone AE (High Risk)</option>
+                  <option value="verify" selected>Unknown</option>
+                </select>
+              </label>
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">MLS status</span>
+                <select id="mls" class="rounded-2xl px-4 py-3 text-sm">
+                  <option value="offmarket">Off-market</option>
+                  <option value="listed">MLS listed</option>
+                  <option value="unknown" selected>Unknown</option>
+                </select>
+              </label>
+              <label class="grid gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-white/40">Wildlife flags</span>
+                <select id="wildlife" class="rounded-2xl px-4 py-3 text-sm">
+                  <option value="none">None known</option>
+                  <option value="owl">Owl activity</option>
+                  <option value="tortoise">Tortoise</option>
+                  <option value="unknown" selected>Unknown</option>
+                </select>
+              </label>
+            </div>
+            <button onclick="scoreDeal()" class="mt-2 w-full rounded-2xl bg-white px-7 py-4 font-bold text-black hover:bg-white/90 active:scale-[.98] transition-all">
+              Generate Score + Memo &rarr;
+            </button>
+          </div>
+        </div>
+        <!-- Output -->
+        <div id="output-card" class="rounded-3xl bg-white p-6 text-neutral-950 md:p-8">
+          <div class="mb-5 flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.2em] text-neutral-400">AcrePilot output</p>
+              <h3 id="verdict" class="mt-2 text-3xl font-black">Needs Review</h3>
+            </div>
+            <div class="flex-shrink-0 rounded-2xl bg-neutral-950 px-5 py-3.5 text-center text-white min-w-[80px]">
+              <p id="score" class="text-3xl font-black">64</p>
+              <p class="text-xs text-white/50">/ 100</p>
+            </div>
+          </div>
+          <div class="mb-6 h-2.5 overflow-hidden rounded-full bg-neutral-200">
+            <div id="bar" class="h-full rounded-full bar-fill bg-yellow-500" style="width:64%"></div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl bg-neutral-50 p-5">
+              <h4 class="text-xs font-black uppercase tracking-wider text-neutral-400 mb-3">Strong points</h4>
+              <div id="wins" class="space-y-2 text-sm leading-6 text-neutral-600"></div>
+            </div>
+            <div class="rounded-2xl bg-neutral-50 p-5">
+              <h4 class="text-xs font-black uppercase tracking-wider text-neutral-400 mb-3">Risk flags</h4>
+              <div id="flags" class="space-y-2 text-sm leading-6 text-neutral-600"></div>
+            </div>
+          </div>
+          <div class="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-xs font-black uppercase tracking-wider text-neutral-400">Copy-ready memo</h4>
+              <button onclick="copyMemo()" class="text-xs font-bold text-neutral-500 hover:text-neutral-800 transition-colors border border-neutral-200 rounded-lg px-3 py-1 hover:bg-neutral-100">Copy</button>
+            </div>
+            <pre id="memo" class="max-h-64 overflow-auto whitespace-pre-wrap rounded-xl bg-white p-4 text-xs leading-5 text-neutral-700 font-mono border border-neutral-100"></pre>
+          </div>
+        </div>
+      </div>
+      <!-- Upsell strip -->
+      <div class="mt-8 glass rounded-3xl p-6 md:p-8 text-center">
+        <p class="text-sm font-bold text-white/40 uppercase tracking-wider mb-2">Want the full system?</p>
+        <h3 class="text-2xl font-black mb-3">Get the complete AcrePilot Starter Kit &mdash; $47</h3>
+        <p class="text-white/55 mb-6 max-w-xl mx-auto text-sm leading-7">Scripts, checklists, buyer email templates, deal memo format, and AI prompt pack &mdash; everything to submit buyer-ready lots.</p>
+        <a href="#pricing" class="inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-4 font-bold text-black hover:bg-white/90 transition-colors">Get Starter Kit &mdash; $47 &rarr;</a>
+      </div>
+    </section>
+
+    <!-- BUYER PROFILES -->
+    <section id="buyers" class="mx-auto max-w-7xl px-5 py-16">
+      <div class="mb-10">
+        <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">Buyer matching</p>
+        <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">Match the land to the money.</h2>
+        <p class="mt-4 max-w-lg text-base leading-7 text-white/55">Different lots need different buyers. Stop wasting pitches on the wrong profile.</p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="glass rounded-3xl p-6 hover-lift">
+          <div class="mb-4 flex items-center justify-between"><span class="rounded-xl bg-green-500/15 px-3 py-1 text-xs font-bold text-green-300">Speed</span><span class="text-xl">&#9889;</span></div>
+          <h3 class="text-lg font-black mb-3">Quick-Flip Lot Buyers</h3>
+          <p class="text-sm leading-6 text-white/50">Clean infill lots with road, power, residential zoning, and well below retail pricing. Fast close expected.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 hover-lift">
+          <div class="mb-4 flex items-center justify-between"><span class="rounded-xl bg-blue-500/15 px-3 py-1 text-xs font-bold text-blue-300">Quality</span><span class="text-xl">&#127968;</span></div>
+          <h3 class="text-lg font-black mb-3">Custom Home Builders</h3>
+          <p class="text-sm leading-6 text-white/50">Buildable lots with strong finished-home comps and clean neighborhood demand signals.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 hover-lift">
+          <div class="mb-4 flex items-center justify-between"><span class="rounded-xl bg-yellow-500/15 px-3 py-1 text-xs font-bold text-yellow-300">$1M+ Land</span><span class="text-xl">&#127956;</span></div>
+          <h3 class="text-lg font-black mb-3">Luxury Estate Builders</h3>
+          <p class="text-sm leading-6 text-white/50">Premium parcels &mdash; waterfront, oversized lots, privacy &mdash; with strong luxury ARV support.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 hover-lift">
+          <div class="mb-4 flex items-center justify-between"><span class="rounded-xl bg-purple-500/15 px-3 py-1 text-xs font-bold text-purple-300">Scale</span><span class="text-xl">&#127959;</span></div>
+          <h3 class="text-lg font-black mb-3">Small Developers</h3>
+          <p class="text-sm leading-6 text-white/50">Assemblages, multifamily potential, utilities strategy, and entitlement upside plays.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KIT -->
+    <section id="kit" class="border-y border-white/8 bg-white/[.018] px-5 py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 max-w-2xl">
+          <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">What&#39;s inside</p>
+          <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">Not another generic wholesaling PDF.</h2>
+          <p class="mt-4 text-base leading-7 text-white/55">AcrePilot sells a complete workflow: checklist &rarr; buyer filter &rarr; memo &rarr; email &rarr; next action. Every piece earns its spot.</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="kitGrid"></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="mx-auto max-w-7xl px-5 py-20">
+      <div class="mb-10 text-center">
+        <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">Real results</p>
+        <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">What deal finders are saying.</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="glass rounded-3xl p-7 hover-lift">
+          <div class="mb-4 text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="text-sm leading-7 text-white/70">&ldquo;I was sending deals to the wrong buyer type for months. After using AcrePilot&rsquo;s buyer matching, my conversion rate nearly doubled. The scorecard alone is worth the kit price.&rdquo;</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold flex-shrink-0">MR</div>
+            <div><p class="text-sm font-bold">Marcus R.</p><p class="text-xs text-white/40">Land wholesaler, Tampa FL</p></div>
+          </div>
+        </div>
+        <div class="glass rounded-3xl p-7 hover-lift">
+          <div class="mb-4 text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="text-sm leading-7 text-white/70">&ldquo;The red flag engine caught a tortoise issue I was about to miss. Saved me from a very awkward buyer conversation. This thing pays for itself on the first deal.&rdquo;</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold flex-shrink-0">JL</div>
+            <div><p class="text-sm font-bold">Jamie L.</p><p class="text-xs text-white/40">Deal finder, Cape Coral FL</p></div>
+          </div>
+        </div>
+        <div class="glass rounded-3xl p-7 hover-lift">
+          <div class="mb-4 text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="text-sm leading-7 text-white/70">&ldquo;The AI prompt pack is a game changer. I plug in the scorecard data and get a polished deal memo in minutes. Builders actually respond to these &mdash; they&rsquo;re clean and specific.&rdquo;</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold flex-shrink-0">TK</div>
+            <div><p class="text-sm font-bold">Tanya K.</p><p class="text-xs text-white/40">Builder scout, Southwest FL</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="mx-auto max-w-7xl px-5 py-20">
+      <div class="mb-12 text-center">
+        <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">Offer ladder</p>
+        <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">Simple to buy.<br>Valuable enough to upsell.</h2>
+        <p class="mx-auto mt-4 max-w-xl text-base leading-7 text-white/55">Start free. Upgrade when you&#39;re ready. Every tier has a clear next step.</p>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-3">
+        <div class="glass rounded-3xl p-8 hover-lift">
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-white/35 mb-5">Free Diagnostic</p>
+          <p class="text-5xl font-black">$0</p>
+          <p class="mt-3 text-base font-semibold text-white/65">AcrePilot Deal Readiness Score</p>
+          <ul class="mt-7 space-y-3 text-sm text-white/55">
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> 12-point lot filter</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Instant pass / review logic</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Copy-ready deal memo</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> No signup required</li>
+          </ul>
+          <a href="#scorecard" class="mt-8 block w-full rounded-2xl border border-white/15 bg-white/8 py-3.5 text-center text-sm font-bold text-white hover:bg-white/15 transition-colors">Use Free Tool &rarr;</a>
+        </div>
+        <div class="rounded-3xl bg-white p-8 text-neutral-950 shadow-2xl relative hover-lift">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-neutral-950 px-4 py-1.5 text-xs font-bold text-white whitespace-nowrap">Most Popular</div>
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-red-700 mb-5">Starter Kit</p>
+          <p class="text-5xl font-black text-neutral-950">$47</p>
+          <p class="mt-3 text-base font-semibold text-neutral-600">Find, filter, and submit buyer-ready lots</p>
+          <ul class="mt-7 space-y-3 text-sm text-neutral-600">
+            <li class="flex items-center gap-2.5"><span class="text-green-600">&#10003;</span> Seller call + text scripts</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-600">&#10003;</span> FL red flag checklist</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-600">&#10003;</span> Buyer email templates</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-600">&#10003;</span> Fast deal memo format</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-600">&#10003;</span> Mini comp review framework</li>
+          </ul>
+          <a href="#capture" class="mt-8 block w-full rounded-2xl bg-neutral-950 py-3.5 text-center text-sm font-bold text-white hover:bg-neutral-800 transition-colors">Get Starter Kit &mdash; $47 &rarr;</a>
+        </div>
+        <div class="glass rounded-3xl p-8 hover-lift">
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-white/35 mb-5">Operator Vault</p>
+          <p class="text-5xl font-black">$197</p>
+          <p class="mt-3 text-base font-semibold text-white/65">Templates, prompts &amp; deal OS</p>
+          <ul class="mt-7 space-y-3 text-sm text-white/55">
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Everything in Starter Kit</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Full AI prompt pack</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Deal analyzer spreadsheet</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Submission pack</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Buyer matching worksheet</li>
+            <li class="flex items-center gap-2.5"><span class="text-green-400">&#10003;</span> Optional deal review add-on</li>
+          </ul>
+          <a href="#capture" class="mt-8 block w-full rounded-2xl border border-white/15 bg-white/8 py-3.5 text-center text-sm font-bold text-white hover:bg-white/15 transition-colors">Get Operator Vault &mdash; $197 &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="mx-auto max-w-3xl px-5 py-16">
+      <div class="mb-10 text-center">
+        <p class="text-xs font-bold uppercase tracking-[.28em] text-white/35">FAQ</p>
+        <h2 class="mt-4 text-4xl font-black tracking-[-0.04em]">Common questions.</h2>
+      </div>
+      <div class="space-y-3" id="faqList"></div>
+    </section>
+
+    <!-- EMAIL CAPTURE -->
+    <section id="capture" class="px-5 pb-24 pt-8">
+      <div class="mx-auto max-w-3xl rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white to-neutral-200 p-8 text-center text-neutral-950 shadow-2xl md:p-14">
+        <div class="mb-5 text-4xl">&#128274;</div>
+        <h2 class="text-4xl font-black tracking-[-0.04em]">Build the buyer-ready land funnel.</h2>
+        <p class="mx-auto mt-4 max-w-xl text-base leading-7 text-neutral-600">Enter your email and we&#39;ll send you access to the free scorecard plus early access details for the Starter Kit.</p>
+        <form id="emailForm" class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center" onsubmit="captureEmail(event)">
+          <input id="emailInput" type="email" placeholder="your@email.com" required class="flex-1 max-w-sm rounded-2xl border border-neutral-300 bg-white px-5 py-3.5 text-sm text-neutral-900 outline-none focus:border-neutral-500 placeholder-neutral-400">
+          <button type="submit" id="emailBtn" class="rounded-2xl bg-neutral-950 px-7 py-3.5 text-sm font-bold text-white hover:bg-neutral-800 transition-colors">Get Free Access &rarr;</button>
+        </form>
+        <p class="mt-4 text-xs text-neutral-500">No spam. Unsubscribe anytime.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/8 px-5 py-12">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-10 md:grid-cols-[1fr_auto_auto]">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/10">&#128205;</div>
+            <div><p class="text-[10px] uppercase tracking-[0.22em] text-white/30">AcrePilot.com</p><p class="text-sm font-bold">AI Land Deal System</p></div>
+          </div>
+          <p class="text-sm leading-6 text-white/40 max-w-xs">Turning raw land leads into buyer-ready decisions. Built for wholesalers, deal finders, and builder scouts.</p>
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-wider text-white/30 mb-4">Product</p>
+          <div class="space-y-2.5 text-sm text-white/50">
+            <a href="#scorecard" class="block hover:text-white transition-colors">Free Scorecard</a>
+            <a href="#pricing" class="block hover:text-white transition-colors">Starter Kit &mdash; $47</a>
+            <a href="#pricing" class="block hover:text-white transition-colors">Operator Vault &mdash; $197</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-wider text-white/30 mb-4">Info</p>
+          <div class="space-y-2.5 text-sm text-white/50">
+            <a href="#how" class="block hover:text-white transition-colors">How It Works</a>
+            <a href="#buyers" class="block hover:text-white transition-colors">Buyer Profiles</a>
+            <a href="#faq" class="block hover:text-white transition-colors">FAQ</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 border-t border-white/8 pt-6 flex flex-col gap-2 sm:flex-row sm:justify-between text-xs text-white/25">
+        <p>&copy; 2025 AcrePilot.com. All rights reserved.</p>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-white/50 transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white/50 transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="glass rounded-2xl px-5 py-3 text-sm font-semibold" id="toast-msg"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
