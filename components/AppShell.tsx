@@ -1,0 +1,3 @@
+import Link from 'next/link';
+const nav=[['/dashboard','Dashboard'],['/dashboard/new','New Pack'],['/dashboard/swipe-file','Swipe File'],['/dashboard/settings','Settings']];
+export function AppShell({children}:{children:React.ReactNode}){return <div className="min-h-screen md:flex"><aside className="border-white/10 bg-black/20 p-4 md:w-64 md:border-r"><Link href="/" className="text-xl font-black">AdPilot AI</Link><nav className="mt-8 grid gap-2">{nav.map(([href,label])=><Link className="rounded-xl px-3 py-2 text-slate-300 hover:bg-white/10 hover:text-white" href={href} key={href}>{label}</Link>)}</nav></aside><main className="flex-1 p-5 md:p-8">{children}</main></div>}
