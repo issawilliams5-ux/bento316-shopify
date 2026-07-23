@@ -8,3 +8,13 @@ principles (spring physics over fixed CSS transitions, 1:1 gesture tracking,
 momentum/velocity handoff, interruptible animations, materials/depth,
 reduced-motion) translated for the web. Build premium-feeling UI by default;
 respect `prefers-reduced-motion`.
+
+# Design quality gate
+
+Before presenting, committing, or shipping any visual design/UI output,
+run the **`design-quality-gate`** skill
+(`.claude/skills/design-quality-gate/`). It's a mandatory anti-"AI slop"
+checklist — distilled from Impeccable (pbakaus/impeccable) and Taste Skill
+(Leonxlnx/taste-skill) — that runs after `apple-design`-guided motion work
+is in place and before the result reaches the user. Fix anything it flags;
+don't present a failing draft as finished.
