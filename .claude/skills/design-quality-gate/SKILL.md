@@ -90,7 +90,9 @@ hit is a fail — fix it before moving on, don't argue it away.
 **Structural "AI tells"**
 - [ ] Not a generic "hero + laptop mockup" layout used by default.
 - [ ] No rainbow/gradient text as a go-to decorative effect.
-- [ ] No floating blob/orb decorations unless explicitly requested.
+- [ ] No floating blob/orb decorations unless explicitly requested — if the
+      section genuinely wants ambient background motion, reach for
+      `lumen-shaders` instead of a lazy CSS blob.
 - [ ] Icons are a real icon set (e.g. Lucide) or the project's system — not
       emoji standing in for UI icons.
 - [ ] Every component/section is traceable to an actual requirement — no

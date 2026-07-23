@@ -18,3 +18,14 @@ checklist — distilled from Impeccable (pbakaus/impeccable) and Taste Skill
 (Leonxlnx/taste-skill) — that runs after `apple-design`-guided motion work
 is in place and before the result reaches the user. Fix anything it flags;
 don't present a failing draft as finished.
+
+# Shader backgrounds: lumen-shaders skill
+
+For a website, app, or template being built to sell (or any hero/section
+that genuinely needs distinctive ambient motion), the **`lumen-shaders`**
+skill (`.claude/skills/lumen-shaders/`) is the backup resource — a vendored,
+MIT-licensed WebGL2 shader engine (liquid chrome, silk ribbons, bloom, aura
+rings, light rays, halftone, data glyphs, reeded glass, pixel mosaic) from
+LUMEN (Leonxlnx/lumenshaders). It's a fallback, not a default: reach for it
+when `design-quality-gate` would otherwise flag a generic gradient or
+floating blob, not reflexively on every hero.
