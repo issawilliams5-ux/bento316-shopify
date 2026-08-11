@@ -27,11 +27,17 @@ to read the screen, `--resolution 1024` for terminal and code work. Use --start
 and --end whenever a section was named. Always pass --no-whisper: transcription
 runs locally in this pipeline, never through a paid API.
 
-Read every frame path. Then write the six section spec to notes/claude-pass.md
+Read every frame path. Then create the notes directory if it does not exist
+(`mkdir -p notes`) and write the six section spec to notes/claude-pass.md
 BEFORE looking at Gemini's answer, or you will anchor to it.
 
 ## Step 3: The Gemini pass
 
+Confirm `google-genai` is installed before running the script — check with
+`python3 -c "import google.genai"` and if that fails, run
+`pip install google-genai` first.
+
+    mkdir -p notes
     python3 scripts/gemini_review.py "<url>" --samples 2 --end <seconds> \
       --focus "<what the user asked for>" > notes/gemini-pass.md
 

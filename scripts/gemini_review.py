@@ -106,5 +106,9 @@ def main():
         print("Flag: anything that appears in only one sample. That is where the model is guessing.")
         print("Never trust: timestamps, counts, durations, version numbers it did not clearly read on screen.")
 
+    if got < args.samples:
+        print(f"\n[gemini_review] only {got}/{args.samples} samples succeeded", file=sys.stderr)
+        sys.exit(1)
+
 if __name__ == "__main__":
     main()
