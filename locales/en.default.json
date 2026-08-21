@@ -1,0 +1,60 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "open_menu": "Open menu",
+      "close_menu": "Close menu"
+    },
+    "search": {
+      "toggle": "Search",
+      "placeholder": "Search our store..."
+    },
+    "cart": {
+      "toggle": "Cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue shopping"
+    },
+    "wishlist": {
+      "toggle": "Wishlist",
+      "added": "Added to wishlist",
+      "removed": "Removed from wishlist"
+    },
+    "newsletter": {
+      "label": "Email address",
+      "success": "Thank you for subscribing!",
+      "error": "Please enter a valid email"
+    },
+    "footer": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "refund": "Refund Policy"
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "main_menu": "Main menu"
+    },
+    "announcement_bar": {
+      "label": "Announcement"
+    },
+    "cart": {
+      "cart_error": "There was an error updating your cart",
+      "quantity_error": "You can only add up to {{ quantity }} of this item"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quick_add": "Quick Add"
+    }
+  },
+  "accessibility": {
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "link_messages": {
+      "new_window": "Opens in a new window."
+    }
+  }
+}

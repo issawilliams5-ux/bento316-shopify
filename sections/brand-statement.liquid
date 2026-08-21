@@ -1,0 +1,402 @@
+{%- comment -%}
+  Brand Statement Section
+  Editorial manifesto/mission statement with premium typography
+  Supports: heading, body text, optional image, optional CTA, signature
+{%- endcomment -%}
+
+<div class="brand-statement section-padding{% if section.settings.background_style == 'dark' %} brand-statement--dark{% endif %}" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="brand-statement-content" style="--content-max-width: {{ section.settings.content_max_width }}px;">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="brand-statement-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="brand-statement-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="brand-statement-text rte">
+          {{ section.settings.text }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.signature != blank -%}
+        <div class="brand-statement-signature">
+          {%- if section.settings.signature_image != blank -%}
+            <img 
+              src="{{ section.settings.signature_image | image_url: width: 300 }}" 
+              alt="{{ section.settings.signature }}" 
+              loading="lazy"
+              width="200"
+              height="80"
+              class="signature-image"
+            >
+          {%- else -%}
+            <p class="signature-text">{{ section.settings.signature }}</p>
+          {%- endif -%}
+          {%- if section.settings.signature_title != blank -%}
+            <p class="signature-title">{{ section.settings.signature_title }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <div class="brand-statement-actions">
+          <a href="{{ section.settings.button_link }}" class="btn btn-primary">
+            {{ section.settings.button_label }}
+            <svg class="icon icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="brand-statement-media" style="--image-ratio: {{ section.settings.image_ratio }};">
+        {%- assign image_class = '' -%}
+        {%- if section.settings.image_shape == 'rectangle' -%}
+          {%- assign image_class = 'media-rectangle' -%}
+        {%- elsif section.settings.image_shape == 'square' -%}
+          {%- assign image_class = 'media-square' -%}
+        {%- elsif section.settings.image_shape == 'portrait' -%}
+          {%- assign image_class = 'media-portrait' -%}
+        {%- endif -%}
+        
+        <div class="media-wrapper {{ image_class }}">
+          <img 
+            src="{{ section.settings.image | image_url: width: 1200 }}" 
+            alt="{{ section.settings.image.alt | default: section.settings.heading }}"
+            loading="lazy"
+            width="800"
+            height="1000"
+            class="brand-statement-image"
+          >
+        </div>
+        
+        {%- if section.settings.show_decorative_frame -%}
+          <div class="decorative-frame"></div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Statement",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Mission"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Built for those who walk in faith</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Body text",
+      "default": "<p>RoyalChild exists to empower believers with premium apparel that declares their identity in Christ. Every piece is designed with intentionality, combining modern streetwear aesthetics with timeless truth.</p><p>We believe what you wear should reflect who you are—and whose you are.</p>"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "default": 650,
+      "label": "Content max width (px)"
+    },
+    {
+      "type": "header",
+      "content": "Signature"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature name"
+    },
+    {
+      "type": "image_picker",
+      "id": "signature_image",
+      "label": "Signature image"
+    },
+    {
+      "type": "text",
+      "id": "signature_title",
+      "label": "Signature title",
+      "default": "Founder"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "1", "label": "Square (1:1)" },
+        { "value": "1.25", "label": "Portrait (4:5)" },
+        { "value": "1.5", "label": "Tall (2:3)" }
+      ],
+      "default": "1.25"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "label": "Image shape",
+      "options": [
+        { "value": "rectangle", "label": "Rectangle" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorative_frame",
+      "label": "Show decorative frame",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Statement",
+      "settings": {
+        "eyebrow": "Our Mission",
+        "heading": "<p>Built for those who walk in faith</p>",
+        "content_max_width": 650,
+        "signature_title": "Founder",
+        "image_ratio": "1.25",
+        "image_shape": "portrait",
+        "show_decorative_frame": true,
+        "background_style": "light",
+        "text_alignment": "center"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.brand-statement {
+  padding-block: var(--section-spacing-xl);
+  background: var(--color-bg-primary);
+}
+
+.brand-statement--dark {
+  background: var(--color-bg-secondary);
+}
+
+.brand-statement .container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .brand-statement .container {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 5rem);
+  }
+  
+  .brand-statement[data-section-id] .container {
+    display: grid;
+  }
+}
+
+.brand-statement-content {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.brand-statement--dark .brand-statement-content {
+  color: var(--color-text-inverse);
+}
+
+.brand-statement-eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.brand-statement-heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: currentColor;
+  margin: 0;
+}
+
+.brand-statement-text {
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: var(--line-height-relaxed);
+  color: currentColor;
+  opacity: 0.9;
+}
+
+.brand-statement-text p {
+  margin: 0 0 1rem;
+}
+
+.brand-statement-text p:last-child {
+  margin-bottom: 0;
+}
+
+.brand-statement-signature {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid currentColor;
+  border-top-color: rgba(128, 128, 128, 0.3);
+}
+
+.signature-image {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.signature-text {
+  font-family: var(--font-family-script);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: currentColor;
+  margin: 0;
+}
+
+.signature-title {
+  font-size: var(--font-size-sm);
+  color: currentColor;
+  opacity: 0.7;
+  margin: 0.25rem 0 0;
+}
+
+.brand-statement-actions {
+  margin-top: 1rem;
+}
+
+.brand-statement-media {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+}
+
+.media-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+}
+
+.media-rectangle {
+  aspect-ratio: 3 / 4;
+}
+
+.media-square {
+  aspect-ratio: 1 / 1;
+}
+
+.media-portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.brand-statement-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.decorative-frame {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.5rem);
+  left: clamp(1rem, 2vw, 1.5rem);
+  right: clamp(-1rem, -2vw, -1.5rem);
+  bottom: clamp(-1rem, -2vw, -1.5rem);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--border-radius-md);
+  z-index: -1;
+}
+
+@media (min-width: 1024px) {
+  .decorative-frame {
+    right: clamp(1rem, 2vw, 1.5rem);
+    bottom: clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+/* Text alignment variants */
+.brand-statement-content[style*="center"] {
+  text-align: center;
+}
+
+.brand-statement-content[style*="center"] .brand-statement-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

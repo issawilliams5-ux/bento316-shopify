@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main-search": {
+      "type": "main-search",
+      "settings": {
+        "show_products": true,
+        "show_collections": true,
+        "show_pages": true,
+        "show_articles": true
+      }
+    }
+  },
+  "order": [
+    "main-search"
+  ]
+}

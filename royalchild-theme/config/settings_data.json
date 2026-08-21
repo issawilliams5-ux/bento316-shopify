@@ -1,0 +1,25 @@
+{
+  "current": {
+    "colors_solid_button_labels": "#FFFFFF",
+    "colors_accent_1": "#121212",
+    "colors_accent_2": "#333333",
+    "background": "#FFFFFF",
+    "background_secondary": "#F5F5F5",
+    "text": "#121212",
+    "type_header_font": "assistant_n4",
+    "type_body_font": "assistant_n4",
+    "heading_scale": 100,
+    "body_scale": 100,
+    "page_width": 1200,
+    "spacing_sections": 0,
+    "card_corner_radius": 0,
+    "card_border_thickness": 0,
+    "card_shadow_opacity": 0
+  },
+  "presets": [
+    {
+      "name": "Default",
+      "current": {}
+    }
+  ]
+}
