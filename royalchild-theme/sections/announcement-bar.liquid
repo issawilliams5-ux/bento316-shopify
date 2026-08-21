@@ -1,0 +1,50 @@
+<div class="announcement-bar color-{{ section.settings.color_scheme }}">
+  {%- if section.blocks.size > 0 -%}
+    <marquee behavior="scroll" direction="left" class="py-2 text-center text-sm">
+      {%- for block in section.blocks -%}
+        <span {{ block.shopify_attributes }}>
+          {{ block.settings.text }}
+        </span>
+        {%- unless forloop.last -%}&nbsp;&nbsp;|&nbsp;&nbsp;{%- endunless -%}
+      {%- endfor -%}
+    </marquee>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Welcome to our store!"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,102 @@
+{%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
+  <div 
+    class="announcement-bar" 
+    style="background-color: {{ section.settings.announcement_bg_color }}; color: {{ section.settings.announcement_text_color }};"
+    role="banner"
+    aria-label="{{ 'sections.announcement_bar.label' | t }}"
+  >
+    <div class="announcement-bar__content page-width">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link">
+          <span class="announcement-bar__text">{{ section.settings.announcement_text | escape }}</span>
+        </a>
+      {%- else -%}
+        <span class="announcement-bar__text">{{ section.settings.announcement_text | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .announcement-bar {
+    font-size: clamp(12px, 0.8rem, 14px);
+    padding: 8px 16px;
+    text-align: center;
+  }
+
+  .announcement-bar__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .announcement-bar__link {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .announcement-bar__link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  .announcement-bar__text {
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 767px) {
+    .announcement-bar {
+      padding: 6px 12px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": ["template"],
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Free shipping on orders over $100"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link (Optional)"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg_color",
+      "label": "Background Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

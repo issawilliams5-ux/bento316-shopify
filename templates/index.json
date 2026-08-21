@@ -1,0 +1,102 @@
+{%- comment -%}
+  Homepage Template (index.json)
+  Default homepage sections architecture
+{%- endcomment -%}
+
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "show_announcement": true,
+        "announcement_text": "Free shipping on orders over $100"
+      }
+    },
+    "video-hero": {
+      "type": "video-hero",
+      "settings": {
+        "desktop_video": "",
+        "mobile_video": "",
+        "poster_image": "",
+        "heading": "Faith Over Fear",
+        "subheading": "Premium Christian streetwear for those who walk in purpose",
+        "button_label": "Shop New Arrivals",
+        "button_link": "/collections/new-arrivals",
+        "text_alignment": "center",
+        "overlay_opacity": 0.4
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "heading": "New Arrivals",
+        "products_to_show": 8
+      }
+    },
+    "brand-statement": {
+      "type": "brand-statement",
+      "settings": {
+        "heading": "RoyalChild",
+        "statement": "Clothing that speaks truth. Designed for those who know their identity in Christ.",
+        "show_scripture": true,
+        "scripture_text": "\"But you are a chosen people, a royal priesthood, a holy nation, God's special possession.\"",
+        "scripture_reference": "1 Peter 2:9"
+      }
+    },
+    "editorial-split": {
+      "type": "editorial-split",
+      "settings": {
+        "image": "",
+        "heading": "Designed With Purpose",
+        "text": "Every piece tells a story. Every design carries meaning.",
+        "button_label": "Our Story",
+        "button_link": "/pages/our-story",
+        "layout": "image-left"
+      }
+    },
+    "shop-by-collection": {
+      "type": "shop-by-collection",
+      "settings": {
+        "heading": "Shop By Category",
+        "collections": ""
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "bestsellers",
+        "heading": "Best Sellers",
+        "products_to_show": 4
+      }
+    },
+    "video-story": {
+      "type": "video-story",
+      "settings": {
+        "video": "",
+        "heading": "The Meaning Behind The Design",
+        "text": "Each collection is inspired by scripture and designed to remind you of who you are in Christ.",
+        "button_label": "Watch Our Story",
+        "layout": "video-left"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join The Family",
+        "text": "Get exclusive access to new drops, scripture content, and special offers."
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "video-hero",
+    "featured-collection",
+    "brand-statement",
+    "editorial-split",
+    "shop-by-collection",
+    "bestsellers",
+    "video-story",
+    "newsletter"
+  ]
+}

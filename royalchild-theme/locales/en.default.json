@@ -1,0 +1,96 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "refresh_page": "Choosing a selection results in a full page refresh.",
+      "link_messages": {
+        "new_window": "Opens in a new window.",
+        "external": "Opens external website.",
+        "new_window_external": "Opens external website in a new window."
+      }
+    },
+    "meta": {
+      "tags": "Tagged \"[tags]\"",
+      "page": "Page [page]"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you requested does not exist."
+    },
+    "password_page": {
+      "opening_soon": "Opening Soon"
+    },
+    "share": {
+      "success_message": "Link copied to clipboard"
+    },
+    "cart": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue shopping"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "loading_results": "Loading [count] results",
+    "colors": {
+      "hex_color_name": "[hex] color"
+    },
+    "link_messages": {
+      "new_window": "Opens in a new window.",
+      "external": "Opens external website.",
+      "new_window_external": "Opens external website in a new window."
+    }
+  },
+  "sections": {
+    "general": {
+      "carousel": "Carousel",
+      "slide": "Slide",
+      "of": "of",
+      "previous_slide": "Previous slide",
+      "next_slide": "Next slide",
+      "dot": "Dot",
+      "dots": "Dots",
+      "loading": "Loading"
+    },
+    "slideshow": {
+      "pause_slideshow": "Pause slideshow",
+      "play_slideshow": "Play slideshow"
+    },
+    "cart": {
+      "cart_error": "There was an error while updating your cart. Please try again.",
+      "quantity_error_html": "You can only add [quantity] of this item to your cart."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "value_unavailable": "[option_value] - Unavailable",
+      "media": {
+        "image_available": "Image [index] of [total]"
+      }
+    }
+  },
+  "quick_order_list": {
+    "items_added": {
+      "one": "[quantity] item added",
+      "other": "[quantity] items added"
+    },
+    "items_removed": {
+      "one": "[quantity] item removed",
+      "other": "[quantity] items removed"
+    },
+    "view_cart": "View cart",
+    "each": "[money] each",
+    "min_error": "Minimum quantity is [min]",
+    "max_error": "Maximum quantity is [max]",
+    "step_error": "Quantity must be in multiples of [step]"
+  },
+  "checkout": {
+    "customer": {
+      "payment_methods": "Payment methods"
+    }
+  }
+}

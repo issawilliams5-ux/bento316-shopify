@@ -1,0 +1,291 @@
+{
+  "name": "RoyalChild",
+  "role": "theme",
+  "theme_type": "main",
+  "version": "1.0.0",
+  "documentation_url": "https://help.shopify.com/manual/online-store/themes",
+  "settings": [
+    {
+      "name": "Colors",
+      "type": "header",
+      "content": "Brand Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_primary_bg",
+      "label": "Primary Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary_bg",
+      "label": "Secondary Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "color_primary_text",
+      "label": "Primary Text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "color_muted_text",
+      "label": "Muted Text",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent Color",
+      "default": "#c9a55c",
+      "info": "Gold accent for premium feel"
+    },
+    {
+      "type": "color",
+      "id": "color_button_primary",
+      "label": "Button Primary",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "color_button_text",
+      "label": "Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_border",
+      "label": "Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "name": "Typography",
+      "type": "header",
+      "content": "Font Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "type_header_font",
+      "label": "Heading Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_scale",
+      "min": 1,
+      "max": 1.5,
+      "step": 0.05,
+      "label": "Heading Scale",
+      "default": 1.2
+    },
+    {
+      "type": "font_picker",
+      "id": "type_body_font",
+      "label": "Body Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 14,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Body Font Size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Body Line Height",
+      "default": 1.6
+    },
+    {
+      "name": "Layout",
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "min": 1200,
+      "max": 1800,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Page Width",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "section_spacing",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Spacing",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border Radius",
+      "default": 4
+    },
+    {
+      "name": "Animations",
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "Enable Animations",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation_intensity",
+      "label": "Animation Intensity",
+      "options": [
+        { "value": "subtle", "label": "Subtle" },
+        { "value": "moderate", "label": "Moderate" },
+        { "value": "bold", "label": "Bold" }
+      ],
+      "default": "subtle"
+    },
+    {
+      "name": "Header",
+      "type": "header",
+      "content": "Header Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_transparent",
+      "label": "Logo (Transparent Header)",
+      "info": "Used when header is over hero video/image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 160
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Sticky Header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_header_over_hero",
+      "label": "Transparent Header Over Hero",
+      "default": true
+    },
+    {
+      "name": "Cart",
+      "type": "header",
+      "content": "Cart Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_drawer_enabled",
+      "label": "Enable Cart Drawer",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "free_shipping_progress",
+      "label": "Show Free Shipping Progress",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Free Shipping Threshold",
+      "default": 100
+    },
+    {
+      "name": "Product Cards",
+      "type": "header",
+      "content": "Product Card Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_card_second_image",
+      "label": "Second Image on Hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "product_card_quick_add",
+      "label": "Quick Add Button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "product_card_color_swatches",
+      "label": "Color Swatches",
+      "default": true
+    },
+    {
+      "name": "Social Media",
+      "type": "header",
+      "content": "Social Links"
+    },
+    {
+      "type": "text",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "text",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "text",
+      "id": "social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "text",
+      "id": "social_youtube",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_share_image",
+      "label": "Social Sharing Image",
+      "info": "Open Graph / Twitter Card image (1200x630 recommended)"
+    },
+    {
+      "name": "Favicon",
+      "type": "header",
+      "content": "Browser Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "favicon",
+      "label": "Favicon Image",
+      "info": "32x32px PNG recommended"
+    }
+  ]
+}

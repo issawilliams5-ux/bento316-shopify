@@ -1,0 +1,367 @@
+<header class="header-wrapper {% if template.name == 'index' and settings.transparent_header_over_hero %}header--transparent{% endif %}" data-header-wrapper role="banner">
+  <div class="header">
+    <div class="header__content page-width">
+      
+      <!-- Mobile Navigation Toggle -->
+      <button 
+        class="header__mobile-toggle" 
+        data-mobile-nav-toggle 
+        aria-label="{{ 'accessibility.open_menu' | t }}"
+        aria-expanded="false"
+        aria-controls="MobileNavDrawer"
+      >
+        <svg class="icon icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <span class="visually-hidden">{{ 'sections.header.menu' | t }}</span>
+      </button>
+
+      <!-- Logo -->
+      <div class="header__logo">
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          {%- if settings.logo != blank -%}
+            {%- if template.name == 'index' and settings.transparent_header_over_hero -%}
+              {%- if settings.logo_transparent != blank -%}
+                {{ settings.logo_transparent | image_url: width: settings.logo_width | image_tag: class: 'header__logo-image', widths: '50, 100, 150, 200, 250, 300' }}
+              {%- else -%}
+                {{ settings.logo | image_url: width: settings.logo_width | image_tag: class: 'header__logo-image header__logo-image--light', widths: '50, 100, 150, 200, 250, 300' }}
+              {%- endif -%}
+            {%- else -%}
+              {{ settings.logo | image_url: width: settings.logo_width | image_tag: class: 'header__logo-image', widths: '50, 100, 150, 200, 250, 300' }}
+            {%- endif -%}
+          {%- else -%}
+            <span class="header__logo-text">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="header__nav desktop-hidden" role="navigation" aria-label="{{ 'sections.header.main_menu' | t }}">
+        {%- if section.settings.menu != blank -%}
+          <ul class="header__menu">
+            {%- for link in section.settings.menu.links -%}
+              <li class="header__menu-item {% if link.links != blank %}has-submenu{% endif %}">
+                <a 
+                  href="{{ link.url }}" 
+                  class="header__menu-link"
+                  {% if link.links != blank %}aria-haspopup="true" aria-expanded="false"{% endif %}
+                >
+                  {{ link.title }}
+                  {% if link.links != blank %}
+                    <svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  {% endif %}
+                </a>
+                
+                {% if link.links != blank %}
+                  <div class="header__submenu">
+                    <div class="page-width">
+                      <ul class="header__submenu-list">
+                        {%- for child_link in link.links -%}
+                          <li>
+                            <a href="{{ child_link.url }}" class="header__submenu-link">
+                              {{ child_link.title }}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {% endif %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </nav>
+
+      <!-- Header Icons -->
+      <div class="header__icons">
+        <!-- Search -->
+        <button 
+          class="header__icon-btn" 
+          data-search-toggle 
+          aria-label="{{ 'general.search.toggle' | t }}"
+        >
+          <svg class="icon icon-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Customer Account -->
+        {%- if shop.customer_accounts_enabled -%}
+          <a 
+            href="{{ routes.account_url }}" 
+            class="header__icon-btn"
+            aria-label="{{ 'customer.account' | t }}"
+          >
+            <svg class="icon icon-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+        {%- endif -%}
+
+        <!-- Wishlist -->
+        <button 
+          class="header__icon-btn header__wishlist-btn"
+          aria-label="{{ 'general.wishlist.toggle' | t | default: 'Wishlist' }}"
+          onclick="document.dispatchEvent(new CustomEvent('wishlist:open'))"
+        >
+          <svg class="icon icon-heart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+
+        <!-- Cart -->
+        <button 
+          class="header__icon-btn header__cart-btn" 
+          data-cart-icon 
+          aria-label="{{ 'general.cart.toggle' | t }}"
+          aria-haspopup="dialog"
+        >
+          <svg class="icon icon-bag" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="header__cart-count" data-cart-count>0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header-wrapper {
+    position: {% if template.name == 'index' and settings.transparent_header_over_hero %}absolute{% else %}sticky{% endif %};
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    transition: all var(--transition-base);
+  }
+
+  .header--transparent {
+    background-color: transparent;
+  }
+
+  .header-wrapper.scrolled {
+    background-color: var(--color-primary-bg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-wrapper.scrolled .header__logo-image--light {
+    filter: brightness(0);
+  }
+
+  .header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+  }
+
+  .header__content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--spacing-md);
+    height: 100%;
+  }
+
+  .header__mobile-toggle {
+    display: none;
+    padding: var(--spacing-xs);
+    color: var(--color-primary-text);
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__logo-link {
+    display: block;
+    line-height: 0;
+  }
+
+  .header__logo-image {
+    max-height: calc(var(--header-height) - 20px);
+    width: auto;
+  }
+
+  .header__logo-text {
+    font-family: var(--font-heading);
+    font-size: var(--font-xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-primary-text);
+  }
+
+  .header__nav {
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__menu {
+    display: flex;
+    gap: var(--spacing-lg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__menu-item {
+    position: relative;
+  }
+
+  .header__menu-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--spacing-sm) 0;
+    font-size: var(--font-sm);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary-text);
+    transition: opacity var(--transition-fast);
+  }
+
+  .header__menu-link:hover {
+    opacity: 0.7;
+  }
+
+  .header__submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    min-width: 200px;
+    background-color: var(--color-primary-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .header__menu-item:hover .header__submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .header__submenu-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--spacing-sm) 0;
+  }
+
+  .header__submenu-link {
+    display: block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-sm);
+    color: var(--color-primary-text);
+    transition: background-color var(--transition-fast);
+  }
+
+  .header__submenu-link:hover {
+    background-color: var(--color-secondary-bg);
+  }
+
+  .header__icons {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .header__icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs);
+    color: var(--color-primary-text);
+    transition: opacity var(--transition-fast);
+    position: relative;
+  }
+
+  .header__icon-btn:hover {
+    opacity: 0.7;
+  }
+
+  .header__cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+    background-color: var(--color-accent);
+    color: #1a1a1a;
+    border-radius: 9px;
+  }
+
+  .icon {
+    display: block;
+  }
+
+  @media screen and (max-width: 990px) {
+    .header__nav {
+      display: none;
+    }
+    
+    .header__mobile-toggle {
+      display: flex;
+    }
+    
+    .header__content {
+      grid-template-columns: auto 1fr auto;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .header {
+      height: var(--header-height-mobile);
+    }
+    
+    .header__logo-image {
+      max-height: calc(var(--header-height-mobile) - 16px);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "section",
+  "enabled_on": ["theme"],
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Mega Menu Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mega_menu",
+      "label": "Enable Mega Menu",
+      "default": true,
+      "info": "Applies to first-level menu items with submenus"
+    }
+  ]
+}
+{% endschema %}

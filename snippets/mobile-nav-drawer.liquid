@@ -1,0 +1,302 @@
+{%- comment -%}
+  Mobile Navigation Drawer
+  Slide-out mobile menu with navigation links
+{%- endcomment -%}
+
+<div 
+  class="mobile-nav-drawer" 
+  data-mobile-nav-drawer
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="mobile-nav-title"
+  hidden
+>
+  <div class="mobile-nav-overlay"></div>
+  
+  <div class="mobile-nav-content">
+    <div class="mobile-nav-header">
+      <h2 id="mobile-nav-title" class="mobile-nav-title">Menu</h2>
+      <button 
+        class="mobile-nav-close" 
+        data-mobile-nav-close
+        aria-label="Close menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mobile-nav-menu" role="navigation" aria-label="Mobile navigation">
+      {%- if section.settings.menu != blank -%}
+        <ul class="mobile-nav-list">
+          {%- for link in section.settings.menu.links -%}
+            <li class="mobile-nav-item {% if link.links != blank %}has-submenu{% endif %}">
+              {%- if link.links != blank -%}
+                <button 
+                  class="mobile-nav-link mobile-nav-toggle"
+                  data-submenu-toggle
+                  aria-expanded="false"
+                >
+                  {{ link.title }}
+                  <svg class="icon icon-chevron-down" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                {%- if link.links != blank -%}
+                  <ul class="mobile-nav-submenu">
+                    {%- for child_link in link.links -%}
+                      <li>
+                        <a href="{{ child_link.url }}" class="mobile-nav-submenu-link">
+                          {{ child_link.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              {%- else -%}
+                <a href="{{ link.url }}" class="mobile-nav-link">{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </nav>
+
+    <div class="mobile-nav-footer">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="mobile-nav-account button button--secondary button--full-width">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Account
+        </a>
+      {%- endif -%}
+      
+      <div class="mobile-nav-social">
+        {%- if settings.social_instagram != blank -%}
+          <a href="{{ settings.social_instagram }}" class="mobile-nav-social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        {%- endif -%}
+        {%- if settings.social_facebook != blank -%}
+          <a href="{{ settings.social_facebook }}" class="mobile-nav-social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+        {%- endif -%}
+        {%- if settings.social_tiktok != blank -%}
+          <a href="{{ settings.social_tiktok }}" class="mobile-nav-social-link" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5v4a9 9 0 0 1-9-9v12z"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mobile-nav-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-drawer);
+  }
+
+  .mobile-nav-drawer[hidden] {
+    display: none;
+  }
+
+  .mobile-nav-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .mobile-nav-open .mobile-nav-overlay {
+    opacity: 1;
+  }
+
+  .mobile-nav-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 85%;
+    max-width: 400px;
+    background-color: var(--color-primary-bg);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+  }
+
+  .mobile-nav-open .mobile-nav-content {
+    transform: translateX(0);
+  }
+
+  .mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-nav-title {
+    font-size: var(--font-lg);
+    font-weight: 600;
+  }
+
+  .mobile-nav-close {
+    padding: var(--spacing-xs);
+    color: var(--color-primary-text);
+  }
+
+  .mobile-nav-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md) 0;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-nav-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-base);
+    font-weight: 500;
+    color: var(--color-primary-text);
+    transition: background-color var(--transition-fast);
+  }
+
+  .mobile-nav-link:hover {
+    background-color: var(--color-secondary-bg);
+  }
+
+  .mobile-nav-toggle .icon-chevron-down {
+    transition: transform var(--transition-fast);
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] .icon-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .mobile-nav-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-base);
+    background-color: var(--color-secondary-bg);
+  }
+
+  .mobile-nav-submenu.open {
+    max-height: 500px;
+  }
+
+  .mobile-nav-submenu-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) calc(var(--spacing-lg) + 20px);
+    font-size: var(--font-sm);
+    color: var(--color-muted-text);
+  }
+
+  .mobile-nav-footer {
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .mobile-nav-account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+  }
+
+  .mobile-nav-social {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+  }
+
+  .mobile-nav-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-secondary-bg);
+    color: var(--color-primary-text);
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-nav-social-link:hover {
+    background-color: var(--color-primary-text);
+    color: var(--color-button-text);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const closeBtn = document.querySelector('[data-mobile-nav-close]');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+    const toggleBtns = document.querySelectorAll('[data-submenu-toggle]');
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        document.dispatchEvent(new CustomEvent('mobile-nav:close'));
+      });
+    }
+
+    if (overlay) {
+      overlay.addEventListener('click', function() {
+        document.dispatchEvent(new CustomEvent('mobile-nav:close'));
+      });
+    }
+
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const submenu = this.nextElementSibling;
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        this.setAttribute('aria-expanded', !isExpanded);
+        submenu.classList.toggle('open', !isExpanded);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Mobile Navigation",
+  "tag": "div",
+  "class": "mobile-nav-snippet",
+  "enabled_on": ["theme"],
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

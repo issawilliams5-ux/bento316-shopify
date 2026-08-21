@@ -1,0 +1,421 @@
+{%- comment -%}
+  Scripture Spotlight Section
+  Elegant scripture display with optional background image/video
+  Designed for faith-based messaging and brand mission
+{%- endcomment -%}
+
+<div class="scripture-spotlight section-padding{% if section.settings.background_style == 'dark' %} scripture-spotlight--dark{% endif %}{% if section.settings.background_image != blank %} scripture-spotlight--bg-image{% endif %}" 
+     data-section-id="{{ section.id }}"
+     style="--overlay-opacity: {{ section.settings.overlay_opacity | default: 0.6 }};">
+  
+  {%- if section.settings.background_image != blank or section.settings.background_video != blank -%}
+    <div class="scripture-spotlight-bg">
+      {%- if section.settings.background_video != blank -%}
+        <video 
+          class="scripture-spotlight-video"
+          autoplay 
+          loop 
+          muted 
+          playsinline
+          preload="metadata"
+        >
+          <source src="{{ section.settings.background_video }}" type="video/mp4">
+        </video>
+      {%- elsif section.settings.background_image != blank -%}
+        <img 
+          src="{{ section.settings.background_image | image_url: width: 1920 }}" 
+          alt=""
+          loading="lazy"
+          class="scripture-spotlight-image"
+        >
+      {%- endif -%}
+      <div class="scripture-spotlight-overlay"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="container">
+    <div class="scripture-spotlight-content" style="--content-max-width: {{ section.settings.content_max_width }}px;">
+      {%- if section.settings.decorative_icon != blank -%}
+        <div class="scripture-icon">
+          {%- if section.settings.decorative_icon == 'cross' -%}
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11 2h2v7h7v2h-7v11h-2V11H4V9h7V2z"/>
+            </svg>
+          {%- elsif section.settings.decorative_icon == 'dove' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 3c-1.5 0-3 .5-4 1.5S6 7 6 9c0 1.5.5 3 1.5 4s2.5 2 4 2c.5 0 1 0 1.5-.5L12 12l3 3c1-.5 2-1.5 2.5-2.5s1-2.5 1-4c0-2-1-4-2.5-5S13.5 3 12 3z"/>
+              <path d="M8 14c-1 1-2 2.5-2 4s1 3 2.5 4 3.5 1 5 .5"/>
+            </svg>
+          {%- elsif section.settings.decorative_icon == 'crown' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>
+            </svg>
+          {%- elsif section.settings.decorative_icon == 'shield' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="scripture-spotlight-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.scripture_text != blank -%}
+        <blockquote class="scripture-spotlight-text">
+          {{ section.settings.scripture_text }}
+        </blockquote>
+      {%- endif -%}
+
+      {%- if section.settings.scripture_reference != blank -%}
+        <cite class="scripture-spotlight-reference">{{ section.settings.scripture_reference }}</cite>
+      {%- endif -%}
+
+      {%- if section.settings.divider_style != 'none' -%}
+        <div class="scripture-spotlight-divider scripture-spotlight-divider--{{ section.settings.divider_style }}"></div>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="scripture-spotlight-subtext rte">
+          {{ section.settings.subtext }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <div class="scripture-spotlight-actions">
+          <a href="{{ section.settings.button_link }}" class="btn btn-primary">
+            {{ section.settings.button_label }}
+            <svg class="icon icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Scripture Spotlight",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Scripture"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Word of God"
+    },
+    {
+      "type": "textarea",
+      "id": "scripture_text",
+      "label": "Scripture text",
+      "default": "\"For I know the plans I have for you,\" declares the LORD, \"plans to prosper you and not to harm you, plans to give you hope and a future.\""
+    },
+    {
+      "type": "text",
+      "id": "scripture_reference",
+      "label": "Scripture reference",
+      "default": "Jeremiah 29:11"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Supporting text",
+      "default": "<p>Your identity is found in Christ. Walk in the purpose He has designed for you.</p>"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "default": 700,
+      "label": "Content max width (px)"
+    },
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "select",
+      "id": "decorative_icon",
+      "label": "Decorative icon",
+      "options": [
+        { "value": "", "label": "None" },
+        { "value": "cross", "label": "Cross" },
+        { "value": "dove", "label": "Dove" },
+        { "value": "crown", "label": "Crown" },
+        { "value": "shield", "label": "Shield of Faith" }
+      ],
+      "default": "cross"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "video",
+      "id": "background_video",
+      "label": "Background video",
+      "info": "Optional video background (MP4 URL)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 0.9,
+      "step": 0.1,
+      "default": 0.6,
+      "label": "Overlay opacity"
+    },
+    {
+      "type": "header",
+      "content": "Divider"
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "Divider style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "line", "label": "Simple line" },
+        { "value": "ornament", "label": "Ornament" }
+      ],
+      "default": "line"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scripture Spotlight",
+      "settings": {
+        "eyebrow": "Word of God",
+        "scripture_text": "\"For I know the plans I have for you,\" declares the LORD, \"plans to prosper you and not to harm you, plans to give you hope and a future.\"",
+        "scripture_reference": "Jeremiah 29:11",
+        "decorative_icon": "cross",
+        "background_style": "dark",
+        "overlay_opacity": 0.6,
+        "divider_style": "line"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.scripture-spotlight {
+  padding-block: var(--section-spacing-xl);
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-primary);
+}
+
+.scripture-spotlight--dark {
+  background: var(--color-bg-secondary);
+}
+
+.scripture-spotlight--bg-image {
+  background: transparent;
+}
+
+.scripture-spotlight-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.scripture-spotlight-image,
+.scripture-spotlight-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scripture-spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-primary);
+  opacity: var(--overlay-opacity);
+}
+
+.scripture-spotlight--dark .scripture-spotlight-overlay {
+  background: #000;
+}
+
+.scripture-spotlight-content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.scripture-icon {
+  width: clamp(40px, 6vw, 60px);
+  height: clamp(40px, 6vw, 60px);
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.scripture-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.scripture-spotlight-eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.scripture-spotlight-text {
+  font-family: var(--font-family-serif);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-style: italic;
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  quotes: "«" "»";
+  margin: 0;
+  position: relative;
+}
+
+.scripture-spotlight-text::before {
+  content: open-quote;
+    color: var(--color-accent);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  margin-right: 0.25rem;
+  vertical-align: -0.25em;
+}
+
+.scripture-spotlight-text::after {
+  content: close-quote;
+  color: var(--color-accent);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  margin-left: 0.25rem;
+  vertical-align: -0.25em;
+}
+
+.scripture-spotlight-reference {
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin: 0.5rem 0 0;
+}
+
+.scripture-spotlight-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: 0.5rem auto;
+}
+
+.scripture-spotlight-divider--ornament {
+  width: 100px;
+  height: auto;
+  background: transparent;
+  position: relative;
+}
+
+.scripture-spotlight-divider--ornament::before,
+.scripture-spotlight-divider--ornament::after {
+  content: "✦";
+  color: var(--color-accent);
+  font-size: var(--font-size-lg);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.scripture-spotlight-divider--ornament::before {
+  left: 0;
+}
+
+.scripture-spotlight-divider--ornament::after {
+  right: 0;
+}
+
+.scripture-spotlight-divider--ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.scripture-spotlight-divider--ornament::before,
+.scripture-spotlight-divider--ornament::after {
+  content: "✦";
+  color: var(--color-accent);
+  font-size: var(--font-size-lg);
+  position: static;
+  transform: none;
+}
+
+.scripture-spotlight-subtext {
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.scripture-spotlight-subtext p {
+  margin: 0;
+}
+
+.scripture-spotlight-actions {
+  margin-top: 0.5rem;
+}
+
+/* Background video specific */
+.scripture-spotlight-video {
+  position: absolute;
+  inset: 0;
+}
+</style>

@@ -1,0 +1,442 @@
+<footer class="footer" role="contentinfo">
+  <div class="footer__container page-width">
+    
+    {%- if section.settings.show_newsletter -%}
+      <div class="footer__newsletter">
+        <div class="footer__newsletter-content">
+          <h3 class="footer__newsletter-title">{{ section.settings.newsletter_title | default: 'Join the RoyalChild Family' }}</h3>
+          <p class="footer__newsletter-text">{{ section.settings.newsletter_text | default: 'Get exclusive access to new drops, scripture content, and special offers.' }}</p>
+          {%- form 'customer', id: 'NewsletterForm' -%}
+            <div class="footer__newsletter-form">
+              <input 
+                type="email" 
+                name="contact[email]" 
+                class="input-field footer__newsletter-input"
+                placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}"
+                aria-label="{{ 'general.newsletter.label' | t | default: 'Email address' }}"
+                required
+              >
+              <button type="submit" class="button button--small" name="commit">
+                {{ section.settings.newsletter_button_text | default: 'Subscribe' }}
+              </button>
+            </div>
+            {%- if form.posted_successfully? -%}
+              <p class="form-success text-success">{{ 'general.newsletter.success' | t | default: 'Thank you for subscribing!' }}</p>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="footer__grid">
+      <!-- Shop Links -->
+      <div class="footer__column">
+        <h4 class="footer__heading">{{ section.settings.shop_menu_title | default: 'Shop' }}</h4>
+        {%- if section.settings.shop_menu != blank -%}
+          <ul class="footer__links">
+            {%- for link in section.settings.shop_menu.links -%}
+              <li><a href="{{ link.url }}" class="footer__link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+          <ul class="footer__links">
+            <li><a href="/collections/all" class="footer__link">All Products</a></li>
+            <li><a href="/collections/new-arrivals" class="footer__link">New Arrivals</a></li>
+            <li><a href="/collections/bestsellers" class="footer__link">Best Sellers</a></li>
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <!-- Brand Links -->
+      <div class="footer__column">
+        <h4 class="footer__heading">{{ section.settings.brand_menu_title | default: 'RoyalChild' }}</h4>
+        {%- if section.settings.brand_menu != blank -%}
+          <ul class="footer__links">
+            {%- for link in section.settings.brand_menu.links -%}
+              <li><a href="{{ link.url }}" class="footer__link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+          <ul class="footer__links">
+            <li><a href="/pages/our-story" class="footer__link">Our Story</a></li>
+            <li><a href="/pages/mission" class="footer__link">Mission</a></li>
+            <li><a href="/blogs/journal" class="footer__link">Journal</a></li>
+            <li><a href="/pages/contact" class="footer__link">Contact</a></li>
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <!-- Support Links -->
+      <div class="footer__column">
+        <h4 class="footer__heading">{{ section.settings.support_menu_title | default: 'Support' }}</h4>
+        {%- if section.settings.support_menu != blank -%}
+          <ul class="footer__links">
+            {%- for link in section.settings.support_menu.links -%}
+              <li><a href="{{ link.url }}" class="footer__link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+          <ul class="footer__links">
+            <li><a href="/pages/faq" class="footer__link">FAQ</a></li>
+            <li><a href="/pages/shipping" class="footer__link">Shipping</a></li>
+            <li><a href="/pages/returns" class="footer__link">Returns</a></li>
+            <li><a href="/pages/size-guide" class="footer__link">Size Guide</a></li>
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer__column">
+        <h4 class="footer__heading">{{ section.settings.contact_title | default: 'Contact Us' }}</h4>
+        {%- if section.settings.contact_email != blank -%}
+          <p class="footer__contact-item">
+            <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+          </p>
+        {%- endif -%}
+        
+        {%- if section.settings.show_social -%}
+          <div class="footer__social">
+            {%- if settings.social_instagram != blank -%}
+              <a href="{{ settings.social_instagram }}" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+            {%- endif -%}
+            {%- if settings.social_facebook != blank -%}
+              <a href="{{ settings.social_facebook }}" class="footer__social-link" aria-label="Facebook" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </a>
+            {%- endif -%}
+            {%- if settings.social_tiktok != blank -%}
+              <a href="{{ settings.social_tiktok }}" class="footer__social-link" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5v4a9 9 0 0 1-9-9v12z"/></svg>
+              </a>
+            {%- endif -%}
+            {%- if settings.social_youtube != blank -%}
+              <a href="{{ settings.social_youtube }}" class="footer__social-link" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__copyright">
+        <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_text | default: 'All rights reserved.' }}</p>
+      </div>
+      <div class="footer__legal">
+        {%- if section.settings.show_payment_icons -%}
+          <div class="footer__payment-icons">
+            {%- for type in shop.enabled_payment_types -%}
+              {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <ul class="footer__legal-links">
+          <li><a href="{{ routes.privacy_policy_url }}" class="footer__link">{{ 'general.footer.privacy' | t | default: 'Privacy Policy' }}</a></li>
+          <li><a href="{{ routes.terms_of_service_url }}" class="footer__link">{{ 'general.footer.terms' | t | default: 'Terms of Service' }}</a></li>
+          <li><a href="{{ routes.refund_policy_url }}" class="footer__link">{{ 'general.footer.refund' | t | default: 'Refund Policy' }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-secondary-bg);
+    padding: var(--spacing-3xl) 0 var(--spacing-xl);
+    margin-top: var(--spacing-3xl);
+  }
+
+  .footer__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+  }
+
+  .footer__newsletter {
+    padding: var(--spacing-2xl);
+    background-color: var(--color-primary-bg);
+    border-radius: var(--border-radius);
+    text-align: center;
+  }
+
+  .footer__newsletter-title {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .footer__newsletter-text {
+    color: var(--color-muted-text);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .footer__newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: var(--spacing-sm);
+  }
+
+  .footer__newsletter-input {
+    flex: 1;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .footer__column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .footer__heading {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .footer__link {
+    font-size: var(--font-sm);
+    color: var(--color-muted-text);
+    transition: color var(--transition-fast);
+  }
+
+  .footer__link:hover {
+    color: var(--color-primary-text);
+  }
+
+  .footer__contact-item {
+    font-size: var(--font-sm);
+    color: var(--color-muted-text);
+  }
+
+  .footer__social {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    transition: all var(--transition-fast);
+  }
+
+  .footer__social-link:hover {
+    background-color: var(--color-primary-text);
+    color: var(--color-button-text);
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .footer__copyright {
+    font-size: var(--font-xs);
+    color: var(--color-muted-text);
+  }
+
+  .footer__legal {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .footer__payment-icons {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  .payment-icon {
+    height: 24px;
+    width: auto;
+  }
+
+  .footer__legal-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--spacing-md);
+  }
+
+  @media screen and (max-width: 990px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .footer {
+      padding: var(--spacing-xl) 0 var(--spacing-md);
+    }
+
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer__newsletter-form {
+      flex-direction: column;
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer__legal {
+      flex-direction: column;
+    }
+
+    .footer__legal-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "footer",
+  "class": "section",
+  "enabled_on": ["theme"],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show Newsletter Signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Join the RoyalChild Family"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter Description",
+      "default": "Get exclusive access to new drops, scripture content, and special offers."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Menus"
+    },
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Shop Menu"
+    },
+    {
+      "type": "text",
+      "id": "shop_menu_title",
+      "label": "Shop Menu Title",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "brand_menu",
+      "label": "Brand Menu"
+    },
+    {
+      "type": "text",
+      "id": "brand_menu_title",
+      "label": "Brand Menu Title",
+      "default": "RoyalChild"
+    },
+    {
+      "type": "link_list",
+      "id": "support_menu",
+      "label": "Support Menu"
+    },
+    {
+      "type": "text",
+      "id": "support_menu_title",
+      "label": "Support Menu Title",
+      "default": "Support"
+    },
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Title",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show Social Links",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Legal"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show Payment Icons",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

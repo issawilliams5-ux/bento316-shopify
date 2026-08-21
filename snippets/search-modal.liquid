@@ -1,0 +1,340 @@
+{%- comment -%}
+  Search Modal Snippet
+  Predictive search with results overlay
+{%- endcomment -%}
+
+<div 
+  class="search-modal" 
+  data-search-modal
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="search-modal-title"
+  hidden
+>
+  <div class="search-modal-overlay"></div>
+  
+  <div class="search-modal-content">
+    <div class="search-modal-header">
+      <div class="search-modal-input-wrapper">
+        <svg class="search-modal-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="search" 
+          id="SearchModalInput"
+          class="search-modal-input"
+          placeholder="Search our store..."
+          aria-label="Search"
+          autocomplete="off"
+        >
+        <button 
+          class="search-modal-clear" 
+          data-search-clear
+          aria-label="Clear search"
+          hidden
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <button 
+        class="search-modal-close" 
+        data-search-close
+        aria-label="Close search"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="search-modal-body">
+      <div class="search-modal-results" data-search-results>
+        <!-- Results injected via JS -->
+      </div>
+      
+      <div class="search-modal-suggestions" data-search-suggestions>
+        <p class="search-modal-suggestions-title">Popular Searches</p>
+        <div class="search-modal-suggestion-tags">
+          {%- assign popular_searches = "New Arrivals,Best Sellers,Hoodies,T-Shirts" | split: "," -%}
+          {%- for term in popular_searches -%}
+            <a href="/search?q={{ term | url_encode }}" class="search-modal-suggestion-tag">{{ term }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+  }
+
+  .search-modal[hidden] {
+    display: none;
+  }
+
+  .search-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .search-modal-open .search-modal-overlay {
+    opacity: 1;
+  }
+
+  .search-modal-content {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    margin-top: 80px;
+    background-color: var(--color-primary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  .search-modal-open .search-modal-content {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .search-modal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .search-modal-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-primary-bg);
+  }
+
+  .search-modal-icon {
+    color: var(--color-muted-text);
+    flex-shrink: 0;
+  }
+
+  .search-modal-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: var(--font-base);
+    background-color: transparent;
+  }
+
+  .search-modal-clear {
+    padding: var(--spacing-xs);
+    color: var(--color-muted-text);
+  }
+
+  .search-modal-close {
+    padding: var(--spacing-xs);
+    color: var(--color-primary-text);
+  }
+
+  .search-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+  }
+
+  .search-modal-results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .search-results-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .search-results-section h4 {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-text);
+  }
+
+  .search-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-fast);
+  }
+
+  .search-result-item:hover {
+    background-color: var(--color-secondary-bg);
+  }
+
+  .search-result-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+  }
+
+  .search-result-link img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+  }
+
+  .search-result-title {
+    flex: 1;
+    font-size: var(--font-sm);
+    font-weight: 500;
+  }
+
+  .search-result-price {
+    font-size: var(--font-sm);
+    color: var(--color-muted-text);
+  }
+
+  .search-no-results {
+    text-align: center;
+    padding: var(--spacing-2xl) 0;
+    color: var(--color-muted-text);
+  }
+
+  .search-modal-suggestions {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .search-modal-suggestions-title {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-text);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .search-modal-suggestion-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .search-modal-suggestion-tag {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-sm);
+    background-color: var(--color-secondary-bg);
+    border-radius: 20px;
+    transition: all var(--transition-fast);
+  }
+
+  .search-modal-suggestion-tag:hover {
+    background-color: var(--color-primary-text);
+    color: var(--color-button-text);
+  }
+
+  @media screen and (max-width: 767px) {
+    .search-modal-content {
+      max-width: 100%;
+      max-height: 100vh;
+      margin-top: 0;
+      border-radius: 0;
+    }
+
+    .search-modal-header {
+      padding: var(--spacing-md);
+    }
+
+    .search-modal-body {
+      padding: var(--spacing-md);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const closeBtn = document.querySelector('[data-search-close]');
+    const clearBtn = document.querySelector('[data-search-clear]');
+    const overlay = document.querySelector('.search-modal-overlay');
+    const input = document.getElementById('SearchModalInput');
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        document.dispatchEvent(new CustomEvent('search:close'));
+      });
+    }
+
+    if (overlay) {
+      overlay.addEventListener('click', function() {
+        document.dispatchEvent(new CustomEvent('search:close'));
+      });
+    }
+
+    if (clearBtn && input) {
+      input.addEventListener('input', function() {
+        clearBtn.hidden = this.value.length === 0;
+      });
+
+      clearBtn.addEventListener('click', function() {
+        input.value = '';
+        input.focus();
+        clearBtn.hidden = true;
+      });
+    }
+
+    // Close on escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.dispatchEvent(new CustomEvent('search:close'));
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Search Modal",
+  "tag": "div",
+  "class": "search-modal-snippet",
+  "enabled_on": ["theme"],
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,152 @@
+{%- comment -%}
+  Meta Tags Snippet
+  SEO, social sharing, and structured data
+{%- endcomment -%}
+
+{%- liquid
+  assign og_title = page_title | default: shop.name
+  assign og_description = page_description | default: shop.description | default: 'RoyalChild - Premium Christian Streetwear'
+  
+  if template.suffix == 'index'
+    assign og_type = 'website'
+  elsif product
+    assign og_type = 'product'
+  elsif article
+    assign og_type = 'article'
+  else
+    assign og_type = 'website'
+  endif
+  
+  assign og_image = settings.social_share_image | default: shop.brand.logo | default: product.featured_media.preview_image | default: article.image
+  assign og_url = canonical_url | default: request.origin
+-%}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:title" content="{{ og_title | escape }}">
+<meta property="og:description" content="{{ og_description | escape }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:site_name" content="{{ shop.name | escape }}">
+
+{%- if og_image -%}
+  <meta property="og:image" content="http:{{ og_image | image_url: width: 1200, height: 630 }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image | image_url: width: 1200, height: 630 }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+{%- endif -%}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_description | escape }}">
+
+{%- if og_image -%}
+  <meta name="twitter:image" content="https:{{ og_image | image_url: width: 1200, height: 630 }}">
+{%- endif -%}
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": {{ shop.name | json }},
+  "url": {{ request.origin | json }},
+  {%- if settings.logo -%}
+    "logo": {{ settings.logo | image_url: width: 512 | prepend: "https:" | json }},
+  {%- endif -%}
+  {%- if shop.description -%}
+    "description": {{ shop.description | json }},
+  {%- endif -%}
+  "sameAs": [
+    {%- if settings.social_facebook -%}{{ settings.social_facebook | json }},{%- endif -%}
+    {%- if settings.social_instagram -%}{{ settings.social_instagram | json }},{%- endif -%}
+    {%- if settings.social_tiktok -%}{{ settings.social_tiktok | json }},{%- endif -%}
+    {%- if settings.social_youtube -%}{{ settings.social_youtube | json }}{%- endif -%}
+  ]
+}
+</script>
+
+{%- if product -%}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ request.origin | append: product.url | json }},
+  {%- if product.featured_media -%}
+    "image": [
+      {{ product.featured_media | image_url: width: 1024 | prepend: "https:" | json }}
+    ],
+  {%- endif -%}
+  "description": {{ product.description | strip_html | truncatewords: 100 | json }},
+  {%- if product.vendor -%}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+  {%- endif -%}
+  "sku": {{ product.selected_or_first_available_variant.sku | json }},
+  {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+    "priceCurrency": "{{ cart.currency.iso_code }}",
+    "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }},
+    "priceValidUntil": {{ 'now' | date: '%Y-12-31' | json }},
+  {%- else -%}
+    "offers": {
+      "@type": "Offer",
+      "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+      "priceCurrency": "{{ cart.currency.iso_code }}",
+      "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }},
+      "seller": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }}
+      }
+    }
+  {%- endif -%}
+  {%- if product.metafields.reviews.rating.value != blank -%}
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ product.metafields.reviews.rating.value }},
+      "reviewCount": {{ product.metafields.reviews.rating_count }}
+    },
+  {%- endif -%}
+  "description": {{ product.description | strip_html | json }}
+}
+</script>
+{%- endif -%}
+
+{%- if collection -%}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "CollectionPage",
+  "name": {{ collection.title | json }},
+  "description": {{ collection.description | strip_html | json }},
+  "url": {{ request.origin | append: collection.url | json }}
+}
+</script>
+{%- endif -%}
+
+{%- if article -%}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "BlogPosting",
+  "headline": {{ article.title | json }},
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }}
+  },
+  "description": {{ article.excerpt_or_content | strip_html | truncatewords: 100 | json }},
+  {%- if article.image -%}
+    "image": {{ article.image | image_url: width: 1200 | prepend: "https:" | json }},
+  {%- endif -%}
+  "url": {{ request.origin | append: article.url | json }}
+}
+</script>
+{%- endif -%}

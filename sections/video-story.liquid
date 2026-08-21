@@ -1,0 +1,503 @@
+{%- comment -%}
+  Video Story Section
+  Video beside editorial copy with scripture/reference support
+  Perfect for brand storytelling, testimonies, and faith-based content
+{%- endcomment -%}
+
+<div class="video-story section-padding" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="video-story-grid{% if section.settings.revert_layout %} video-story-grid--reverted{% endif %}">
+      <div class="video-story-media">
+        <div class="video-wrapper" data-video-container>
+          {%- if section.settings.video != blank -%}
+            {%- assign video_sources = '' -%}
+            {%- if section.settings.video.sources.mp4 != blank -%}
+              {%- assign video_sources = video_sources | append: section.settings.video.sources.mp4 | append: '|mp4,' -%}
+            {%- endif -%}
+            {%- if section.settings.video.sources.webm != blank -%}
+              {%- assign video_sources = video_sources | append: section.settings.video.sources.webm | append: '|webm,' -%}
+            {%- endif -%}
+            
+            <video 
+              class="video-story-element"
+              {% if section.settings.autoplay %}autoplay{% endif %}
+              {% if section.settings.loop %}loop{% endif %}
+              {% if section.settings.muted or section.settings.autoplay %}muted{% endif %}
+              playsinline
+              preload="metadata"
+              poster="{% if section.settings.poster_image != blank %}{{ section.settings.poster_image | image_url: width: 800 }}{% endif %}"
+              controls
+            >
+              {%- if section.settings.video.sources.mp4 != blank -%}
+                <source src="{{ section.settings.video.sources.mp4 }}" type="video/mp4">
+              {%- endif -%}
+              {%- if section.settings.video.sources.webm != blank -%}
+                <source src="{{ section.settings.video.sources.webm }}" type="video/webm">
+              {%- endif -%}
+              Your browser does not support the video tag.
+            </video>
+          {%- elsif section.settings.video_url != blank -%}
+            {%- assign video_id = section.settings.video_url | split: '/' | last -%}
+            {%- if section.settings.video_url contains 'youtube' -%}
+              <div class="video-embed youtube" data-video-id="{{ video_id }}">
+                <iframe 
+                  src="https://www.youtube.com/embed/{{ video_id }}?rel=0&modestbranding=1"
+                  title="Video"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- elsif section.settings.video_url contains 'vimeo' -%}
+              <div class="video-embed vimeo" data-video-id="{{ video_id }}">
+                <iframe 
+                  src="https://player.vimeo.com/video/{{ video_id }}?title=0&byline=0&portrait=0"
+                  title="Video"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            <div class="video-placeholder">
+              <svg class="video-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/>
+                <line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <line x1="2" y1="7" x2="22" y2="7"/>
+                <line x1="2" y1="17" x2="22" y2="17"/>
+              </svg>
+              <p>Add a video in the theme editor</p>
+            </div>
+          {%- endif -%}
+          
+          {%- if section.settings.show_play_overlay -%}
+            <button class="video-play-overlay" aria-label="Play video" data-play-button>
+              <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="video-story-content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="video-story-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="video-story-heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="video-story-text rte">
+            {{ section.settings.text }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.scripture_reference != blank or section.settings.scripture_text != blank -%}
+          <div class="scripture-block">
+            {%- if section.settings.scripture_text != blank -%}
+              <blockquote class="scripture-text">
+                {{ section.settings.scripture_text }}
+              </blockquote>
+            {%- endif -%}
+            {%- if section.settings.scripture_reference != blank -%}
+              <cite class="scripture-reference">{{ section.settings.scripture_reference }}</cite>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+          <div class="video-story-actions">
+            <a href="{{ section.settings.button_link }}" class="btn btn-primary">
+              {{ section.settings.button_label }}
+              <svg class="icon icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video Story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Faith in Every Thread"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Body text",
+      "default": "<p>Every RoyalChild piece is designed with purpose. We believe clothing is more than fabric—it's a declaration of identity, a statement of faith, and a reminder of whose you are.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Scripture"
+    },
+    {
+      "type": "textarea",
+      "id": "scripture_text",
+      "label": "Scripture text",
+      "default": "\"But you are a chosen people, a royal priesthood, a holy nation, God's special possession.\""
+    },
+    {
+      "type": "text",
+      "id": "scripture_reference",
+      "label": "Scripture reference",
+      "default": "1 Peter 2:9"
+    },
+    {
+      "type": "header",
+      "content": "Video Source"
+    },
+    {
+      "type": "select",
+      "id": "video_source_type",
+      "label": "Video source type",
+      "options": [
+        { "value": "shopify", "label": "Shopify hosted video" },
+        { "value": "youtube", "label": "YouTube" },
+        { "value": "vimeo", "label": "Vimeo" }
+      ],
+      "default": "shopify"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Upload video to Shopify Files"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL (YouTube/Vimeo)",
+      "info": "Paste full YouTube or Vimeo URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_play_overlay",
+      "label": "Show play button overlay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay (muted)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop video",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "muted",
+      "label": "Start muted",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "revert_layout",
+      "label": "Reverse layout (content on left)",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "video_ratio",
+      "label": "Video aspect ratio",
+      "options": [
+        { "value": "16by9", "label": "16:9" },
+        { "value": "4by3", "label": "4:3" },
+        { "value": "1by1", "label": "1:1" },
+        { "value": "9by16", "label": "9:16 (vertical)" }
+      ],
+      "default": "16by9"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Story",
+      "settings": {
+        "eyebrow": "Our Story",
+        "heading": "Faith in Every Thread",
+        "scripture_text": "\"But you are a chosen people, a royal priesthood, a holy nation, God's special possession.\"",
+        "scripture_reference": "1 Peter 2:9",
+        "show_play_overlay": true,
+        "muted": true,
+        "video_ratio": "16by9"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.video-story {
+  padding-block: var(--section-spacing-xl);
+}
+
+.video-story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .video-story-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 5rem);
+  }
+  
+  .video-story-grid--reverted {
+    direction: rtl;
+  }
+  
+  .video-story-grid--reverted > * {
+    direction: ltr;
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+}
+
+.video-wrapper[data-video-ratio="16by9"] {
+  aspect-ratio: 16 / 9;
+}
+
+.video-wrapper[data-video-ratio="4by3"] {
+  aspect-ratio: 4 / 3;
+}
+
+.video-wrapper[data-video-ratio="1by1"] {
+  aspect-ratio: 1 / 1;
+}
+
+.video-wrapper[data-video-ratio="9by16"] {
+  aspect-ratio: 9 / 16;
+  max-width: 400px;
+  margin-inline: auto;
+}
+
+.video-story-element,
+.video-embed iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-embed {
+  width: 100%;
+  height: 100%;
+}
+
+.video-embed iframe {
+  border: none;
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 300px;
+  color: var(--color-muted);
+}
+
+.video-placeholder-icon {
+  width: 4rem;
+  height: 4rem;
+  opacity: 0.5;
+}
+
+.video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(60px, 10vw, 80px);
+  height: clamp(60px, 10vw, 80px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 2;
+}
+
+.video-play-overlay:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #fff;
+}
+
+.play-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-text);
+  margin-left: 4px;
+}
+
+.video-story-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.video-story-eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.video-story-heading {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.video-story-text {
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-muted);
+}
+
+.video-story-text p {
+  margin: 0 0 1rem;
+}
+
+.video-story-text p:last-child {
+  margin-bottom: 0;
+}
+
+.scripture-block {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: var(--color-bg-secondary);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  margin: 1rem 0;
+}
+
+.scripture-text {
+  font-family: var(--font-family-serif);
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  font-style: italic;
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  margin: 0 0 0.75rem;
+  quotes: "«" "»";
+}
+
+.scripture-text::before {
+  content: open-quote;
+  color: var(--color-accent);
+}
+
+.scripture-text::after {
+  content: close-quote;
+  color: var(--color-accent);
+}
+
+.scripture-reference {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin: 0;
+}
+
+.video-story-actions {
+  margin-top: 0.5rem;
+}
+</style>
+
+<script>
+(function() {
+  // Video play overlay functionality
+  document.querySelectorAll('[data-play-button]').forEach(function(button) {
+    button.addEventListener('click', function() {
+      const container = this.closest('[data-video-container]');
+      const video = container.querySelector('video');
+      const embed = container.querySelector('iframe');
+      
+      if (video) {
+        video.play();
+        this.style.opacity = '0';
+        this.style.pointerEvents = 'none';
+      } else if (embed) {
+        // For embeds, the user clicks directly on the iframe
+        this.style.opacity = '0';
+        this.style.pointerEvents = 'none';
+      }
+    });
+  });
+})();
+</script>
