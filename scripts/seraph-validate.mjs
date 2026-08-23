@@ -253,6 +253,116 @@ if (want('router')) {
   }
 }
 
+// ---------------------------------------------------------------- doctor ---
+if (want('doctor')) {
+  const settingsPath = '.claude/settings.json';
+  if (!exists(settingsPath)) {
+    skip('doctor', 'settings', 'no .claude/settings.json in this workspace');
+  } else {
+    let cfg;
+    try { cfg = JSON.parse(read(settingsPath)); }
+    catch (e) { fail('doctor', 'settings', 'unparseable: ' + e.message); cfg = null; }
+
+    if (cfg) {
+      // --- hooks: a hook whose script is missing fails silently ------------
+      const cmds = [];
+      for (const [event, entries] of Object.entries(cfg.hooks ?? {}))
+        for (const entry of entries ?? [])
+          for (const h of entry.hooks ?? [])
+            if (h.command) cmds.push([event, h.command]);
+      const broken = [];
+      for (const [event, cmd] of cmds) {
+        const m = cmd.match(/["']?\$CLAUDE_PROJECT_DIR\/([^"'\s]+)["']?/);
+        if (!m) continue;                       // not a project-relative script
+        const rel = m[1];
+        if (!exists(rel)) { broken.push(`${event}: ${rel} missing`); continue; }
+        try { fs.accessSync(path.join(root, rel), fs.constants.X_OK); }
+        catch { broken.push(`${event}: ${rel} not executable`); }
+      }
+      broken.length ? fail('doctor', 'hooks', broken.join('; '))
+                    : pass('doctor', 'hooks', `${cmds.length} hook command(s), all resolve`);
+
+      // --- permissions: the destructive set must actually be covered -------
+      const deny = (cfg.permissions?.deny ?? []).join(' ');
+      const ask = (cfg.permissions?.ask ?? []).join(' ');
+      const wantDeny = [['force push', /--force|push -f/], ['history rewrite', /filter-branch/], ['env read', /\.env/]];
+      const wantAsk = [['push', /git push/], ['merge', /git merge/]];
+      const gaps = [
+        ...wantDeny.filter(([, re]) => !re.test(deny)).map(([n]) => 'deny missing ' + n),
+        ...wantAsk.filter(([, re]) => !re.test(ask)).map(([n]) => 'ask missing ' + n),
+      ];
+      gaps.length ? fail('doctor', 'permissions', gaps.join('; '))
+                  : pass('doctor', 'permissions', `${(cfg.permissions?.ask ?? []).length} ask, ${(cfg.permissions?.deny ?? []).length} deny`);
+    }
+  }
+
+  // --- mcp: every declared server must have a resolvable command -----------
+  if (!exists('.mcp.json')) {
+    skip('doctor', 'mcp', 'no .mcp.json in this workspace');
+  } else {
+    try {
+      const mcp = JSON.parse(read('.mcp.json'));
+      const servers = Object.entries(mcp.mcpServers ?? {});
+      const bad = [];
+      for (const [name, def] of servers) {
+        if (def.type === 'http' || def.url) continue;          // remote, nothing local to resolve
+        if (!def.command) { bad.push(`${name}: no command`); continue; }
+        const r = require('node:child_process').spawnSync('sh', ['-c', `command -v ${def.command}`], { encoding: 'utf8' });
+        if (r.status !== 0) bad.push(`${name}: '${def.command}' not on PATH`);
+      }
+      bad.length ? fail('doctor', 'mcp', bad.join('; '))
+                 : pass('doctor', 'mcp', `${servers.length} server(s) declared, all commands resolve`);
+    } catch (e) { fail('doctor', 'mcp', e.message); }
+  }
+}
+
+// ----------------------------------------------------------- capabilities ---
+// The capability indices are a snapshot and drift is the failure mode. Check
+// they parse, name real agents, and still yield candidates for all five.
+if (want('capabilities')) {
+  const idx = ['connectors', 'plugins', 'skills', 'session-tools'];
+  const present = idx.filter((n) => exists(`registry/${n}.json`));
+  if (!present.length) {
+    skip('capabilities', 'indices', 'no capability indices in this workspace');
+  } else {
+    for (const n of present) {
+      try { JSON.parse(read(`registry/${n}.json`)); pass('capabilities', n, 'parses'); }
+      catch (e) { fail('capabilities', n, e.message); }
+    }
+    if (exists('registry/connectors.json')) {
+      const c = JSON.parse(read('registry/connectors.json'));
+      const bad = c.connectors.filter((x) => !REQUIRED_AGENTS.includes(x.agent));
+      bad.length ? fail('capabilities', 'connector owners', `unknown agent: ${bad.map((b) => b.name + '->' + b.agent).join(', ')}`)
+                 : pass('capabilities', 'connector owners', `${c.connectors.length} connectors, ${c.connectors.filter((x) => x.enabled_in_chat).length} live in chat`);
+      const noClass = c.connectors.filter((x) => !['read', 'write'].includes(x.approval));
+      noClass.length ? fail('capabilities', 'approval class', `missing on: ${noClass.map((x) => x.name).join(', ')}`)
+                     : pass('capabilities', 'approval class', 'every connector classified read or write');
+    }
+    if (exists('registry/plugins.json')) {
+      const pl = JSON.parse(read('registry/plugins.json'));
+      const unknown = Object.entries(pl.agent_domains ?? {}).filter(([a]) => !REQUIRED_AGENTS.includes(a));
+      const dangling = Object.values(pl.agent_domains ?? {}).flat().filter((d) => !(d in pl.by_domain));
+      (unknown.length || dangling.length)
+        ? fail('capabilities', 'plugin domains', [...unknown.map(([a]) => 'unknown agent ' + a), ...dangling.map((d) => 'dangling domain ' + d)].join('; '))
+        : pass('capabilities', 'plugin domains', `${Object.keys(pl.by_domain).length} domains, all agent maps resolve`);
+    }
+    if (exists('scripts/route-task.mjs')) {
+      const probes = { commerce: 'improve the shopify product page', 'media-growth': 'make a faceless youtube video',
+                       engineering: 'build an mcp integration', 'research-intelligence': 'which model is best for this',
+                       orchestrator: 'brainstorm a product idea' };
+      const missing = [];
+      for (const [agent, q] of Object.entries(probes)) {
+        try {
+          const o = JSON.parse(execFileSync(process.execPath, ['scripts/route-task.mjs', q], { cwd: root, encoding: 'utf8' }));
+          if (o.primary_agent !== agent || !o.candidates) missing.push(`${agent} (got ${o.primary_agent}${o.candidates ? '' : ', no candidates'})`);
+        } catch (e) { missing.push(`${agent}: ${e.message.split('\n')[0]}`); }
+      }
+      missing.length ? fail('capabilities', 'router candidates', missing.join('; '))
+                     : pass('capabilities', 'router candidates', 'all five agents resolve to named capabilities');
+    }
+  }
+}
+
 // ------------------------------------------------------------------ stack ---
 // What the installer put on disk, verified by running a command per item.
 if (want('stack')) {
