@@ -307,8 +307,15 @@ if (want('doctor')) {
       for (const [name, def] of servers) {
         if (def.type === 'http' || def.url) continue;          // remote, nothing local to resolve
         if (!def.command) { bad.push(`${name}: no command`); continue; }
-        const r = require('node:child_process').spawnSync('sh', ['-c', `command -v ${def.command}`], { encoding: 'utf8' });
-        if (r.status !== 0) bad.push(`${name}: '${def.command}' not on PATH`);
+        const cmd = def.command.replace(/\$\{?CLAUDE_PROJECT_DIR\}?/g, root);
+        if (cmd.includes('/')) {
+          if (!fs.existsSync(cmd)) { bad.push(`${name}: ${path.relative(root, cmd)} missing`); continue; }
+          try { fs.accessSync(cmd, fs.constants.X_OK); }
+          catch { bad.push(`${name}: ${path.relative(root, cmd)} not executable`); }
+        } else {
+          const r = require('node:child_process').spawnSync('sh', ['-c', `command -v ${cmd}`], { encoding: 'utf8' });
+          if (r.status !== 0) bad.push(`${name}: '${cmd}' not on PATH`);
+        }
       }
       bad.length ? fail('doctor', 'mcp', bad.join('; '))
                  : pass('doctor', 'mcp', `${servers.length} server(s) declared, all commands resolve`);
