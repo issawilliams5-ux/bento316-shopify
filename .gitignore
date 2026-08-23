@@ -11,7 +11,6 @@ out/
 build/
 dist/
 *.tsbuildinfo
-next-env.d.ts
 
 # Local
 .DS_Store
