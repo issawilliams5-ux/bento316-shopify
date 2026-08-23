@@ -16,6 +16,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { execFileSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 const root = process.cwd();
 const args = process.argv.slice(2);
@@ -238,6 +240,20 @@ if (want('router')) {
                          : fail('router', `gate: ${req.slice(0, 36)}`, `expected ${expected}, got ${got}`);
       } catch (e) { fail('router', `gate: ${req.slice(0, 36)}`, e.message.split('\n')[0]); }
     }
+  }
+}
+
+// ------------------------------------------------------------------ guard ---
+// The security guard is a control, so it carries its own two-directional
+// regression suite. Run it as part of validation, not only by hand.
+if (want('guard')) {
+  if (!exists('scripts/test-guard-hook.mjs') || !exists('.claude/hooks/seraph/pre-tool-use.mjs')) {
+    skip('guard', 'hook suite', 'guard or its test suite not present here');
+  } else {
+    const r = require('node:child_process').spawnSync(process.execPath, ['scripts/test-guard-hook.mjs'], { cwd: root, encoding: 'utf8' });
+    const summary = (r.stdout || '').split('\n').find((l) => l.includes('cases behave')) || '';
+    r.status === 0 ? pass('guard', 'hook suite', summary.trim())
+                   : fail('guard', 'hook suite', (r.stdout || '').split('\n').filter((l) => l.includes('FAIL')).slice(0, 5).join('; '));
   }
 }
 

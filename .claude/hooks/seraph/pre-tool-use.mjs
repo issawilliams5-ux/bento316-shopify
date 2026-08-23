@@ -33,11 +33,12 @@ const PLACEHOLDER = new RegExp(
 // version of these that a human approval inside this session should unlock.
 const DESTRUCTIVE = [
   ['recursive root delete',   /\brm\s+(-[A-Za-z]*\s+)*-[A-Za-z]*[rR][A-Za-z]*f?[A-Za-z]*\s+\/(\s|$)/],
-  ['force push',              /git\s+push\b[^|;&]*(--force(?!-with-lease)|(\s|^)-f(\s|$))/],
+  ['force push',              /git\s+push\b[^|;&]*(--force(?!-with-lease)|(\s|^)-f(\s|$)|\s\+[A-Za-z0-9_\/.-]+(:|\s|$))/],
   ['hard reset to remote',    /git\s+reset\s+--hard\s+origin/],
   ['branch deletion (remote)',/git\s+push\b[^|;&]*(--delete|\s:[A-Za-z])/],
   ['history rewrite',         /git\s+filter-branch|filter-repo|\bbfg\b/],
   ['credential exfiltration', /(cat|cp|curl|scp|tar)\b[^|;&]*\.(env|credentials|pem|p12)\b[^|;&]*(\||>|curl|nc\b|scp)/],
+  ['credential file read',    /\b(cat|less|more|head|tail|xxd|od|strings|base64)\b[^|;&]*(^|[\s\/])\.env(\.(?!example\b|sample\b|template\b)[A-Za-z]+)?(\s|$)/],
 ];
 
 // Consequential but legitimate with explicit approval. Not blocked here —
