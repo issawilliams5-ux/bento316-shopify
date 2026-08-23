@@ -167,8 +167,18 @@ function walk(dir, out = []) {
   return out;
 }
 
+function committableFiles() {
+  try {
+    const out = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'],
+                             { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    return out.split('\0').filter(Boolean).map((f) => path.join(root, f)).filter((f) => fs.existsSync(f));
+  } catch {
+    return walk(root);   // not a git repo — fall back to the full tree
+  }
+}
+
 if (want('secrets')) {
-  const files = walk(root).filter((f) => {
+  const files = committableFiles().filter((f) => {
     if (fs.statSync(f).size > 512 * 1024) return false;
     const base = path.basename(f);
     if (base === path.basename(process.argv[1])) return false;   // this validator
@@ -192,8 +202,8 @@ if (want('secrets')) {
       }
     });
   }
-  hits.length ? fail('secrets', 'tree scan', `${hits.length} hit(s): ${hits.slice(0, 8).join('; ')}`)
-              : pass('secrets', 'tree scan', `${files.length} files clean`);
+  hits.length ? fail('secrets', 'committable files', `${hits.length} hit(s): ${hits.slice(0, 8).join('; ')}`)
+              : pass('secrets', 'committable files', `${files.length} files clean (gitignored paths excluded — they cannot be committed)`);
 
   const gi = exists('.gitignore') ? read('.gitignore') : '';
   /(^|\n)\.env($|\n|\*)/.test(gi) ? pass('secrets', '.gitignore', '.env excluded')
@@ -240,6 +250,19 @@ if (want('router')) {
                          : fail('router', `gate: ${req.slice(0, 36)}`, `expected ${expected}, got ${got}`);
       } catch (e) { fail('router', `gate: ${req.slice(0, 36)}`, e.message.split('\n')[0]); }
     }
+  }
+}
+
+// ------------------------------------------------------------------ stack ---
+// What the installer put on disk, verified by running a command per item.
+if (want('stack')) {
+  if (!exists('scripts/seraph-stack-status.mjs') || !exists('registry/stack.json')) {
+    skip('stack', 'inventory', 'no stack manifest in this workspace');
+  } else {
+    const r = require('node:child_process').spawnSync(process.execPath, ['scripts/seraph-stack-status.mjs', '--check'], { cwd: root, encoding: 'utf8' });
+    const lines = (r.stdout || '').split('\n').filter((l) => /ok |GAP /.test(l)).map((l) => l.trim().replace(/\s+/g, ' '));
+    r.status === 0 ? pass('stack', 'inventory', lines.join(' | '))
+                   : fail('stack', 'inventory', (r.stdout || '').split('\n').filter((l) => /GAP|missing/.test(l)).join('; '));
   }
 }
 
