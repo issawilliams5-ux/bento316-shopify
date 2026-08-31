@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "flick": {
+      "source": {
+        "source": "github",
+        "repo": "Creatorberry/flick"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "flick@flick": true
+  }
+}
