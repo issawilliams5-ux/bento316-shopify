@@ -45,3 +45,13 @@ with one tightening: NEVER use `fable` agents in a dynamic workflow, not even
 with approval. Only `haiku`, `sonnet`, or `opus`. If a Fable review is
 warranted, it happens AFTER the workflow completes, as a standalone Agent-tool
 call (ask first, per above) — never as a workflow stage.
+
+# Third-party API discovery: api-mega-list skill
+
+`.claude/skills/api-mega-list/` mirrors [cporter202/API-mega-list](https://github.com/cporter202/API-mega-list)
+verbatim — ~11,860 third-party API/SaaS/Apify-scraper listings across 24 categories.
+Consult it before a generic web search when a task needs an external API and the
+provider isn't already known. Listings are unvetted (many carry the original
+maintainer's affiliate referral params) — verify pricing, ToS, and data-source
+legality before wiring anything in, and never use a "lead"/email scraper listing
+for unsolicited outreach.
