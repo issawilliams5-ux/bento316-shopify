@@ -1,0 +1,32 @@
+# OpenManus configuration for bento316, backed by OpenRouter.
+#
+# This is a TEMPLATE. `ai-tools/setup.sh` copies it into the OpenManus clone at
+# config/config.toml and substitutes __OPENROUTER_API_KEY__ with the value of
+# your $OPENROUTER_API_KEY environment variable. The rendered file lives outside
+# this repo (default: ~/ai-tools/OpenManus) — never commit a rendered copy.
+
+[llm]
+model = "anthropic/claude-sonnet-4.5"       # any OpenRouter model id
+base_url = "https://openrouter.ai/api/v1"
+api_key = "__OPENROUTER_API_KEY__"
+max_tokens = 8192
+temperature = 0.0
+
+[llm.vision]
+model = "anthropic/claude-sonnet-4.5"
+base_url = "https://openrouter.ai/api/v1"
+api_key = "__OPENROUTER_API_KEY__"
+max_tokens = 8192
+temperature = 0.0
+
+# Upstream builds DaytonaSettings unconditionally and daytona_api_key is a
+# required field, so config load raises a pydantic ValidationError without this
+# section even though the Daytona cloud sandbox is unused. Empty value is fine.
+[daytona]
+daytona_api_key = ""
+
+[mcp]
+server_reference = "app.mcp.server"
+
+[runflow]
+use_data_analysis_agent = false             # upstream marks run_flow.py unstable
