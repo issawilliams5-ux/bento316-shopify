@@ -33,6 +33,27 @@ momentum/velocity handoff, interruptible animations, materials/depth,
 reduced-motion) translated for the web. Build premium-feeling UI by default;
 respect `prefers-reduced-motion`.
 
+# Headless agent: OpenManus (installed on demand)
+
+[OpenManus](https://github.com/FoundationAgents/OpenManus) (MIT) is an
+open-source general AI agent — an agent loop over browser, code-execution,
+file, and MCP tools — installed on demand by `./ai-tools/setup.sh` into
+`~/ai-tools/OpenManus`. It is **not vendored** here and is not part of the
+Next.js build or the deploy.
+
+Use it for open-ended, multi-step research and web work you'd otherwise do by
+hand (competitor/pricing research, pulling numbers out of a portal). It is the
+complement to Skyvern below: Skyvern automates a *known, repeated* flow with
+vision; OpenManus decides its own steps.
+
+- Backed by OpenRouter — set `OPENROUTER_API_KEY` (see `.env.example`) before
+  running `ai-tools/setup.sh`. Never commit the key; the rendered
+  `config/config.toml` lives outside this repo.
+- Each run is an autonomous loop of up to 20 LLM calls with accumulated
+  context. Start on a cheap model and a narrow prompt, and check spend before
+  scheduling anything recurring.
+- Full install/run instructions, knobs, and gotchas: `ai-tools/README.md`.
+
 # Browser automation: Skyvern (available tooling, not deployed)
 
 [Skyvern](https://github.com/Skyvern-AI/skyvern) is vision-AI-driven browser
