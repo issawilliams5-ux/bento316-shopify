@@ -45,9 +45,17 @@ there, but that step is genuinely unverified.
 
 ### Install
 
+macOS/Linux:
+
 ```bash
 export OPENROUTER_API_KEY="sk-or-..."   # never commit this
 ./ai-tools/setup.sh                     # clones to ~/ai-tools/OpenManus
+```
+
+Windows (PowerShell):
+
+```powershell
+.\ai-tools\setup.ps1                   # prompts for the key if unset
 ```
 
 `setup.sh` creates a `uv` venv on Python 3.12, installs `requirements.txt`,
@@ -83,6 +91,13 @@ cd ~/ai-tools/OpenManus
 - **Heavy install.** `requirements.txt` pulls `torch`, `transformers`,
   `datasets`, and `browsergym` — a multi-GB venv. Keep it out of any container
   image you actually deploy.
+- **Windows: never `Set-Content -Encoding utf8` for `config.toml`.** Windows
+  PowerShell 5.1's `utf8` encoding prepends a UTF-8 byte-order mark, which
+  Python's `tomllib` rejects with `Invalid statement (at line 1, column 1)` —
+  a config file that looks correct in a text editor but won't parse.
+  `ai-tools/setup.ps1` writes it with
+  `[System.IO.File]::WriteAllText(..., (New-Object System.Text.UTF8Encoding($false)))`
+  instead, which omits the BOM.
 
 **Credentials:** `OPENROUTER_API_KEY` only (see `.env.example`), read from your
 environment at setup time. The rendered `config/config.toml` lives in
