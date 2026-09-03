@@ -1,0 +1,85 @@
+/* Liquid-glass card.
+ *
+ * Every number here comes from the vanta.supply glassmorphism generator's
+ * preview and is load-bearing: the SVG displacement map in GlassCard.tsx is
+ * baked for the 420x280 box at radius 26.4px. Resizing the card, rounding a
+ * value, or scaling an ancestor (backdrop-filter samples before ancestor
+ * transforms) all render a different picture than the one that was specified.
+ */
+
+/* Tier 2 - fallback. Safari, Firefox, and anything that is not Chromium land
+ * here: the same material, minus the url() refraction they cannot run. This is
+ * the tier most visitors see, so it is the base rule, not an override. */
+.gg-glass {
+  position: relative;
+  width: 420px;
+  height: 280px;
+  border-radius: 26.4px;
+  background: rgba(255, 255, 255, 0.459);
+  border: 1px solid rgba(255, 255, 255, 0.194);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.281);
+  -webkit-backdrop-filter: blur(10.4px) saturate(1.208);
+  backdrop-filter: blur(10.4px) saturate(1.208);
+}
+
+/* The rim: a 1px gradient ring. Painted as a 1px padding box whose fill is
+ * masked away everywhere except the border, by XOR-ing a content-box mask
+ * against a border-box one. */
+.gg-glass::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.026) 40%,
+    rgba(0, 0, 0, 0.182)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) border-box;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) border-box;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* The shine: its own element, because an inset highlight and the surface's
+ * outer shadow cannot live on the same box-shadow. Topmost layer. */
+.gg-glass__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    210deg,
+    rgba(255, 255, 255, 0.33) 0%,
+    rgba(255, 255, 255, 0) 45%
+  );
+  box-shadow: inset -0.5px 0.866px 0 rgba(255, 255, 255, 0.275);
+  pointer-events: none;
+}
+
+/* Tier 1 - refraction, Chromium only (Chrome, Edge, Arc).
+ *
+ * Gated on the Paint API, not on backdrop-filter: url(). Querying url()
+ * support directly answers true on every engine while only Chromium actually
+ * renders it, so a plain cascade would strip Safari and Firefox of the blur
+ * they do support. paint() is a Chromium-only surface, so it tracks what
+ * really renders. */
+@supports (background: paint(gg-glass-probe)) {
+  .gg-glass {
+    -webkit-backdrop-filter: url(#gg-glass-filter) blur(10.4px) saturate(1.208);
+    backdrop-filter: url(#gg-glass-filter) blur(10.4px) saturate(1.208);
+  }
+}
+
+/* Reduced transparency wins over both tiers. Keep this block LAST: it carries
+ * the same specificity as the @supports rule above and relies on source order
+ * to override the refraction tier. */
+@media (prefers-reduced-transparency: reduce) {
+  .gg-glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
