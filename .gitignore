@@ -1,0 +1,22 @@
+# Dependencies
+/node_modules
+
+# Next.js build output
+/.next/
+/out/
+next-env.d.ts.timestamp
+tsconfig.tsbuildinfo
+
+# Secrets. The repo wires Supabase, Stripe, OpenAI and OpenRouter keys, so
+# real env files must never be committed - only the checked-in template.
+.env
+.env.*
+!.env.example
+
+# Misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
