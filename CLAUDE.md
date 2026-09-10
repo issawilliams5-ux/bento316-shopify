@@ -115,3 +115,31 @@ placeholder var this repo expects if/when Skyvern is wired in.
   approval step, and use test accounts while building a new workflow.
 - Skyvern is AGPL-3.0 — review license implications before shipping it as
   part of a commercial product.
+
+# MCP servers (`.mcp.json`)
+
+Three, deliberately. Every connected server injects its tool list into the
+prompt on *every* turn, so this file is a budget, not a wishlist.
+
+- **`context7`** (http) — version-correct docs for whatever is being imported.
+  Next.js, React, Tailwind, `@supabase/supabase-js` and `stripe` all move fast
+  enough that half-remembered APIs are the main source of code that reads
+  perfectly and does not run.
+- **`chrome-devtools`** (npx) — console errors, network requests and perf
+  traces read off the live page, and it drives the page too. Needs Chrome and a
+  current Node LTS. Pinned to an exact version rather than `@latest`, so a new
+  release cannot execute here unreviewed; bump it deliberately.
+- **`stripe`** (http) — this repo has a real integration (`lib/stripe.ts`,
+  billing settings, the `001_initial_schema.sql` migration). OAuth on first use.
+  **Point it at a sandbox before live mode**: the same tools that read a
+  customer can create, update and refund one.
+
+Not here, on purpose: `supabase` (already a session connector — a second copy
+only duplicates its tool list), `playwright` (`chrome-devtools` already
+navigates, clicks and fills, and there are no e2e tests here),
+`desktop-commander` (duplicates the agent's own shell and file tools),
+`firecrawl` (needs a paid key; `ai-tools/` already covers crawling), and
+`sequential-thinking` (a scaffold for models without native extended thinking).
+
+Before adding a fourth, check it is not something the session already reaches.
+Anything unused in a fortnight comes back out.

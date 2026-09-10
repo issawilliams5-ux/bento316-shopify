@@ -5,6 +5,21 @@
       "args": [
         "mcp"
       ]
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@1.9.0"
+      ]
+    },
+    "stripe": {
+      "type": "http",
+      "url": "https://mcp.stripe.com/"
     }
   }
 }
