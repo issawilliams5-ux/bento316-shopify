@@ -127,7 +127,8 @@ prompt on *every* turn, so this file is a budget, not a wishlist.
   perfectly and does not run.
 - **`chrome-devtools`** (npx) — console errors, network requests and perf
   traces read off the live page, and it drives the page too. Needs Chrome and a
-  current Node LTS.
+  current Node LTS. Pinned to an exact version rather than `@latest`, so a new
+  release cannot execute here unreviewed; bump it deliberately.
 - **`stripe`** (http) — this repo has a real integration (`lib/stripe.ts`,
   billing settings, the `001_initial_schema.sql` migration). OAuth on first use.
   **Point it at a sandbox before live mode**: the same tools that read a
