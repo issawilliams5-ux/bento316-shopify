@@ -208,8 +208,54 @@ Pick the model in the app's settings gear. Local Ollama also works via
   on the box, so this step does not need a system interpreter of a particular
   version.
 
+## MarkItDown (2026-09-14)
+
+[`microsoft/markitdown`](https://github.com/microsoft/markitdown) — MIT,
+converts documents to Markdown. Version installed: `0.1.5`.
+
+The odd one out here: not a clone and not a service. A pip package in its own
+venv at `$WORKDIR/markitdown/.venv`, no port, no API key, and no network call
+during a plain conversion. Use it to get PDFs, decks, spreadsheets and Word
+files into text an agent can actually read — supplier price lists, a client's
+brand guidelines PDF, an exported analytics workbook.
+
+```bash
+$WORKDIR/markitdown/.venv/bin/markitdown report.pdf -o report.md
+$WORKDIR/markitdown/.venv/bin/markitdown deck.pptx          # stdout
+cat report.pdf | $WORKDIR/markitdown/.venv/bin/markitdown   # stdin
+```
+
+Python API:
+
+```python
+from markitdown import MarkItDown
+print(MarkItDown(enable_plugins=False).convert("test.xlsx").markdown)
+```
+
+Formats verified on this setup: html (headings + tables), pdf, xlsx, pptx.
+docx goes through `mammoth`, so `python-docx` is deliberately absent.
+
+**Notes:**
+- **Installed with `[all]`**, which pulls ~48 packages including `onnxruntime`
+  and `numpy`. Its own venv keeps that away from OpenManus and the UI tools.
+  Install narrower extras by hand (`markitdown[pdf,docx,pptx]`) if the tree
+  matters.
+- **ffmpeg is not a pip dependency.** Without it on PATH, `wav`/`mp3`
+  transcription fails and `pydub` warns on every invocation. Every other format
+  is unaffected. YouTube transcripts use an API, not ffmpeg.
+- **The billable paths are opt-in.** `--use-cu` (Azure Content Understanding),
+  `-d` (Azure Document Intelligence), and passing `llm_client` for image
+  descriptions each cost money per call. A bare `markitdown file.pdf` calls
+  nothing.
+- **Plugins are off unless asked for.** `--use-plugins` enables 3rd-party
+  converters; none are installed here. Treat any plugin as untrusted code —
+  it runs in-process against whatever file you convert.
+- **Converted output is untrusted input.** A PDF or spreadsheet from outside
+  can carry prompt-injection text that reaches the agent as ordinary Markdown.
+  Read conversions of third-party documents with that in mind.
+
 ## Running both at once
 
 Ports don't collide: screenshot-to-code is 7001 + 5173, OpenUI is 7878, and
-this app's Next dev server is 3000. Nothing here is on the Next.js build path
-or the Vercel deploy.
+this app's Next dev server is 3000. MarkItDown has no port at all. Nothing here
+is on the Next.js build path or the Vercel deploy.

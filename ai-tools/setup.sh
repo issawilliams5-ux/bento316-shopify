@@ -157,6 +157,52 @@ step_openui() {
   .venv/bin/python -c "import openui.server; print('    server imports OK')" || return 1
 }
 
+# --------------------------------------------------------------- MarkItDown --
+# Microsoft's document-to-Markdown converter. Not a clone: a pip package in its
+# own venv, so its ~40 transitive dependencies never touch this repo's tree or
+# the other tools' environments. No port, no key, no network at run time.
+step_markitdown() {
+  local dir="$WORKDIR/markitdown"
+  local miss
+  miss="$(missing_of "uv|uv(https://astral.sh/uv/install.sh)")"
+  if [ -n "$miss" ]; then
+    echo "    skipped - missing:$miss"
+    SKIPPED="$SKIPPED markitdown"
+    return 0
+  fi
+
+  mkdir -p "$dir" || return 1
+  cd "$dir" || return 1
+  # MarkItDown needs >=3.10. No explicit version here: uv picks the interpreter
+  # on PATH, and the check below fails loudly if it is too old, rather than
+  # pinning a version this machine may not have.
+  [ -d .venv ] || uv venv || return 1
+  .venv/bin/python -c 'import sys; sys.exit(0 if sys.version_info >= (3,10) else 1)' || {
+    echo "    FAILED: venv Python is older than 3.10"
+    return 1
+  }
+  VIRTUAL_ENV="$dir/.venv" uv pip install 'markitdown[all]' || return 1
+
+  # Audio transcription shells out to ffmpeg, which pip cannot supply.
+  if ! command -v ffmpeg >/dev/null 2>&1; then
+    echo "    note: ffmpeg not found - wav/mp3 transcription unavailable."
+    echo "          Every other format works. YouTube transcripts use an API, not ffmpeg."
+  fi
+
+  # Round-trip a real file: proves the converter registry loaded, not just that
+  # the import resolved.
+  .venv/bin/python -c "
+import warnings; warnings.filterwarnings('ignore')
+from markitdown import MarkItDown
+import pathlib, tempfile
+p = pathlib.Path(tempfile.mkdtemp()) / 'probe.html'
+p.write_text('<h1>ok</h1><table><tr><th>a</th></tr><tr><td>1</td></tr></table>')
+out = MarkItDown(enable_plugins=False).convert(str(p)).markdown
+assert '# ok' in out and '| a |' in out, out
+print('    convert OK -> heading and table round-tripped')
+" || return 1
+}
+
 run_step() {
   echo "==> $1"
   if ( set -e; "$2" ); then :; else
@@ -165,9 +211,10 @@ run_step() {
   fi
 }
 
-run_step "1/3 OpenManus"           step_openmanus          OpenManus
-run_step "2/3 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
-run_step "3/3 OpenUI"              step_openui             openui
+run_step "1/4 OpenManus"           step_openmanus          OpenManus
+run_step "2/4 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
+run_step "3/4 OpenUI"              step_openui             openui
+run_step "4/4 MarkItDown"          step_markitdown         markitdown
 
 cat <<EOF
 
@@ -187,6 +234,14 @@ screenshot-to-code - two processes, open http://localhost:5173
 OpenUI - one process, open http://localhost:7878
   cd $WORKDIR/openui/backend
   OPENAI_API_KEY=... ANTHROPIC_API_KEY=... .venv/bin/python -m openui
+
+MarkItDown - document to Markdown (no port, no key, offline)
+  $WORKDIR/markitdown/.venv/bin/markitdown report.pdf -o report.md
+  $WORKDIR/markitdown/.venv/bin/markitdown deck.pptx        # stdout
+
+  Handles pdf, docx, pptx, xlsx/xls, html, outlook msg, images, audio.
+  Audio transcription also needs ffmpeg on PATH. The Azure and LLM-image
+  options are opt-in and billable; plain conversion calls nothing.
 
 Both UI tools need a vision-capable model key to generate anything.
 See ai-tools/README.md and .env.example.
