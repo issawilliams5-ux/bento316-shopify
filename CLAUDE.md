@@ -54,6 +54,45 @@ vision; OpenManus decides its own steps.
   scheduling anything recurring.
 - Full install/run instructions, knobs, and gotchas: `ai-tools/README.md`.
 
+# Screenshot/prompt -> UI code: screenshot-to-code & OpenUI (installed on demand)
+
+Two open-source design-to-code tools, installed on demand by
+`./ai-tools/setup.sh` into `~/ai-tools` alongside OpenManus. Like OpenManus,
+they are **not vendored** here and are not part of the Next.js build or the
+deploy.
+
+- [screenshot-to-code](https://github.com/abi/screenshot-to-code) (MIT) — give
+  it a **screenshot, mockup, or screen recording**, get back HTML+Tailwind,
+  React+Tailwind, Vue, Bootstrap or Ionic. FastAPI backend on **:7001**, Vite
+  frontend on **:5173**; open http://localhost:5173.
+- [OpenUI](https://github.com/wandb/openui) (Apache-2.0, from W&B) — describe a
+  component in **words**, see it render live, iterate in chat, convert to
+  React/Svelte/Web Components. One process on **:7878**, prebuilt frontend
+  included.
+
+Which one: screenshot-to-code when a design already exists as an image; OpenUI
+when it doesn't and you are exploring. Both are one-shot code generators — they
+are the complement to OpenManus (decides its own multi-step plan) and Skyvern
+(drives a browser through a known, repeated flow).
+
+**Guardrails:**
+- Both need a vision-capable model key and neither can generate without one.
+  Set at least one of `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GEMINI_API_KEY`
+  (see `.env.example`); `GEMINI_API_KEY` also drives asset extraction and video
+  mode, `REPLICATE_API_KEY` unlocks image editing.
+- Every generation is a vision call on a full screenshot — not cheap. Try one
+  before batching a design system through it.
+- `~/ai-tools/screenshot-to-code/backend/.env` holds keys in plaintext outside
+  this repo. Keep it there; never commit a key.
+- Treat the output as a **first draft**, not shippable code: review it against
+  this repo's conventions, and re-add the validation, error handling and
+  accessibility a generator will happily leave out (see the Ponytail rules
+  above).
+- OpenUI phones home (Sentry in its bundled frontend, `wandb`/`weave` in the
+  backend). Non-fatal, but know it before pointing it at anything sensitive.
+
+Full install/run instructions, ports, keys and gotchas: `ai-tools/README.md`.
+
 # Headless agent UI: OpenHands Agent Canvas (available tooling, not deployed)
 
 [OpenHands Agent Canvas](https://github.com/OpenHands/OpenHands) (Apache-2.0)
@@ -107,3 +146,31 @@ placeholder var this repo expects if/when Skyvern is wired in.
   approval step, and use test accounts while building a new workflow.
 - Skyvern is AGPL-3.0 — review license implications before shipping it as
   part of a commercial product.
+
+# MCP servers (`.mcp.json`)
+
+Three, deliberately. Every connected server injects its tool list into the
+prompt on *every* turn, so this file is a budget, not a wishlist.
+
+- **`context7`** (http) — version-correct docs for whatever is being imported.
+  Next.js, React, Tailwind, `@supabase/supabase-js` and `stripe` all move fast
+  enough that half-remembered APIs are the main source of code that reads
+  perfectly and does not run.
+- **`chrome-devtools`** (npx) — console errors, network requests and perf
+  traces read off the live page, and it drives the page too. Needs Chrome and a
+  current Node LTS. Pinned to an exact version rather than `@latest`, so a new
+  release cannot execute here unreviewed; bump it deliberately.
+- **`stripe`** (http) — this repo has a real integration (`lib/stripe.ts`,
+  billing settings, the `001_initial_schema.sql` migration). OAuth on first use.
+  **Point it at a sandbox before live mode**: the same tools that read a
+  customer can create, update and refund one.
+
+Not here, on purpose: `supabase` (already a session connector — a second copy
+only duplicates its tool list), `playwright` (`chrome-devtools` already
+navigates, clicks and fills, and there are no e2e tests here),
+`desktop-commander` (duplicates the agent's own shell and file tools),
+`firecrawl` (needs a paid key; `ai-tools/` already covers crawling), and
+`sequential-thinking` (a scaffold for models without native extended thinking).
+
+Before adding a fourth, check it is not something the session already reaches.
+Anything unused in a fortnight comes back out.
