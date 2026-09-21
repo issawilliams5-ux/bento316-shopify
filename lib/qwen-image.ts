@@ -43,7 +43,9 @@ export function parseImageRequest(body: unknown): ImageRequest {
   if (prompt.length > PROMPT_MAX) bad(`prompt exceeds ${PROMPT_MAX} characters`);
 
   const aspectRatio = input.aspectRatio === undefined ? '1:1' : input.aspectRatio;
-  if (typeof aspectRatio !== 'string' || !(aspectRatio in ASPECT_RATIOS)) {
+  // hasOwn, not `in`: `in` walks the prototype chain, so 'toString' and
+  // 'constructor' would pass here and blow up as a 500 further down.
+  if (typeof aspectRatio !== 'string' || !Object.hasOwn(ASPECT_RATIOS, aspectRatio)) {
     bad(`aspectRatio must be one of ${Object.keys(ASPECT_RATIOS).join(', ')}`);
   }
 
