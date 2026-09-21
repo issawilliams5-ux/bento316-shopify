@@ -1,2 +1,11 @@
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+# Installed dependencies.
+/node_modules/
+
+# TypeScript incremental build cache.
+/tsconfig.tsbuildinfo
+
+# Next.js build output.
+/.next/
