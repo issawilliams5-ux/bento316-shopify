@@ -93,6 +93,32 @@ are the complement to OpenManus (decides its own multi-step plan) and Skyvern
 
 Full install/run instructions, ports, keys and gotchas: `ai-tools/README.md`.
 
+# Publishing automation: MoneyPrinterV2 (installed on demand)
+
+[MoneyPrinterV2](https://github.com/FujiwaraChoki/MoneyPrinterV2) (**AGPL-3.0**)
+automates the publish loop: a Twitter/X bot, a YouTube Shorts automator (both
+with CRON schedulers), Amazon affiliate posts, and local-business scraping for
+cold outreach. Installed on demand by `./ai-tools/setup.sh` into
+`~/ai-tools/MoneyPrinterV2`; **not vendored** here and not part of any build or
+deploy. Needs **Python 3.12** — upstream says 3.13 does not work.
+
+It is the one tool here that publishes on its own, so:
+
+- `~/ai-tools/MoneyPrinterV2/config.json` is a credential file (API keys plus
+  social logins). It stays in `~/ai-tools` at `0600`. Never commit it, paste it,
+  or prefill it from guessed field names — the installer copies upstream's
+  `config.example.json` verbatim for that reason.
+- Run every feature once by hand, on a burner account, and read what it posted
+  before letting a CRON job have it. Automated posting is the account owner's
+  call and the platform's rule — check both.
+- The cold-outreach feature e-mails scraped businesses. That is regulated
+  (GDPR/CAN-SPAM): no sends without a lawful basis, a real sender identity, and
+  a working unsubscribe.
+- AGPL-3.0 is viral over a network. Keep it a standalone tool in `~/ai-tools`
+  and do not import its code into this repo.
+
+Full install/run instructions, guardrails, and gotchas: `ai-tools/README.md`.
+
 # Browser automation: Skyvern (available tooling, not deployed)
 
 [Skyvern](https://github.com/Skyvern-AI/skyvern) is vision-AI-driven browser

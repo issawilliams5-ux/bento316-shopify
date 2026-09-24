@@ -157,6 +157,47 @@ step_openui() {
   .venv/bin/python -c "import openui.server; print('    server imports OK')" || return 1
 }
 
+# ----------------------------------------------------------- MoneyPrinterV2 --
+# Upstream is explicit that it needs Python 3.12 (3.13 is not supported), so the
+# venv pins that interpreter rather than taking whatever `python3` resolves to.
+# Config is upstream's own config.example.json copied verbatim: it holds live
+# API keys and social credentials, so it is written 0600 into $WORKDIR and never
+# into this repo, and the installer does not invent or prefill any field.
+step_moneyprinter() {
+  local dir="$WORKDIR/MoneyPrinterV2"
+  local miss
+  miss="$(missing_of "git|git" "python3.12|python3.12")"
+  if [ -n "$miss" ]; then
+    echo "    skipped - missing:$miss"
+    SKIPPED="$SKIPPED MoneyPrinterV2"
+    return 0
+  fi
+
+  clone_once https://github.com/FujiwaraChoki/MoneyPrinterV2.git "$dir" || return 1
+  cd "$dir" || return 1
+  [ -d .venv ] || python3.12 -m venv .venv || return 1
+  .venv/bin/python -m pip install --upgrade pip >/dev/null || return 1
+  .venv/bin/python -m pip install -r requirements.txt || return 1
+
+  if [ ! -f config.json ]; then
+    cp config.example.json config.json || return 1
+    chmod 600 config.json
+    echo "    config.json seeded from config.example.json - fill in the values"
+    echo "    before running anything; it holds real keys and social logins."
+  else
+    chmod 600 config.json
+    echo "    config.json already exists - left untouched"
+  fi
+
+  # The email-outreach path shells out to a Go helper; everything else works
+  # without it, so this is a warning and not a skip.
+  command -v go >/dev/null 2>&1 || \
+    echo "    note: Go is absent - the cold-outreach e-mail feature will not run."
+
+  [ -f src/main.py ] || { echo "    ERROR: src/main.py missing after clone"; return 1; }
+  .venv/bin/python -c "import json; json.load(open('config.json')); print('    config.json parses OK')"
+}
+
 run_step() {
   echo "==> $1"
   if ( set -e; "$2" ); then :; else
@@ -165,9 +206,10 @@ run_step() {
   fi
 }
 
-run_step "1/3 OpenManus"           step_openmanus          OpenManus
-run_step "2/3 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
-run_step "3/3 OpenUI"              step_openui             openui
+run_step "1/4 OpenManus"           step_openmanus          OpenManus
+run_step "2/4 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
+run_step "3/4 OpenUI"              step_openui             openui
+run_step "4/4 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
 
 cat <<EOF
 
@@ -187,6 +229,14 @@ screenshot-to-code - two processes, open http://localhost:5173
 OpenUI - one process, open http://localhost:7878
   cd $WORKDIR/openui/backend
   OPENAI_API_KEY=... ANTHROPIC_API_KEY=... .venv/bin/python -m openui
+
+MoneyPrinterV2 - no port; interactive CLI
+  cd $WORKDIR/MoneyPrinterV2
+  .venv/bin/python src/main.py                 # menu-driven
+  bash scripts/<name>.sh                       # single feature, run from that dir
+
+  Fill in $WORKDIR/MoneyPrinterV2/config.json first. Every cron/scheduler
+  feature posts to live accounts - see the guardrails in ai-tools/README.md.
 
 Both UI tools need a vision-capable model key to generate anything.
 See ai-tools/README.md and .env.example.
