@@ -195,7 +195,10 @@ step_moneyprinter() {
     echo "    note: Go is absent - the cold-outreach e-mail feature will not run."
 
   [ -f src/main.py ] || { echo "    ERROR: src/main.py missing after clone"; return 1; }
-  .venv/bin/python -c "import json; json.load(open('config.json')); print('    config.json parses OK')"
+  # Upstream ships its own preflight. It reports every unconfigured value as a
+  # WARN/FAIL and still exits 0, so it is a report and not a gate: on a fresh
+  # install expect blocking issues until config.json is filled in.
+  .venv/bin/python scripts/preflight_local.py || true
 }
 
 run_step() {

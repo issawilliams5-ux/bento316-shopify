@@ -229,11 +229,63 @@ researches; MoneyPrinterV2 is the piece that puts something on an account
 every day without a human in the loop. That is also exactly why it is the most
 dangerous thing here, so read the guardrails below before you enable a job.
 
-**Status: wired into `setup.sh`, install not executed.** The step below follows
-the same on-demand shape as every other tool in this file, but it has not been
-run end to end from this repo — the session that added it could not clone or
-build third-party code. Nothing about the feature set, the config shape, or the
-runtime is verified first-hand; the first real install is the proving run.
+### Status: installed and verified (2026-09-24)
+
+Installed clean into `~/ai-tools/MoneyPrinterV2` by `setup.sh` on Python
+**3.12.3**, all requirements resolved, `config.json` seeded at `0600`, the
+`config` module imports, and upstream's own `scripts/preflight_local.py` runs.
+It has **not** produced or posted anything — no credentials were configured and
+nothing was pointed at a live account.
+
+**Budget ~6.3 GB of disk.** `requirements.txt` pulls `faster-whisper`, which
+drags in `torch` plus the full set of NVIDIA CUDA wheels (`nvidia-cublas`,
+`cusolver`, `cusparse`, `triton`, …) whether or not there is a GPU. That is the
+single biggest install in `ai-tools/`.
+
+**Upstream has moved well past the feature list in its own README.** What the
+code actually wants, read off `config.example.json` and the preflight:
+
+| Concern | What it uses |
+|---|---|
+| LLM | **Ollama**, local, `ollama_base_url` (default `http://127.0.0.1:11434`) + `ollama_model` — not OpenRouter, not an API key |
+| Images | **Nano Banana 2** via Google's `generativelanguage` endpoint — `nanobanana2_api_key`, or `GEMINI_API_KEY` in the environment |
+| Speech-to-text | `stt_provider` — local `faster-whisper` (`whisper_model`/`device`/`compute_type`) or **AssemblyAI** (`assembly_ai_api_key`) |
+| Posting | `post_bridge` (see `src/post_bridge_integration.py`) **plus a real `firefox_profile`** — the X/YouTube automation drives a logged-in Firefox, so there are no platform API keys to paste |
+| Outreach | `google_maps_scraper` + `google_maps_scraper_niche`, `scraper_timeout`, and an `email` block with `outreach_message_subject` / `outreach_message_body_file` |
+| Subtitles/render | `imagemagick_path`, `font`, `threads`, `script_sentence_length` |
+
+Scheduling lives in `src/cron.py`; the entry point is `src/main.py`. `scripts/`
+holds three things, not a menu: `preflight_local.py`, `setup_local.sh`,
+`upload_video.sh`.
+
+### What the preflight reported here, unconfigured
+
+```
+[WARN] imagemagick_path is not set to a valid executable path...
+[WARN] firefox_profile is empty. Twitter/YouTube automation requires this.
+[FAIL] Ollama is not reachable at http://127.0.0.1:11434
+[FAIL] nanobanana2_api_key is empty (and GEMINI_API_KEY is not set)
+[OK]   faster-whisper is installed
+[OK]   Nano Banana 2 base URL reachable
+```
+
+Every one of those is expected on a fresh install — it is a report, not a gate,
+and it exits 0 either way. Re-run it after editing `config.json`:
+
+```bash
+cd ~/ai-tools/MoneyPrinterV2 && .venv/bin/python scripts/preflight_local.py
+```
+
+### Host dependencies the installer does not provide
+
+Absent in this container, and each one silently limits a feature rather than
+failing loudly:
+
+- **ffmpeg** — missing. MoviePy needs it; no video feature works without it.
+- **ImageMagick** — missing, and `imagemagick_path` must point at the binary
+  for subtitle rendering.
+- **Firefox** — missing. No `firefox_profile` means no X/YouTube posting.
+- **Go** — present (`/usr/local/go/bin/go`), needed only for cold outreach.
 
 ### Install
 
@@ -292,10 +344,9 @@ than scheduled:
   which is what the `setup.sh` pattern already does — and do not import its
   code into this codebase.
 
-### Gotchas to expect
+### Gotchas
 
 - `python3.12` specifically. On a box where `python3` is 3.13, the installer
   skips the step rather than building a venv that breaks later.
-- The cold-outreach path shells out to a **Go** helper, so `go` must be on
-  `PATH` for that one feature. The installer warns instead of skipping, because
-  the other three work without it.
+- The clone ships its own `CLAUDE.md` and `AGENTS.md`. They live in `$WORKDIR`,
+  outside this repo, so they do not apply to work here.

@@ -102,6 +102,14 @@ cold outreach. Installed on demand by `./ai-tools/setup.sh` into
 `~/ai-tools/MoneyPrinterV2`; **not vendored** here and not part of any build or
 deploy. Needs **Python 3.12** — upstream says 3.13 does not work.
 
+Installed and boot-verified 2026-09-24; not configured and never run against a
+live account. Two things about it surprise people: its LLM is a **local Ollama**
+(`ollama_base_url`/`ollama_model`), not OpenRouter like the rest of this repo's
+tooling, and the X/YouTube posting path drives a **logged-in Firefox profile**
+rather than platform API keys. Images need a `GEMINI_API_KEY`. It also wants
+ffmpeg and ImageMagick on the host, and ~6.3 GB of disk. Run
+`.venv/bin/python scripts/preflight_local.py` after editing `config.json`.
+
 It is the one tool here that publishes on its own, so:
 
 - `~/ai-tools/MoneyPrinterV2/config.json` is a credential file (API keys plus
