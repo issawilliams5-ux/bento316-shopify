@@ -102,8 +102,12 @@ cold outreach. Installed on demand by `./ai-tools/setup.sh` into
 `~/ai-tools/MoneyPrinterV2`; **not vendored** here and not part of any build or
 deploy. Needs **Python 3.12** — upstream says 3.13 does not work.
 
-Installed and boot-verified 2026-09-24; not configured and never run against a
-live account. Two things about it surprise people: its LLM is a **local Ollama**
+**Run it on a desktop, not in a cloud session.** The posting path needs a
+logged-in Firefox profile and the LLM is a local Ollama — a container has
+neither, and this environment's network policy blocks installing either. It is
+installed and boot-verified here (2026-09-24) as far as that goes: not
+configured, never run against a live account. `ai-tools/README.md` has the
+Windows setup. Two things about it surprise people: its LLM is a **local Ollama**
 (`ollama_base_url`/`ollama_model`), not OpenRouter like the rest of this repo's
 tooling, and the X/YouTube posting path drives a **logged-in Firefox profile**
 rather than platform API keys. Images need a `GEMINI_API_KEY`. It also needs ffmpeg and

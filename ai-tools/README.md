@@ -300,15 +300,23 @@ unreachable local Ollama and an empty `nanobanana2_api_key`/`GEMINI_API_KEY`.
 
 ### Install
 
-macOS/Linux:
+**Windows is the right host for this tool**, and the reason is not preference:
+the posting path needs a logged-in **Firefox profile**, and the LLM is a
+**local Ollama**. Both live on a desktop you actually sign in on. A cloud
+container has neither, and cannot get them.
 
-```bash
-./ai-tools/setup.sh          # step 4 of the installer; $WORKDIR defaults to ~/ai-tools
-```
-
-Windows (no PowerShell step for this tool — `setup.ps1` stays OpenManus-only):
+There is no PowerShell installer for this tool — `setup.ps1` stays
+OpenManus-only. These are the commands it would run, and they are short enough
+that an untested 100-line script would add risk rather than remove it.
 
 ```powershell
+# 1. Host dependencies. Verify the IDs first with `winget search <name>`.
+winget install Python.Python.3.12
+winget install Gyan.FFmpeg
+winget install ImageMagick.ImageMagick
+winget install Ollama.Ollama          # skip if you already have it
+
+# 2. The tool itself
 git clone --depth 1 https://github.com/FujiwaraChoki/MoneyPrinterV2.git $HOME\ai-tools\MoneyPrinterV2
 cd $HOME\ai-tools\MoneyPrinterV2
 py -3.12 -m venv .venv
@@ -316,17 +324,42 @@ py -3.12 -m venv .venv
 Copy-Item config.example.json config.json
 ```
 
-Then fill in `config.json`. The installer copies upstream's
-`config.example.json` **verbatim** and prefills nothing — the field names are
-upstream's to define, and guessing them would produce a file that looks right
-and silently does the wrong thing.
+Open a **new** terminal after the winget installs so `PATH` picks them up, then
+confirm: `ffmpeg -version`, `magick -version`, `ollama list`.
+
+Then fill in `config.json`. Nothing prefills it — the field names are
+upstream's to define, and guessing them produces a file that looks right and
+silently does the wrong thing. The four that matter:
+
+| Field | Windows value |
+|---|---|
+| `ollama_base_url` | `http://127.0.0.1:11434` — correct as shipped when Ollama runs on the same box |
+| `ollama_model` | a tag from your own `ollama list`, e.g. `llama3.1:8b`. Empty by default |
+| `imagemagick_path` | the **ImageMagick 7** binary, `C:\Program Files\ImageMagick-7.x.x-Q16-HDRI\magick.exe` — `magick.exe`, not the `convert.exe` a Linux host uses |
+| `firefox_profile` | `%APPDATA%\Mozilla\Firefox\Profiles\<something>.default-release`. Find yours from `about:profiles` in Firefox — the one whose "Root Directory" it lists |
+
+JSON needs backslashes escaped: `"C:\\Program Files\\..."`.
+
+The Firefox profile must be **logged in to the accounts it will post from**, so
+sign in once in that profile by hand first. Firefox also cannot run the same
+profile twice — close the browser before a run, or the automation will fail to
+attach.
 
 ### Run
 
+```powershell
+cd $HOME\ai-tools\MoneyPrinterV2
+.\.venv\Scripts\python.exe scripts\preflight_local.py   # check config before anything else
+.\.venv\Scripts\python.exe src\main.py                  # interactive menu
+```
+
+macOS/Linux (this repo's installer handles it as step 4 of 4):
+
 ```bash
+./ai-tools/setup.sh                   # $WORKDIR defaults to ~/ai-tools
 cd ~/ai-tools/MoneyPrinterV2
-.venv/bin/python src/main.py        # interactive menu over all four features
-bash scripts/<name>.sh              # one feature headlessly; run from the repo root
+.venv/bin/python scripts/preflight_local.py
+.venv/bin/python src/main.py
 ```
 
 ### Guardrails
