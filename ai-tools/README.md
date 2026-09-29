@@ -261,7 +261,7 @@ holds three things, not a menu: `preflight_local.py`, `setup_local.sh`,
 ### What the preflight reported here, unconfigured
 
 ```
-[WARN] imagemagick_path is not set to a valid executable path...
+[WARN] imagemagick_path is not set to a valid executable path...   <- fixed, see below
 [WARN] firefox_profile is empty. Twitter/YouTube automation requires this.
 [FAIL] Ollama is not reachable at http://127.0.0.1:11434
 [FAIL] nanobanana2_api_key is empty (and GEMINI_API_KEY is not set)
@@ -278,14 +278,25 @@ cd ~/ai-tools/MoneyPrinterV2 && .venv/bin/python scripts/preflight_local.py
 
 ### Host dependencies the installer does not provide
 
-Absent in this container, and each one silently limits a feature rather than
-failing loudly:
+These are `apt` packages, not Python ones, so `setup.sh` does not install them
+— and each one silently limits a feature rather than failing loudly.
 
-- **ffmpeg** — missing. MoviePy needs it; no video feature works without it.
-- **ImageMagick** — missing, and `imagemagick_path` must point at the binary
-  for subtitle rendering.
-- **Firefox** — missing. No `firefox_profile` means no X/YouTube posting.
+Installed here on 2026-09-29 with `apt-get install -y ffmpeg imagemagick`:
+
+- **ffmpeg 6.1.1** — present. Verified end to end: ffmpeg encodes, and
+  MoviePy 2.1.2 opens the result.
+- **ImageMagick 6.9.12** (`/usr/bin/convert`) — present, and `config.json`'s
+  `imagemagick_path` now points at it, which clears the preflight warning.
+  Note it is the **ImageMagick 6** line, so the binary is `convert`, not
+  `magick`; on a host with ImageMagick 7 that path is `/usr/bin/magick`.
+
+Still absent:
+
+- **Firefox** — no `firefox_profile` means no X/YouTube posting.
 - **Go** — present (`/usr/local/go/bin/go`), needed only for cold outreach.
+
+The two remaining preflight blockers are configuration, not packages: an
+unreachable local Ollama and an empty `nanobanana2_api_key`/`GEMINI_API_KEY`.
 
 ### Install
 

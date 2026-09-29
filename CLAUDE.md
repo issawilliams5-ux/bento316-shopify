@@ -106,8 +106,9 @@ Installed and boot-verified 2026-09-24; not configured and never run against a
 live account. Two things about it surprise people: its LLM is a **local Ollama**
 (`ollama_base_url`/`ollama_model`), not OpenRouter like the rest of this repo's
 tooling, and the X/YouTube posting path drives a **logged-in Firefox profile**
-rather than platform API keys. Images need a `GEMINI_API_KEY`. It also wants
-ffmpeg and ImageMagick on the host, and ~6.3 GB of disk. Run
+rather than platform API keys. Images need a `GEMINI_API_KEY`. It also needs ffmpeg and
+ImageMagick on the host (`apt-get install ffmpeg imagemagick`; both are
+installed here and the video path is verified) and ~6.3 GB of disk. Run
 `.venv/bin/python scripts/preflight_local.py` after editing `config.json`.
 
 It is the one tool here that publishes on its own, so:
