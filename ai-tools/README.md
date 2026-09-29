@@ -213,3 +213,184 @@ Pick the model in the app's settings gear. Local Ollama also works via
 Ports don't collide: screenshot-to-code is 7001 + 5173, OpenUI is 7878, and
 this app's Next dev server is 3000. Nothing here is on the Next.js build path
 or the Vercel deploy.
+
+## MoneyPrinterV2 (2026-09-24)
+
+[`FujiwaraChoki/MoneyPrinterV2`](https://github.com/FujiwaraChoki/MoneyPrinterV2)
+— **AGPL-3.0**, a complete rewrite of the original MoneyPrinter with a modular
+architecture. Four features: a Twitter/X bot, a YouTube Shorts automator (both
+with CRON schedulers), Amazon affiliate marketing posts, and local-business
+scraping for cold outreach. Python **3.12** — upstream says 3.13 does not work.
+
+**Why it's here:** it is the only tool in this directory that owns the whole
+publish loop — generate a short, caption it, post it, and keep posting on a
+schedule. `ai-video-studio-kit` cuts clips, HyperFrames renders them, OpenManus
+researches; MoneyPrinterV2 is the piece that puts something on an account
+every day without a human in the loop. That is also exactly why it is the most
+dangerous thing here, so read the guardrails below before you enable a job.
+
+### Status: installed and verified (2026-09-24)
+
+Installed clean into `~/ai-tools/MoneyPrinterV2` by `setup.sh` on Python
+**3.12.3**, all requirements resolved, `config.json` seeded at `0600`, the
+`config` module imports, and upstream's own `scripts/preflight_local.py` runs.
+It has **not** produced or posted anything — no credentials were configured and
+nothing was pointed at a live account.
+
+**Budget ~6.3 GB of disk.** `requirements.txt` pulls `faster-whisper`, which
+drags in `torch` plus the full set of NVIDIA CUDA wheels (`nvidia-cublas`,
+`cusolver`, `cusparse`, `triton`, …) whether or not there is a GPU. That is the
+single biggest install in `ai-tools/`.
+
+**Upstream has moved well past the feature list in its own README.** What the
+code actually wants, read off `config.example.json` and the preflight:
+
+| Concern | What it uses |
+|---|---|
+| LLM | **Ollama**, local, `ollama_base_url` (default `http://127.0.0.1:11434`) + `ollama_model` — not OpenRouter, not an API key |
+| Images | **Nano Banana 2** via Google's `generativelanguage` endpoint — `nanobanana2_api_key`, or `GEMINI_API_KEY` in the environment |
+| Speech-to-text | `stt_provider` — local `faster-whisper` (`whisper_model`/`device`/`compute_type`) or **AssemblyAI** (`assembly_ai_api_key`) |
+| Posting | `post_bridge` (see `src/post_bridge_integration.py`) **plus a real `firefox_profile`** — the X/YouTube automation drives a logged-in Firefox, so there are no platform API keys to paste |
+| Outreach | `google_maps_scraper` + `google_maps_scraper_niche`, `scraper_timeout`, and an `email` block with `outreach_message_subject` / `outreach_message_body_file` |
+| Subtitles/render | `imagemagick_path`, `font`, `threads`, `script_sentence_length` |
+
+Scheduling lives in `src/cron.py`; the entry point is `src/main.py`. `scripts/`
+holds three things, not a menu: `preflight_local.py`, `setup_local.sh`,
+`upload_video.sh`.
+
+### What the preflight reported here, unconfigured
+
+```
+[WARN] imagemagick_path is not set to a valid executable path...   <- fixed, see below
+[WARN] firefox_profile is empty. Twitter/YouTube automation requires this.
+[FAIL] Ollama is not reachable at http://127.0.0.1:11434
+[FAIL] nanobanana2_api_key is empty (and GEMINI_API_KEY is not set)
+[OK]   faster-whisper is installed
+[OK]   Nano Banana 2 base URL reachable
+```
+
+Every one of those is expected on a fresh install — it is a report, not a gate,
+and it exits 0 either way. Re-run it after editing `config.json`:
+
+```bash
+cd ~/ai-tools/MoneyPrinterV2 && .venv/bin/python scripts/preflight_local.py
+```
+
+### Host dependencies the installer does not provide
+
+These are `apt` packages, not Python ones, so `setup.sh` does not install them
+— and each one silently limits a feature rather than failing loudly.
+
+Installed here on 2026-09-29 with `apt-get install -y ffmpeg imagemagick`:
+
+- **ffmpeg 6.1.1** — present. Verified end to end: ffmpeg encodes, and
+  MoviePy 2.1.2 opens the result.
+- **ImageMagick 6.9.12** (`/usr/bin/convert`) — present, and `config.json`'s
+  `imagemagick_path` now points at it, which clears the preflight warning.
+  Note it is the **ImageMagick 6** line, so the binary is `convert`, not
+  `magick`; on a host with ImageMagick 7 that path is `/usr/bin/magick`.
+
+Still absent:
+
+- **Firefox** — no `firefox_profile` means no X/YouTube posting.
+- **Go** — present (`/usr/local/go/bin/go`), needed only for cold outreach.
+
+The two remaining preflight blockers are configuration, not packages: an
+unreachable local Ollama and an empty `nanobanana2_api_key`/`GEMINI_API_KEY`.
+
+### Install
+
+**Windows is the right host for this tool**, and the reason is not preference:
+the posting path needs a logged-in **Firefox profile**, and the LLM is a
+**local Ollama**. Both live on a desktop you actually sign in on. A cloud
+container has neither, and cannot get them.
+
+There is no PowerShell installer for this tool — `setup.ps1` stays
+OpenManus-only. These are the commands it would run, and they are short enough
+that an untested 100-line script would add risk rather than remove it.
+
+```powershell
+# 1. Host dependencies. Verify the IDs first with `winget search <name>`.
+winget install Python.Python.3.12
+winget install Gyan.FFmpeg
+winget install ImageMagick.ImageMagick
+winget install Ollama.Ollama          # skip if you already have it
+
+# 2. The tool itself
+git clone --depth 1 https://github.com/FujiwaraChoki/MoneyPrinterV2.git $HOME\ai-tools\MoneyPrinterV2
+cd $HOME\ai-tools\MoneyPrinterV2
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Copy-Item config.example.json config.json
+```
+
+Open a **new** terminal after the winget installs so `PATH` picks them up, then
+confirm: `ffmpeg -version`, `magick -version`, `ollama list`.
+
+Then fill in `config.json`. Nothing prefills it — the field names are
+upstream's to define, and guessing them produces a file that looks right and
+silently does the wrong thing. The four that matter:
+
+| Field | Windows value |
+|---|---|
+| `ollama_base_url` | `http://127.0.0.1:11434` — correct as shipped when Ollama runs on the same box |
+| `ollama_model` | a tag from your own `ollama list`, e.g. `llama3.1:8b`. Empty by default |
+| `imagemagick_path` | the **ImageMagick 7** binary, `C:\Program Files\ImageMagick-7.x.x-Q16-HDRI\magick.exe` — `magick.exe`, not the `convert.exe` a Linux host uses |
+| `firefox_profile` | `%APPDATA%\Mozilla\Firefox\Profiles\<something>.default-release`. Find yours from `about:profiles` in Firefox — the one whose "Root Directory" it lists |
+
+JSON needs backslashes escaped: `"C:\\Program Files\\..."`.
+
+The Firefox profile must be **logged in to the accounts it will post from**, so
+sign in once in that profile by hand first. Firefox also cannot run the same
+profile twice — close the browser before a run, or the automation will fail to
+attach.
+
+### Run
+
+```powershell
+cd $HOME\ai-tools\MoneyPrinterV2
+.\.venv\Scripts\python.exe scripts\preflight_local.py   # check config before anything else
+.\.venv\Scripts\python.exe src\main.py                  # interactive menu
+```
+
+macOS/Linux (this repo's installer handles it as step 4 of 4):
+
+```bash
+./ai-tools/setup.sh                   # $WORKDIR defaults to ~/ai-tools
+cd ~/ai-tools/MoneyPrinterV2
+.venv/bin/python scripts/preflight_local.py
+.venv/bin/python src/main.py
+```
+
+### Guardrails
+
+These are not optional, and they are the reason this tool is documented rather
+than scheduled:
+
+- **`config.json` is a credential file** — API keys plus social account logins.
+  It lives in `$WORKDIR` at `0600` and must never be copied into this repo or
+  pasted into an issue, a PR, or a chat.
+- **Every scheduler feature posts to a live account.** Run each feature once
+  by hand and read what it produced before you let CRON near it. Use a burner
+  account while you are still learning what it writes.
+- **Automated posting is against some platforms' terms.** Whether a bot may
+  post, and how often, is the account owner's call and the platform's rule —
+  check both before scheduling, and never point it at a client's account
+  without written say-so.
+- **The cold-outreach feature scrapes local businesses and e-mails them.**
+  That is regulated (GDPR, CAN-SPAM). Do not send from it without a lawful
+  basis, a real sender identity, and a working unsubscribe path.
+- **Generated content still needs a human read.** Unreviewed LLM output on a
+  brand account is a brand risk, not a time saving.
+- **AGPL-3.0 is viral over a network.** Running it internally is fine; if any
+  of it ends up serving users, the AGPL's source-disclosure obligation lands on
+  whatever it is linked into. Keep it in `$WORKDIR` as a standalone tool —
+  which is what the `setup.sh` pattern already does — and do not import its
+  code into this codebase.
+
+### Gotchas
+
+- `python3.12` specifically. On a box where `python3` is 3.13, the installer
+  skips the step rather than building a venv that breaks later.
+- The clone ships its own `CLAUDE.md` and `AGENTS.md`. They live in `$WORKDIR`,
+  outside this repo, so they do not apply to work here.
