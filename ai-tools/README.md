@@ -394,3 +394,26 @@ than scheduled:
   skips the step rather than building a venv that breaks later.
 - The clone ships its own `CLAUDE.md` and `AGENTS.md`. They live in `$WORKDIR`,
   outside this repo, so they do not apply to work here.
+
+## ai-website-cloner-template (2026-10-05)
+
+[JCodesMore/ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)
+(MIT) — a Next.js 16 / React 19 / Tailwind v4 / shadcn template whose bundled
+`/clone-website <url>` agent command recreates a live site as a clean Next.js
+app. Installed by `ai-tools/setup.sh` (and `setup.ps1` where present) into
+`~/ai-tools/ai-website-cloner-template`; not vendored here.
+
+- **Install:** clone, drop the `origin` remote, `npm ci`, `npm run typecheck`.
+  Verified in a cloud session on 2026-10-05 (v0.6.1): install and typecheck pass.
+- **Node:** upstream asks for Node 24+. On Node 22 `npm ci` only warns and
+  typecheck passes; use 24 for `next build`/`dev` if anything misbehaves.
+- **Run:** `cd ~/ai-tools/ai-website-cloner-template`, start `claude` (with
+  browser access), `/clone-website https://example.com`, then `npm run dev`
+  → http://localhost:3000.
+
+**Guardrails:** clone sites you own or are licensed to reproduce — for
+reference/redesign of our own store, or a layout study. Copying a competitor's
+copy, imagery, logos or trade dress and publishing it is infringement, and
+Shopify's terms forbid it on a storefront. Output is a Next.js app, not a
+Shopify theme: treat it as a first draft and port what you keep, re-adding
+validation and accessibility per the Ponytail rules.
