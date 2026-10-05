@@ -201,6 +201,27 @@ step_moneyprinter() {
   .venv/bin/python scripts/preflight_local.py || true
 }
 
+# --------------------------------------------------------- ai-website-cloner --
+# Next.js 16 template driven by its own /clone-website agent command. Upstream
+# pins Node >=24 in "engines"; older Node only warns at install. The origin
+# remote is dropped so a clone of someone's site can never be pushed upstream.
+step_website_cloner() {
+  local dir="$WORKDIR/ai-website-cloner-template"
+  local miss
+  miss="$(missing_of "git|git" "npm|node(https://nodejs.org)")"
+  if [ -n "$miss" ]; then
+    echo "    skipped - missing:$miss"
+    SKIPPED="$SKIPPED ai-website-cloner"
+    return 0
+  fi
+
+  clone_once https://github.com/JCodesMore/ai-website-cloner-template.git "$dir" || return 1
+  cd "$dir" || return 1
+  git remote remove origin 2>/dev/null || true
+  npm ci --no-audit --no-fund || return 1
+  npm run typecheck
+}
+
 run_step() {
   echo "==> $1"
   if ( set -e; "$2" ); then :; else
@@ -209,10 +230,11 @@ run_step() {
   fi
 }
 
-run_step "1/4 OpenManus"           step_openmanus          OpenManus
-run_step "2/4 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
-run_step "3/4 OpenUI"              step_openui             openui
-run_step "4/4 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
+run_step "1/5 OpenManus"           step_openmanus          OpenManus
+run_step "2/5 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
+run_step "3/5 OpenUI"              step_openui             openui
+run_step "4/5 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
+run_step "5/5 ai-website-cloner"  step_website_cloner     ai-website-cloner
 
 cat <<EOF
 
@@ -240,6 +262,11 @@ MoneyPrinterV2 - no port; interactive CLI
 
   Fill in $WORKDIR/MoneyPrinterV2/config.json first. Every cron/scheduler
   feature posts to live accounts - see the guardrails in ai-tools/README.md.
+
+ai-website-cloner - Next.js app, open http://localhost:3000
+  cd $WORKDIR/ai-website-cloner-template
+  claude                                      # then: /clone-website https://example.com
+  npm run dev
 
 Both UI tools need a vision-capable model key to generate anything.
 See ai-tools/README.md and .env.example.

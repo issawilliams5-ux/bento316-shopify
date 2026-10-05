@@ -208,6 +208,26 @@ function Step-OpenUI {
   if ($LASTEXITCODE -ne 0) { throw "server import failed." }
 }
 
+# --------------------------------------------------------- ai-website-cloner --
+# Next.js 16 template driven by its own /clone-website agent command. Upstream
+# pins Node >=24; older Node only warns. The origin remote is dropped so a clone
+# of someone's site can never be pushed upstream.
+function Step-WebsiteCloner {
+  $miss = @()
+  if (-not (Have git)) { $miss += "git(https://git-scm.com/download/win)" }
+  if (-not (Have npm)) { $miss += "node(https://nodejs.org)" }
+  if ($miss.Count) { Write-Host "    skipped - missing: $($miss -join ' ')"; $script:Skipped += "ai-website-cloner"; return }
+
+  $repo = Join-Path $WorkDir "ai-website-cloner-template"
+  Clone-Once "https://github.com/JCodesMore/ai-website-cloner-template.git" $repo
+  Set-Location $repo
+  if (git remote) { git remote remove origin }
+  npm ci --no-audit --no-fund
+  if ($LASTEXITCODE -ne 0) { throw "npm ci failed." }
+  npm run typecheck
+  if ($LASTEXITCODE -ne 0) { throw "typecheck failed." }
+}
+
 function Run-Step($label, $name, $fn) {
   if ($Only -and $Only -ne $name) { return }
   Write-Host "==> $label" -ForegroundColor Cyan
@@ -219,9 +239,10 @@ function Run-Step($label, $name, $fn) {
 }
 
 New-Item -ItemType Directory -Force -Path $WorkDir | Out-Null
-Run-Step "1/3 OpenManus"          "OpenManus"          ${function:Step-OpenManus}
-Run-Step "2/3 screenshot-to-code" "screenshot-to-code" ${function:Step-ScreenshotToCode}
-Run-Step "3/3 OpenUI"             "openui"             ${function:Step-OpenUI}
+Run-Step "1/4 OpenManus"          "OpenManus"          ${function:Step-OpenManus}
+Run-Step "2/4 screenshot-to-code" "screenshot-to-code" ${function:Step-ScreenshotToCode}
+Run-Step "3/4 OpenUI"             "openui"             ${function:Step-OpenUI}
+Run-Step "4/4 ai-website-cloner"  "ai-website-cloner"  ${function:Step-WebsiteCloner}
 
 Write-Host ""
 Write-Host "------------------------------------------------------------------"
@@ -234,6 +255,9 @@ Write-Host "  cd `"$WorkDir\screenshot-to-code\frontend`"; pnpm dev"
 Write-Host ""
 Write-Host "OpenUI - one process, open http://localhost:7878"
 Write-Host "  cd `"$WorkDir\openui\backend`"; .\.venv\Scripts\python.exe -m openui"
+Write-Host ""
+Write-Host "ai-website-cloner - Next.js app, open http://localhost:3000"
+Write-Host "  cd `"$WorkDir\ai-website-cloner-template`"; claude  (then /clone-website <url>); npm run dev"
 Write-Host ""
 Write-Host "Both UI tools need a vision-capable model key to generate anything."
 Write-Host "See ai-tools\README.md and .env.example."

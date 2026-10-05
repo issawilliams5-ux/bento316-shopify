@@ -93,6 +93,24 @@ are the complement to OpenManus (decides its own multi-step plan) and Skyvern
 
 Full install/run instructions, ports, keys and gotchas: `ai-tools/README.md`.
 
+# Site cloning: ai-website-cloner-template (installed on demand)
+
+[ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)
+(MIT) turns a URL into a Next.js 16 app via its `/clone-website <url>` command.
+Installed by `./ai-tools/setup.sh` into `~/ai-tools/ai-website-cloner-template`
+(origin remote removed); the app itself is **not vendored** and not part of any build or deploy.
+Only clone sites we own or may reproduce — never ship a competitor's copy,
+images or branding. Output is Next.js, not Liquid: a first draft to port from.
+Details: `ai-tools/README.md`.
+
+Its skill is also vendored here, so no install is needed to use it:
+`.claude/skills/clone-website/` (upstream SKILL.md + references, MIT,
+pinned at upstream `ee3f5a2`) and `.claude/skills/shopify-design-import/`, which
+auto-activates on asks like "take this design and add it to my Shopify store"
+and builds native Liquid sections in the theme repo (`bento316-shopify-store`)
+rather than a Next.js app. Invoke directly with `/clone-website <url>` or
+`/shopify-design-import`.
+
 # Publishing automation: MoneyPrinterV2 (installed on demand)
 
 [MoneyPrinterV2](https://github.com/FujiwaraChoki/MoneyPrinterV2) (**AGPL-3.0**)
