@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 
 // Tune here: lower uSpeed = slower drift.
-const SPEED = 0.08;
+const SPEED = 0.05;
+// Cream wash over the gradient: higher = less orange.
+const WASH = 0.45;
 // Grain overlay opacity (the shader's own grain is fixed-strength and too heavy).
 const GRAIN = 0.08;
 const NOISE =
@@ -42,6 +44,7 @@ export default function HeroGradient() {
           rotationZ={50}
         />
       </ShaderGradientCanvas>
+      <div className="absolute inset-0 bg-[#FAF7F2]" style={{ opacity: WASH }} />
       <div className="absolute inset-0 mix-blend-multiply" style={{ backgroundImage: NOISE, opacity: GRAIN }} />
     </div>
   );
