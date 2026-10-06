@@ -5,7 +5,7 @@ import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 // Tune here: lower uSpeed = slower drift.
 const SPEED = 0.065;
 // Cream wash over the gradient: higher = less orange.
-const WASH = 0.45;
+const WASH = 0.55;
 // Grain overlay opacity (the shader's own grain is fixed-strength and too heavy).
 const GRAIN = 0.12;
 const NOISE =
