@@ -200,3 +200,16 @@ navigates, clicks and fills, and there are no e2e tests here),
 
 Before adding a fourth, check it is not something the session already reaches.
 Anything unused in a fortnight comes back out.
+
+# Ad claim check: TypeSafe (optional, keyed)
+
+`lib/claim-check.ts` runs after `generateAdPack()` and asks a TypeSafe Noul
+question per copy line: does it guarantee a result or make a health, medical,
+income or before/after claim? Lines at or above `FLAG_AT` (0.5, untuned) come
+back in `pack.claimCheck.flags`; the copy itself is never edited.
+
+- Opt-in via `TYPESAFE_API_KEY`, server-side only. Each line is one API call
+  (~100 per pack), so check spend before turning it on.
+- `claimCheck.status` is `checked`, `skipped` (no key) or `unavailable` (any
+  error) — a failed check is never reported as clean.
+- A flag is a prompt for human review, not legal clearance.
