@@ -5,10 +5,17 @@
         "source": "github",
         "repo": "issawilliams5-ux/flick"
       }
+    },
+    "typesafe-ai": {
+      "source": {
+        "source": "github",
+        "repo": "typesafe-ai/skills"
+      }
     }
   },
   "enabledPlugins": {
-    "flick@flick": true
+    "flick@flick": true,
+    "typesafe@typesafe-ai": true
   },
   "statusLine": {
     "type": "command",
