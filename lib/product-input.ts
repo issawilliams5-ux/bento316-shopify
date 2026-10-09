@@ -19,6 +19,7 @@ export function parseProductInput(body: unknown): { input: ProductInput } | { er
   for (const key of optionalUrls) {
     const value = typeof raw[key] === 'string' ? raw[key].trim() : '';
     if (!value) continue;
+    if (value.length > MAX) return { error: `${key} must be ${MAX} characters or fewer.` };
     let url: URL;
     try { url = new URL(value); } catch { return { error: `${key} must be a full URL.` }; }
     if (url.protocol !== 'https:' && url.protocol !== 'http:') return { error: `${key} must be an http(s) URL.` };
