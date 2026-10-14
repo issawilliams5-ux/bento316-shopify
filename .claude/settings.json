@@ -92,5 +92,9 @@
       "Bash(graft-dev:*)",
       "Bash(node dist/cli.js:*)"
     ]
+  },
+  "env": {
+    "DO_NOT_TRACK": "1",
+    "IMPECCABLE_NO_TELEMETRY": "1"
   }
 }

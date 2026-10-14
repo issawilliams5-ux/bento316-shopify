@@ -175,17 +175,23 @@ placeholder var this repo expects if/when Skyvern is wired in.
 
 # MCP servers (`.mcp.json`)
 
-Three, deliberately. Every connected server injects its tool list into the
+Four, deliberately. Every connected server injects its tool list into the
 prompt on *every* turn, so this file is a budget, not a wishlist.
 
+- **`graft`** (`graft mcp`) — the graft code-graph tooling this repo's
+  `.claude/helpers` statusline and edit hooks already use.
 - **`context7`** (http) — version-correct docs for whatever is being imported.
   Next.js, React, Tailwind, `@supabase/supabase-js` and `stripe` all move fast
   enough that half-remembered APIs are the main source of code that reads
   perfectly and does not run.
-- **`chrome-devtools`** (npx) — console errors, network requests and perf
-  traces read off the live page, and it drives the page too. Needs Chrome and a
-  current Node LTS. Pinned to an exact version rather than `@latest`, so a new
-  release cannot execute here unreviewed; bump it deliberately.
+- **`chrome-devtools`** (node launcher) — console errors, network requests and perf
+  traces read off the live page, and it drives the page too. Started through
+  `.claude/helpers/mcp-browser.cjs`, which pins `chrome-devtools-mcp@1.10.1`
+  (never `@latest`, so a new release cannot execute here unreviewed; bump it
+  there deliberately), turns Google usage statistics and CrUX lookups off, and
+  picks the browser: the desktop's Chrome, or in a cloud container the
+  preinstalled Chromium, headless with `--no-sandbox` as root. Verified
+  2026-10-14: 30 tools, loaded a page in the cloud container.
 - **`stripe`** (http) — this repo has a real integration (`lib/stripe.ts`,
   billing settings, the `001_initial_schema.sql` migration). OAuth on first use.
   **Point it at a sandbox before live mode**: the same tools that read a
@@ -198,7 +204,7 @@ navigates, clicks and fills, and there are no e2e tests here),
 `firecrawl` (needs a paid key; `ai-tools/` already covers crawling), and
 `sequential-thinking` (a scaffold for models without native extended thinking).
 
-Before adding a fourth, check it is not something the session already reaches.
+Before adding a fifth, check it is not something the session already reaches.
 Anything unused in a fortnight comes back out.
 
 # Ad claim check: TypeSafe (optional, keyed)
@@ -213,3 +219,88 @@ back in `pack.claimCheck.flags`; the copy itself is never edited.
 - `claimCheck.status` is `checked`, `skipped` (no key) or `unavailable` (any
   error) — a failed check is never reported as clean.
 - A flag is a prompt for human review, not legal clearance.
+
+# Legal assistant (Harvey-style, built in)
+
+`/dashboard/legal` → `POST /api/legal` → `lib/legal.ts`. Modes: `contract`,
+`claims`, `policy`. Requires a Supabase login (bearer token) and is rate-limited
+per user via `usage_events` (`LEGAL_RATE_LIMIT`, default 20/window). Model via
+OpenRouter (`OPENROUTER_API_KEY`, `LEGAL_MODEL`, default
+`anthropic/claude-sonnet-4.5`), falling back to `OPENAI_API_KEY`. Output is
+triage, never legal advice; documents are not stored and only sizes are logged.
+
+# /arena — tournament for a better answer (vendored skill)
+
+[Jakeschincariol/arena-skill](https://github.com/Jakeschincariol/arena-skill)
+(MIT, pinned at upstream `df07b8e`), vendored at `.claude/skills/arena/`. When an
+answer is not good enough, `/arena` gives N sub-agents the same task with
+different strategy cards and runs an attack → defend → judge bracket until one
+solution survives. `bracket.py` (stdlib Python 3.8+) holds all state in
+`.arena/<run>/arena.json` (gitignored); `bracket.py next` resumes after compaction.
+
+- **Cost guardrail:** default 100 agents = 595 sub-agent calls. Use `--quick`
+  (16 agents, 91 calls) or `--agents 8` (43) unless the user asks for more, and
+  run `python3 .claude/skills/arena/bracket.py plan --agents N` to show the bill
+  first. Never start it unprompted without asking.
+- It never edits the project; the winning answer comes back for the user to apply.
+- Sub-agents can't see the chat: everything they need goes in `.arena/task.md`.
+- Use accept-edits mode for a run, or every `.arena/` file write prompts.
+
+# /brag-slim — launch video for what we built (vendored skill)
+
+[latent-spaces/brag](https://github.com/latent-spaces/brag) (MIT, pinned at
+upstream `069432c`); its single-file `brag-slim` skill is vendored at
+`.claude/skills/brag-slim/`. Turns this project, or a URL (e.g. the live
+Bento316 store), into a ~20s launch video plus `share-copy.txt` in
+`brag-output/` (gitignored). Needs ffmpeg and Node 22, both present in the
+cloud container, plus a headless browser for rendering (Playwright's Chromium is preinstalled).
+
+- The full Hyperframes-based `/brag` (17 MB of bundled music/SFX) is not
+  vendored; on Opus 5.5 it hands off to `brag-slim` anyway. For it or for voiceover:
+  `npx skills add https://github.com/latent-spaces/brag --skill brag`.
+- The output is public-facing: no secrets, internal URLs or real customer data
+  on screen or in the share copy, and only claims the product can back (see the
+  legal assistant's `claims` mode).
+
+# Website design toolkit (from the "Build better-looking websites with Claude" guide)
+
+Three design-skill packs are vendored in `.claude/skills/` (licences inside
+each folder), plus a browser-check step. Use them on any UI work, alongside
+`apple-design`:
+
+- **Emil Kowalski's skills** — [emilkowalski/skills](https://github.com/emilkowalski/skills)
+  (MIT, pinned `2d22863`): `emil-design-eng` (polish philosophy), `animate`,
+  `review-animations`, `improve-animations`, `find-animation-opportunities`,
+  `animation-performance`, `animation-vocabulary`, `mobile-native`,
+  `break-ui`, `pick-ui-library`, `prototype`. Not vendored: `write-swift`,
+  `animate-expo`, `ask-sonner` (not our stack); upstream's `apple-design` is
+  the same as ours.
+- **Impeccable** — [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+  (Apache-2.0, pinned `2f98774`, engine 0.1.14; keep `LICENSE` and `NOTICE.md`):
+  `/impeccable` with 24 sub-commands (`audit`, `polish`, `critique`,
+  `typeset`, `layout`, `colorize`, `harden`, …) and a 59-rule detector for
+  AI-design tells, contrast and accessibility.
+  - The detector is a Rust binary the launcher downloads from GitHub releases to
+    `~/.impeccable/bin/` on first use (sha256-checked). Scanning a URL needs
+    Chromium; as root set `CI=1`.
+  - **Telemetry is on by default** (concept-seed "roll" feature, plus update
+    checks to impeccable.style). Off for every Claude Code session here:
+    `.claude/settings.json` sets `DO_NOT_TRACK=1` and `IMPECCABLE_NO_TELEMETRY=1`.
+  - `npx impeccable install` was *not* used: it also adds Stop/PostToolUse hooks
+    that run the detector on every edit. Opt in deliberately if wanted.
+  - It can't read `.liquid` or resolve Tailwind classes from source; scan the
+    rendered page (`next dev` URL or store preview).
+- **Taste** — [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
+  (MIT, pinned `f624f37`): `taste-skill` deals 3 researched art directions
+  before coding, then screenshots at 1440/768/390 and fixes what looks
+  templated. For public pages, not dashboards; a full run is 30–45 min and a
+  few hundred thousand tokens. `taste-skill-v2-experimental` is the older
+  version with the `DESIGN_VARIANCE` / `MOTION_INTENSITY` / `VISUAL_DENSITY`
+  dials. Its inspector needs `--no-sandbox` as root (set `CHROME_PATH` to a
+  wrapper that adds it). Working files go to `.taste-skill/` (gitignored).
+- **Figma** — already a session connector plus the `figma:*` skills; nothing
+  to add here. Needs a Figma full or dev seat.
+- **Browser check** — `chrome-devtools` (see the MCP section) is this repo's
+  "open the site and test it" step and works in the cloud container too;
+  Playwright MCP is deliberately not added. `node
+  .claude/helpers/mcp-browser.cjs playwright` launches it if ever needed.

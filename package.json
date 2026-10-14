@@ -31,5 +31,10 @@
     "postcss": "latest",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "$postcss"
+    }
   }
 }

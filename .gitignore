@@ -15,3 +15,10 @@
 .env
 .env.local
 .env.*.local
+
+# /arena run state and /brag-slim renders (local, never committed)
+.arena/
+brag-output*/
+
+# taste-skill working files (direction sheet, inspector screenshots)
+.taste-skill/
