@@ -304,3 +304,17 @@ each folder), plus a browser-check step. Use them on any UI work, alongside
   "open the site and test it" step and works in the cloud container too;
   Playwright MCP is deliberately not added. `node
   .claude/helpers/mcp-browser.cjs playwright` launches it if ever needed.
+
+# TypeScript 7 (side by side with the TS 6 API)
+
+`npm run typecheck` runs the **TypeScript 7** native compiler
+(`typescript7` → `typescript@7.0.2`). TS 7 ships no classic JS API, and
+typescript-eslint (via `eslint-config-next`) refuses TS 7, so the `typescript`
+package name is aliased to **`@typescript/typescript6`** (the official TS 6 API
+re-export): ESLint, `next build`'s type check and editors load that.
+
+- Plain `npx tsc` is TS 6 (`@typescript/old` owns the `tsc` bin); use
+  `npm run typecheck` for TS 7.
+- Drop the alias (set `typescript` back to a real version) once
+  typescript-eslint supports TS 7:
+  https://github.com/typescript-eslint/typescript-eslint/issues/10940
