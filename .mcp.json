@@ -11,10 +11,10 @@
       "url": "https://mcp.context7.com/mcp"
     },
     "chrome-devtools": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "chrome-devtools-mcp@1.9.0"
+        "${CLAUDE_PROJECT_DIR:-.}/.claude/helpers/mcp-browser.cjs",
+        "chrome-devtools"
       ]
     },
     "stripe": {

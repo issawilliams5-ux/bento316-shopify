@@ -7,7 +7,8 @@ import { FlatCompat } from '@eslint/eslintrc';
 const compat = new FlatCompat({ baseDirectory: dirname(fileURLToPath(import.meta.url)) });
 
 const config = [
-  { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts'] },
+  // .claude/skills holds vendored third-party skills; the rest are local tool output.
+  { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts', '.claude/skills/**', 'brag-output*/**', '.arena/**', '.taste-skill/**'] },
   ...compat.extends('next/core-web-vitals'),
 ];
 

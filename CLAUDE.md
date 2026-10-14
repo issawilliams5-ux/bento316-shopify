@@ -175,17 +175,23 @@ placeholder var this repo expects if/when Skyvern is wired in.
 
 # MCP servers (`.mcp.json`)
 
-Three, deliberately. Every connected server injects its tool list into the
+Four, deliberately. Every connected server injects its tool list into the
 prompt on *every* turn, so this file is a budget, not a wishlist.
 
+- **`graft`** (`graft mcp`) — the graft code-graph tooling this repo's
+  `.claude/helpers` statusline and edit hooks already use.
 - **`context7`** (http) — version-correct docs for whatever is being imported.
   Next.js, React, Tailwind, `@supabase/supabase-js` and `stripe` all move fast
   enough that half-remembered APIs are the main source of code that reads
   perfectly and does not run.
-- **`chrome-devtools`** (npx) — console errors, network requests and perf
-  traces read off the live page, and it drives the page too. Needs Chrome and a
-  current Node LTS. Pinned to an exact version rather than `@latest`, so a new
-  release cannot execute here unreviewed; bump it deliberately.
+- **`chrome-devtools`** (node launcher) — console errors, network requests and perf
+  traces read off the live page, and it drives the page too. Started through
+  `.claude/helpers/mcp-browser.cjs`, which pins `chrome-devtools-mcp@1.10.1`
+  (never `@latest`, so a new release cannot execute here unreviewed; bump it
+  there deliberately), turns Google usage statistics and CrUX lookups off, and
+  picks the browser: the desktop's Chrome, or in a cloud container the
+  preinstalled Chromium, headless with `--no-sandbox` as root. Verified
+  2026-10-14: 30 tools, loaded a page in the cloud container.
 - **`stripe`** (http) — this repo has a real integration (`lib/stripe.ts`,
   billing settings, the `001_initial_schema.sql` migration). OAuth on first use.
   **Point it at a sandbox before live mode**: the same tools that read a
@@ -198,7 +204,7 @@ navigates, clicks and fills, and there are no e2e tests here),
 `firecrawl` (needs a paid key; `ai-tools/` already covers crawling), and
 `sequential-thinking` (a scaffold for models without native extended thinking).
 
-Before adding a fourth, check it is not something the session already reaches.
+Before adding a fifth, check it is not something the session already reaches.
 Anything unused in a fortnight comes back out.
 
 # Ad claim check: TypeSafe (optional, keyed)
@@ -278,8 +284,8 @@ each folder), plus a browser-check step. Use them on any UI work, alongside
     `~/.impeccable/bin/` on first use (sha256-checked). Scanning a URL needs
     Chromium; as root set `CI=1`.
   - **Telemetry is on by default** (concept-seed "roll" feature, plus update
-    checks to impeccable.style). Run with `DO_NOT_TRACK=1` or
-    `impeccable telemetry off`.
+    checks to impeccable.style). Off for every Claude Code session here:
+    `.claude/settings.json` sets `DO_NOT_TRACK=1` and `IMPECCABLE_NO_TELEMETRY=1`.
   - `npx impeccable install` was *not* used: it also adds Stop/PostToolUse hooks
     that run the detector on every edit. Opt in deliberately if wanted.
   - It can't read `.liquid` or resolve Tailwind classes from source; scan the
@@ -294,9 +300,7 @@ each folder), plus a browser-check step. Use them on any UI work, alongside
   wrapper that adds it). Working files go to `.taste-skill/` (gitignored).
 - **Figma** — already a session connector plus the `figma:*` skills; nothing
   to add here. Needs a Figma full or dev seat.
-- **Browser check** — this repo uses `chrome-devtools` (in `.mcp.json`) for the
-  guide's "open the site and test it" step; Playwright MCP is deliberately not
-  added (see the MCP section). In the cloud container it cannot find Chrome as
-  configured; for a cloud run add `--headless --isolated --executablePath
-  /opt/pw-browsers/chromium --chromeArg=--no-sandbox`. It sends Google usage
-  statistics unless `--no-usage-statistics` (and `--no-performance-crux`) is set.
+- **Browser check** — `chrome-devtools` (see the MCP section) is this repo's
+  "open the site and test it" step and works in the cloud container too;
+  Playwright MCP is deliberately not added. `node
+  .claude/helpers/mcp-browser.cjs playwright` launches it if ever needed.
