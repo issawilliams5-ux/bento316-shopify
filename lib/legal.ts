@@ -25,7 +25,7 @@ const SEVERITIES = new Set(['high', 'medium', 'low']);
 export function parseLegalRequest(body: unknown): { mode: LegalMode; text: string } {
   if (!body || typeof body !== 'object') throw new LegalReviewError('Body must be a JSON object', 400);
   const { mode, text } = body as Record<string, unknown>;
-  if (typeof mode !== 'string' || !(mode in LEGAL_MODES)) throw new LegalReviewError(`mode must be one of: ${Object.keys(LEGAL_MODES).join(', ')}`, 400);
+  if (typeof mode !== 'string' || !Object.hasOwn(LEGAL_MODES, mode)) throw new LegalReviewError(`mode must be one of: ${Object.keys(LEGAL_MODES).join(', ')}`, 400);
   if (typeof text !== 'string' || !text.trim()) throw new LegalReviewError('text is required', 400);
   if (text.length > MAX_CHARS) throw new LegalReviewError(`text is limited to ${MAX_CHARS} characters`, 413);
   return { mode: mode as LegalMode, text };
