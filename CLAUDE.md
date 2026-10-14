@@ -255,3 +255,48 @@ cloud container, plus a headless browser for rendering (Playwright's Chromium is
 - The output is public-facing: no secrets, internal URLs or real customer data
   on screen or in the share copy, and only claims the product can back (see the
   legal assistant's `claims` mode).
+
+# Website design toolkit (from the "Build better-looking websites with Claude" guide)
+
+Three design-skill packs are vendored in `.claude/skills/` (licences inside
+each folder), plus a browser-check step. Use them on any UI work, alongside
+`apple-design`:
+
+- **Emil Kowalski's skills** — [emilkowalski/skills](https://github.com/emilkowalski/skills)
+  (MIT, pinned `2d22863`): `emil-design-eng` (polish philosophy), `animate`,
+  `review-animations`, `improve-animations`, `find-animation-opportunities`,
+  `animation-performance`, `animation-vocabulary`, `mobile-native`,
+  `break-ui`, `pick-ui-library`, `prototype`. Not vendored: `write-swift`,
+  `animate-expo`, `ask-sonner` (not our stack); upstream's `apple-design` is
+  the same as ours.
+- **Impeccable** — [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+  (Apache-2.0, pinned `2f98774`, engine 0.1.14; keep `LICENSE` and `NOTICE.md`):
+  `/impeccable` with 24 sub-commands (`audit`, `polish`, `critique`,
+  `typeset`, `layout`, `colorize`, `harden`, …) and a 59-rule detector for
+  AI-design tells, contrast and accessibility.
+  - The detector is a Rust binary the launcher downloads from GitHub releases to
+    `~/.impeccable/bin/` on first use (sha256-checked). Scanning a URL needs
+    Chromium; as root set `CI=1`.
+  - **Telemetry is on by default** (concept-seed "roll" feature, plus update
+    checks to impeccable.style). Run with `DO_NOT_TRACK=1` or
+    `impeccable telemetry off`.
+  - `npx impeccable install` was *not* used: it also adds Stop/PostToolUse hooks
+    that run the detector on every edit. Opt in deliberately if wanted.
+  - It can't read `.liquid` or resolve Tailwind classes from source; scan the
+    rendered page (`next dev` URL or store preview).
+- **Taste** — [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
+  (MIT, pinned `f624f37`): `taste-skill` deals 3 researched art directions
+  before coding, then screenshots at 1440/768/390 and fixes what looks
+  templated. For public pages, not dashboards; a full run is 30–45 min and a
+  few hundred thousand tokens. `taste-skill-v2-experimental` is the older
+  version with the `DESIGN_VARIANCE` / `MOTION_INTENSITY` / `VISUAL_DENSITY`
+  dials. Its inspector needs `--no-sandbox` as root (set `CHROME_PATH` to a
+  wrapper that adds it). Working files go to `.taste-skill/` (gitignored).
+- **Figma** — already a session connector plus the `figma:*` skills; nothing
+  to add here. Needs a Figma full or dev seat.
+- **Browser check** — this repo uses `chrome-devtools` (in `.mcp.json`) for the
+  guide's "open the site and test it" step; Playwright MCP is deliberately not
+  added (see the MCP section). In the cloud container it cannot find Chrome as
+  configured; for a cloud run add `--headless --isolated --executablePath
+  /opt/pw-browsers/chromium --chromeArg=--no-sandbox`. It sends Google usage
+  statistics unless `--no-usage-statistics` (and `--no-performance-crux`) is set.
