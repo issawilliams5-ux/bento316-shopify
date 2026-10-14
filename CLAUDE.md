@@ -213,3 +213,12 @@ back in `pack.claimCheck.flags`; the copy itself is never edited.
 - `claimCheck.status` is `checked`, `skipped` (no key) or `unavailable` (any
   error) — a failed check is never reported as clean.
 - A flag is a prompt for human review, not legal clearance.
+
+# Legal assistant (Harvey-style, built in)
+
+`/dashboard/legal` → `POST /api/legal` → `lib/legal.ts`. Modes: `contract`,
+`claims`, `policy`. Requires a Supabase login (bearer token) and is rate-limited
+per user via `usage_events` (`LEGAL_RATE_LIMIT`, default 20/window). Model via
+OpenRouter (`OPENROUTER_API_KEY`, `LEGAL_MODEL`, default
+`anthropic/claude-sonnet-4.5`), falling back to `OPENAI_API_KEY`. Output is
+triage, never legal advice; documents are not stored and only sizes are logged.
