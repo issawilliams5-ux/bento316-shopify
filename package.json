@@ -11,7 +11,7 @@
     "@supabase/supabase-js": "^2.52.0",
     "camera-controls": "^3.1.2",
     "lucide-react": "^0.468.0",
-    "next": "^15.4.1",
+    "next": "16.3.8",
     "openai": "^5.10.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -20,14 +20,13 @@
     "three-stdlib": "^2.36.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.7",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/three": "^0.186.0",
     "eslint": "^9.31.0",
-    "eslint-config-next": "^15.4.1",
+    "eslint-config-next": "16.3.8",
     "postcss": "latest",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.8.3"

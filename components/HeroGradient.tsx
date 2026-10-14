@@ -1,5 +1,5 @@
 'use client';
-import { Component, useEffect, useState, type ReactNode } from 'react';
+import { Component, useSyncExternalStore, type ReactNode } from 'react';
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 
 // Tune here: lower uSpeed = slower drift.
@@ -14,14 +14,26 @@ const NOISE =
 // Shown when the shader can't run (no WebGL, reduced motion, or a render error).
 const STATIC_BG = 'radial-gradient(ellipse at 10% 20%, #D97757 0%, transparent 60%), #FAF7F2';
 
+let webglSupport: boolean | undefined;
 function hasWebGL() {
-  try {
-    const c = document.createElement('canvas');
-    return !!(c.getContext('webgl2') || c.getContext('webgl'));
-  } catch {
-    return false;
+  if (webglSupport === undefined) {
+    try {
+      const c = document.createElement('canvas');
+      webglSupport = !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      webglSupport = false;
+    }
   }
+  return webglSupport;
 }
+
+const REDUCE_MOTION = '(prefers-reduced-motion: reduce)';
+function onMotionChange(notify: () => void) {
+  const mq = window.matchMedia(REDUCE_MOTION);
+  mq.addEventListener('change', notify);
+  return () => mq.removeEventListener('change', notify);
+}
+const noSubscribe = () => () => {};
 
 // A decorative background must never take the page down with it.
 class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -35,16 +47,10 @@ class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
 }
 
 export default function HeroGradient() {
-  const [reduceMotion, setReduceMotion] = useState(true);
-  const [webgl, setWebgl] = useState(false);
-  useEffect(() => {
-    setWebgl(hasWebGL());
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduceMotion(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
+  // Server render (and hydration) assume reduced motion and no WebGL, so the
+  // static background shows first and the shader only mounts in the browser.
+  const reduceMotion = useSyncExternalStore(onMotionChange, () => window.matchMedia(REDUCE_MOTION).matches, () => true);
+  const webgl = useSyncExternalStore(noSubscribe, hasWebGL, () => false);
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: STATIC_BG }}>
