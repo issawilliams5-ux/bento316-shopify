@@ -15,7 +15,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
 
   if (!isSupabaseConfigured) {
     return <div className="mt-6 grid gap-3"><p className="text-slate-300">Demo mode: Supabase env vars are missing, so there is no account to sign in to.</p>
-      <Link href="/dashboard" className="rounded-xl bg-electric p-3 text-center font-bold">Continue in demo mode</Link></div>;
+      <Link href="/dashboard" className="rounded-xl bg-electric-strong p-3 text-center font-bold">Continue in demo mode</Link></div>;
   }
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -45,7 +45,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
     {signup && <label className="grid gap-1 text-sm text-slate-300">Name<input name="name" autoComplete="name" className={input} /></label>}
     <label className="grid gap-1 text-sm text-slate-300">Email<input name="email" type="email" required autoComplete="email" className={input} /></label>
     <label className="grid gap-1 text-sm text-slate-300">Password<input name="password" type="password" required minLength={signup ? 8 : undefined} autoComplete={signup ? 'new-password' : 'current-password'} className={input} /></label>
-    <button disabled={busy} className="rounded-xl bg-electric p-3 font-bold disabled:opacity-50">{busy ? 'Please wait…' : signup ? 'Create account' : 'Log in'}</button>
+    <button disabled={busy} className="rounded-xl bg-electric-strong p-3 font-bold disabled:opacity-50">{busy ? 'Please wait…' : signup ? 'Create account' : 'Log in'}</button>
     <div aria-live="polite">{error && <p role="alert" className="text-red-300">{error}</p>}{notice && <p className="text-emerald-300">{notice}</p>}</div>
     <p className="text-sm text-slate-400">{signup ? <>Have an account? <Link className="underline" href="/login">Log in</Link></> : <>New here? <Link className="underline" href="/signup">Create an account</Link></>}</p>
   </form>;

@@ -34,12 +34,12 @@ export default function Legal() {
     <p className="mt-2 text-slate-300">Paste a contract, ad copy or store policy for an AI first pass. Triage only, not legal advice.</p>
     <form onSubmit={submit} className="mt-6 grid gap-4">
       <fieldset className="flex flex-wrap gap-2"><legend className="sr-only">Review type</legend>
-        {modes.map(([value, label]) => <label key={value} className={`cursor-pointer rounded-xl px-3 py-2 ${mode === value ? 'bg-electric font-bold' : 'bg-white/10'}`}>
+        {modes.map(([value, label]) => <label key={value} className={`cursor-pointer rounded-xl px-3 py-2 ${mode === value ? 'bg-electric-strong font-bold' : 'bg-white/10'}`}>
           <input type="radio" name="mode" value={value} checked={mode === value} onChange={() => setMode(value)} className="sr-only" />{label}</label>)}
       </fieldset>
       <label className="grid gap-2 text-sm text-slate-300">Document
         <textarea required maxLength={60000} rows={14} value={text} onChange={e => setText(e.target.value)} className="rounded-xl bg-white/10 p-3 text-white" /></label>
-      <button disabled={busy || !text.trim()} className="rounded-xl bg-electric p-4 font-bold disabled:opacity-50">{busy ? 'Reviewing…' : 'Review'}</button>
+      <button disabled={busy || !text.trim()} className="rounded-xl bg-electric-strong p-4 font-bold disabled:opacity-50">{busy ? 'Reviewing…' : 'Review'}</button>
     </form>
     <div aria-live="polite">
       {error && <p role="alert" className="mt-6 text-red-300">{error}</p>}
