@@ -222,3 +222,36 @@ per user via `usage_events` (`LEGAL_RATE_LIMIT`, default 20/window). Model via
 OpenRouter (`OPENROUTER_API_KEY`, `LEGAL_MODEL`, default
 `anthropic/claude-sonnet-4.5`), falling back to `OPENAI_API_KEY`. Output is
 triage, never legal advice; documents are not stored and only sizes are logged.
+
+# /arena — tournament for a better answer (vendored skill)
+
+[Jakeschincariol/arena-skill](https://github.com/Jakeschincariol/arena-skill)
+(MIT, pinned at upstream `df07b8e`), vendored at `.claude/skills/arena/`. When an
+answer is not good enough, `/arena` gives N sub-agents the same task with
+different strategy cards and runs an attack → defend → judge bracket until one
+solution survives. `bracket.py` (stdlib Python 3.8+) holds all state in
+`.arena/<run>/arena.json` (gitignored); `bracket.py next` resumes after compaction.
+
+- **Cost guardrail:** default 100 agents = 595 sub-agent calls. Use `--quick`
+  (16 agents, 91 calls) or `--agents 8` (43) unless the user asks for more, and
+  run `python3 .claude/skills/arena/bracket.py plan --agents N` to show the bill
+  first. Never start it unprompted without asking.
+- It never edits the project; the winning answer comes back for the user to apply.
+- Sub-agents can't see the chat: everything they need goes in `.arena/task.md`.
+- Use accept-edits mode for a run, or every `.arena/` file write prompts.
+
+# /brag-slim — launch video for what we built (vendored skill)
+
+[latent-spaces/brag](https://github.com/latent-spaces/brag) (MIT, pinned at
+upstream `069432c`); its single-file `brag-slim` skill is vendored at
+`.claude/skills/brag-slim/`. Turns this project, or a URL (e.g. the live
+Bento316 store), into a ~20s launch video plus `share-copy.txt` in
+`brag-output/` (gitignored). Needs ffmpeg and Node 22, both present in the
+cloud container, plus a headless browser for rendering (Playwright's Chromium is preinstalled).
+
+- The full Hyperframes-based `/brag` (17 MB of bundled music/SFX) is not
+  vendored; on Opus 5.5 it hands off to `brag-slim` anyway. For it or for voiceover:
+  `npx skills add https://github.com/latent-spaces/brag --skill brag`.
+- The output is public-facing: no secrets, internal URLs or real customer data
+  on screen or in the share copy, and only claims the product can back (see the
+  legal assistant's `claims` mode).
