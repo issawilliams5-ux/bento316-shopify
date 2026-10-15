@@ -262,6 +262,49 @@ cloud container, plus a headless browser for rendering (Playwright's Chromium is
   on screen or in the share copy, and only claims the product can back (see the
   legal assistant's `claims` mode).
 
+# /motionmaxxing — directed motion films (vendored skill)
+
+[tejashmakwana/motionmaxxing](https://github.com/tejashmakwana/motionmaxxing)
+(Apache-2.0, pinned at upstream `8c8ec0f`; keep `LICENSE` and `NOTICE`), vendored
+at `.claude/skills/motionmaxxing/` without `docs/media/` (20 MB of showcase films;
+upstream's `install.sh --copy` drops them too). Launch films, product promos,
+brand stings, kinetic type, social ads and CTAs, built as plain HTML on a seek-safe
+GSAP runtime with eases measured from 53 pro films, then rendered to MP4 and
+checked by scripts (gates G0–G5: `look.py`, `lint.mjs`) instead of self-certified.
+Every film ships with a `NOTE.md` that quotes the gate numbers.
+
+- **Which video skill:** `brag-slim` for a quick ~20 s "look what we built" cut of
+  this project; `/motionmaxxing` when the film has to be directed (one idea,
+  storyboard, world, sound) and checked, or to rate and repair a draft. Websites
+  and designs: its measured eases (`runtime/motion.js`, `references/motion.md`)
+  and its "never ship" slop list are a good reference for site motion. But the
+  runtime is driven by seeking frames for rendering, not by live UI, so build site
+  interaction with `apple-design` and Emil's `animate`.
+- **Cloud container:** `export CHROME_PATH="$PWD/.claude/helpers/chrome-root.sh"`
+  (the preinstalled Chromium, with `--no-sandbox` as root and no background
+  update traffic). Verified 2026-10-15:
+  - `scripts/providers.sh` reports ready.
+  - The runtime selftest asserts PASS.
+  - The demo, phone and 3D-hero examples render; WebGL runs through SwiftShader,
+    at about 7.5 fps at `--scale 0.5`.
+  - `look.py` and `lint.mjs` run. The gates are real: they fail upstream's own
+    demo on G3 (a 2.0 s end hold).
+- **Optional keys:** `ELEVENLABS_API_KEY` for voice, SFX and music; without it,
+  films are silent. Codex CLI image generation is used for surface plates, and it
+  is not installed here. Keep keys in the environment and never commit them.
+- **GSAP licence:** `runtime/vendor/gsap.min.js` is under GreenSock's Standard
+  "No Charge" licence. It is not open source and not covered by the Apache
+  licence. It is fine for rendering our films, but read its terms before copying
+  it into the app or theme bundle. three.js and opentype.js are MIT; Inter is OFL.
+- **Brand capture and output:** `brand.mjs` captures a site. Point it only at
+  our own store or at sites we may reproduce, never at a competitor's. Films are
+  public-facing, so the brag rules apply:
+  - no secrets, internal URLs or real customer data;
+  - only claims we can back (legal assistant `claims` mode);
+  - generated imagery declared in `NOTE.md`.
+
+  Work goes in `film/` (gitignored).
+
 # Website design toolkit (from the "Build better-looking websites with Claude" guide)
 
 Three design-skill packs are vendored in `.claude/skills/` (licences inside
@@ -296,8 +339,8 @@ each folder), plus a browser-check step. Use them on any UI work, alongside
   templated. For public pages, not dashboards; a full run is 30–45 min and a
   few hundred thousand tokens. `taste-skill-v2-experimental` is the older
   version with the `DESIGN_VARIANCE` / `MOTION_INTENSITY` / `VISUAL_DENSITY`
-  dials. Its inspector needs `--no-sandbox` as root (set `CHROME_PATH` to a
-  wrapper that adds it). Working files go to `.taste-skill/` (gitignored).
+  dials. Its inspector needs `--no-sandbox` as root:
+  `CHROME_PATH=.claude/helpers/chrome-root.sh` adds it. Working files go to `.taste-skill/` (gitignored).
 - **Figma** — already a session connector plus the `figma:*` skills; nothing
   to add here. Needs a Figma full or dev seat.
 - **Browser check** — `chrome-devtools` (see the MCP section) is this repo's
