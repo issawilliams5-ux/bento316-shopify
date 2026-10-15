@@ -318,3 +318,8 @@ re-export): ESLint, `next build`'s type check and editors load that.
 - Drop the alias (set `typescript` back to a real version) once
   typescript-eslint supports TS 7:
   https://github.com/typescript-eslint/typescript-eslint/issues/10940
+- **ESLint stays on 9** (2026-10-15): `eslint-config-next` 16 bundles
+  `eslint-plugin-react` 7.37, `-import` 2.32 and `-jsx-a11y` 6.10, none of
+  which support ESLint 10 (react crashes on the removed
+  `context.getFilename`). Upgrade once they do; don't drop the a11y rules to
+  get there.
