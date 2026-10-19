@@ -398,5 +398,6 @@ Details, run commands and roadmaps: `ai-tools/README.md`.
 servers with 12 fixed tools and quarantines new servers until approved. It is
 **not** in `.mcp.json`; the four-server budget above still stands. Anonymous
 telemetry is on by default: run `mcpproxy telemetry disable`. `context-mode`
-(ELv2, hooks on every tool call) and `ruflo` (rewrites hooks and settings) were
-vetted and deliberately not installed. Details: `ai-tools/README.md`.
+(ELv2) is installed MCP-only at local scope, pinned `1.0.169`, without its
+hooks (the plugin route was blocked as self-modification); `ruflo` (rewrites
+hooks and settings) was vetted and not installed. Details: `ai-tools/README.md`.

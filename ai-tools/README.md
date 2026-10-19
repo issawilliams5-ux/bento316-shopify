@@ -486,3 +486,12 @@ bin/mcpproxy serve -c $PWD/mcpproxy-data/mcp_config.json -d $PWD/mcpproxy-data -
 ```
 
 **What this does not fix.** The MCP servers that fail to connect in cloud sessions are refused by the environment's egress proxy (`403` on the tunnel). A local gateway still has to reach the same hosts, so those need to be allowed in the environment's network settings.
+
+### context-mode: installed MCP-only (2026-10-19)
+
+Added with `claude mcp add --scope local context-mode -- npx -y context-mode@1.0.169` in each repo directory (pinned to the version I read; local scope, so it lives in `~/.claude.json`, is not committed, and is not in `.mcp.json`). `claude mcp list` shows it `Connected`; a stdio probe returned its 11 tools (`ctx_execute`, `ctx_execute_file`, `ctx_index`, `ctx_search`, `ctx_fetch_and_index`, `ctx_batch_execute`, `ctx_stats`, `ctx_doctor`, `ctx_upgrade`, `ctx_purge`, `ctx_insight`). Its tools appear in a session only after a restart.
+
+- **No hooks.** The plugin route (six hooks on every tool call) was blocked as self-modification and not used; MCP-only means it only helps when a tool is called on purpose, with no automatic routing of tool output.
+- **License is ELv2**, source-available, free to use, not open source.
+- Event forwarding to a remote service is off unless `~/.context-mode` config with an API key exists (it does not). `ctx_upgrade` pulls from GitHub and `ctx_insight` opens a hosted dashboard: avoid both on anything sensitive. `ctx_fetch_and_index` fetches URLs.
+- To remove: `claude mcp remove --scope local context-mode`. Re-run the add command after a container reset.
