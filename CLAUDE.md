@@ -384,7 +384,7 @@ Use `/anatomy <idea>` for an interactive isometric SVG explainer (needs Node
 - **ARTEMIS** (Google, Apache-2.0): Android automation from natural language,
   MCP server. Needs `adb` and a device/emulator: desktop only.
 - **VoiceStudio** (**AGPL-3.0**): local voice cloning/dubbing. Desktop with a
-  GPU; clone voices only with the speaker's permission; keep it a standalone
+  GPU; in the cloud container the backend runs on CPU via the PyPI-torch route in `ai-tools/README.md` (no models: Hugging Face is blocked); clone voices only with the speaker's permission; keep it a standalone
   tool and do not import its code here.
 - **OpenTerminal** (MIT): market dashboard on unofficial public data. Never use
   it for investment decisions; `ANTHROPIC_API_KEY` stays in the environment.

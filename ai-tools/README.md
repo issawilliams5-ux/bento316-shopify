@@ -449,6 +449,18 @@ ARTEMIS `351ca84`, VoiceStudio `18bf05a`, OpenTerminal `aed097c`, Anatomy
 | OpenTerminal | `npm run dev`: API `/api/status` ok, web `:3000` returns 200 | No AI assistant (no `ANTHROPIC_API_KEY`); data endpoints not checked |
 | ARTEMIS | `uv sync`; web console serves on `:8000` after building the Angular UI | No device: no task run. The UI build needs Node >= 22.22.3 (container has 22.22.0; used `npx node@24 ... ng build`) |
 | Anatomy | `node examples/dial-indicator/build.mjs` wrote its HTML | Browser checks and the 3D mode not run |
-| VoiceStudio | `bun install` | **Blocked:** `bun run setup:api` fails fetching torch wheels; the network policy denies `download-r2.pytorch.org`, `download.pytorch.org` and `huggingface.co`. Allow those hosts in the environment's network settings, or run it on a desktop |
+| VoiceStudio | `bun install`; backend installed from **PyPI torch** (see below); `setup.py` passed; `bun scripts/dev-backend.mjs` boots and `GET :3900/health` returns `{"status":"ok","device":"cpu","version":"0.5.7"}` | No model downloaded: `huggingface.co` is denied, so voice generation, ASR and watermark checkpoints are unavailable and the OmniVoice licence is not accepted. Frontend/Electron app not built or run. Stock `bun run setup:api` still fails (`download-r2.pytorch.org` denied) |
 
 Web builds need `cargo install trunk --locked` (about 7 min) and the `wasm32-unknown-unknown` target; trunk then downloads `wasm-bindgen` and `wasm-opt` itself. Each `trunk build --release` took about 8-10 min.
+
+**VoiceStudio without the PyTorch hosts.** Upstream pins torch to `download.pytorch.org`, which the cloud proxy denies. PyPI is allowed, so:
+
+```bash
+cd ~/ai-tools/VoiceStudio
+printf 'torch==2.8.0\ntorchaudio==2.8.0\ntorchvision==0.23.0\n' > ../voicestudio-torch-constraints.txt
+UV_CONSTRAINT=$PWD/../voicestudio-torch-constraints.txt uv sync --no-sources
+uv run --no-sync python scripts/setup.py
+UV_NO_SYNC=1 bun scripts/dev-backend.mjs          # API on :3900
+```
+
+`--no-sources` ignores upstream's index pins, so this resolves off the lockfile and installs the CUDA-flavoured `+cu128` wheels (about 8 GB in `.venv`) even on a CPU box; it runs on CPU. Always use `--no-sync` afterwards, or uv swaps torch back to the blocked index. On a desktop with the hosts reachable, use `bun run setup:api` instead.
