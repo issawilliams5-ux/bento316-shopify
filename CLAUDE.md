@@ -390,3 +390,13 @@ Use `/anatomy <idea>` for an interactive isometric SVG explainer (needs Node
   it for investment decisions; `ANTHROPIC_API_KEY` stays in the environment.
 
 Details, run commands and roadmaps: `ai-tools/README.md`.
+
+# MCP gateway: mcpproxy (installed on demand, not wired in)
+
+[mcpproxy-go](https://github.com/smart-mcp-proxy/mcpproxy-go) (MIT) is built at
+`~/ai-tools/bin/mcpproxy` and boot-verified (2026-10-19): it fronts upstream MCP
+servers with 12 fixed tools and quarantines new servers until approved. It is
+**not** in `.mcp.json`; the four-server budget above still stands. Anonymous
+telemetry is on by default: run `mcpproxy telemetry disable`. `context-mode`
+(ELv2, hooks on every tool call) and `ruflo` (rewrites hooks and settings) were
+vetted and deliberately not installed. Details: `ai-tools/README.md`.

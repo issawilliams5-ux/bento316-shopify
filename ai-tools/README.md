@@ -464,3 +464,25 @@ UV_NO_SYNC=1 bun scripts/dev-backend.mjs          # API on :3900
 ```
 
 `--no-sources` ignores upstream's index pins, so this resolves off the lockfile and installs the CUDA-flavoured `+cu128` wheels (about 8 GB in `.venv`) even on a CPU box; it runs on CPU. Always use `--no-sync` afterwards, or uv swaps torch back to the blocked index. On a desktop with the hosts reachable, use `bun run setup:api` instead.
+
+## Trending-tool sweep (2026-10-19): mcpproxy installed; others vetted and left out
+
+Sources: GitHub trending (weekly, daily), a web search for new MCP gateways. Licenses read from each repo page; READMEs read before deciding.
+
+| Repo | License | Decision |
+|---|---|---|
+| [smart-mcp-proxy/mcpproxy-go](https://github.com/smart-mcp-proxy/mcpproxy-go) | MIT | **Installed** in `~/ai-tools/mcpproxy-go`, binary `~/ai-tools/bin/mcpproxy` (built with `go build ./cmd/mcpproxy`, last upstream commit 2026-10-18). Local MCP gateway: clients see 12 fixed tools (`retrieve_tools`, `describe_tool`, `call_tool_*`, ...) instead of every upstream schema; new upstream servers are quarantined until approved. |
+| [mksglu/context-mode](https://github.com/mksglu/context-mode) | **ELv2** (source-available, not open source) | Not installed. Six hooks on every tool call, wipes session data on start, links a hosted dashboard. Needs a deliberate yes. |
+| [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | MIT | Not installed. Rewrites `.claude/` hooks and `CLAUDE.md`, registers its own MCP server, unsandboxed mods, `curl \| bash` option, self-reported benchmarks. |
+| [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | MIT | Not installed. Overlaps the Anatomy skill already vendored. |
+| `YuJunZhiXue/dsh-purge`, `morluto/rea` | - | Skipped: a self-described jailbreak; a 229k-stars-in-a-week count that does not look organic. |
+
+**mcpproxy state.** Verified: boots, `GET /healthz` ok, MCP `initialize` and `tools/list` over `http://127.0.0.1:8090/mcp` return its 12 tools. Not verified: an upstream server connecting and being approved, and use from a real client. It is **not** wired into `.mcp.json`; that file is a deliberate four-server budget. It has anonymous telemetry on by default: run `mcpproxy telemetry disable` (done for `~/ai-tools/mcpproxy-data`).
+
+```bash
+cd ~/ai-tools
+bin/mcpproxy telemetry disable -d $PWD/mcpproxy-data -c $PWD/mcpproxy-data/mcp_config.json
+bin/mcpproxy serve -c $PWD/mcpproxy-data/mcp_config.json -d $PWD/mcpproxy-data -l 127.0.0.1:8090
+```
+
+**What this does not fix.** The MCP servers that fail to connect in cloud sessions are refused by the environment's egress proxy (`403` on the tunnel). A local gateway still has to reach the same hosts, so those need to be allowed in the environment's network settings.
