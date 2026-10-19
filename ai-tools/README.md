@@ -496,3 +496,16 @@ Added with `claude mcp add --scope local context-mode -- npx -y context-mode@1.0
 - **Where its data lives:** `~/.claude/context-mode/sessions` (session database) and `~/.claude/context-mode/content` (indexed content), both local. Verified 2026-10-19 after indexing this README through `ctx_index`.
 - Event forwarding to a remote service is off unless a `platform.json` with an API key exists at `$XDG_CONFIG_HOME/context-mode/` (or `~/.context-mode/` when that variable is unset). Neither exists here. `ctx_upgrade` pulls from GitHub and `ctx_insight` opens a hosted dashboard: avoid both on anything sensitive. `ctx_fetch_and_index` fetches URLs.
 - To remove: `claude mcp remove --scope local context-mode`. Re-run the add command after a container reset.
+
+## superdesigndev sweep (2026-10-19): read, cloned for reference, nothing wired in
+
+| Repo | License | Free? | Decision |
+|---|---|---|---|
+| [superdesigndev/superdesign-skill](https://github.com/superdesigndev/superdesign-skill) | MIT | Skill yes; needs a `superdesign login` account on the hosted service, pricing not stated | Cloned to `~/ai-tools/superdesign-skill` (`f9f05cd`, 2026-08-21), **not vendored** into `.claude/skills/`. Its SKILL.md runs the unpinned `npx --yes @superdesign/cli@latest` every session, requires browser login, and sends codebase context (`init`) and URLs (`extract-website`) to superdesign.dev. Conflicts with this repo's pin-everything rule. |
+| [superdesigndev/superdesign](https://github.com/superdesigndev/superdesign) | not named on the page | Yes (says free and open source) | Skipped: a Cursor/VS Code extension, README says it is no longer maintained, and there is no IDE here. |
+| [superdesigndev/treg](https://github.com/superdesigndev/treg) | Apache-2.0 **with additional terms** (no competing hosted registry) | Software yes; hosted calls are paid per call, $1 free credit once | Not installed. Needs a treg.to account, `curl \| sh` install, anonymous PostHog usage data (off with `DO_NOT_TRACK=1`), and `treg upload` sends your `.env` keys to their server. |
+| [superdesigndev/loopany-platform](https://github.com/superdesigndev/loopany-platform) | MIT | Code yes; hosted pricing not stated | Cloned to `~/ai-tools/loopany-platform` (`df87548`, 2026-08-10), **not run**. Early-stage scheduler whose daemon runs your coding agent with your credentials on a schedule; not something to start unattended. |
+
+`superdesign.dev`, `loopany.ai` and `treg.to` are all refused by the cloud proxy (checked 2026-10-19), so none of the hosted services work from a cloud session anyway.
+
+**To use the Superdesign skill on a desktop,** after reading its SKILL.md: `npm install -g @superdesign/cli@<pinned version>`, `superdesign login`, then copy `skills/superdesign/` into `.claude/skills/` and change every `npx --yes @superdesign/cli@latest` in it to the pinned version.

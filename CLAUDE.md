@@ -401,3 +401,12 @@ telemetry is on by default: run `mcpproxy telemetry disable`. `context-mode`
 (ELv2) is installed MCP-only at local scope, pinned `1.0.169`, without its
 hooks (the plugin route was blocked as self-modification); `ruflo` (rewrites
 hooks and settings) was vetted and not installed. Details: `ai-tools/README.md`.
+
+# Superdesign / treg / loopany (read, not installed)
+
+Reviewed 2026-10-19; details and licenses in `ai-tools/README.md`. The Superdesign
+skill (MIT) is cloned to `~/ai-tools/superdesign-skill` but **not** vendored: it
+runs an unpinned `npx @superdesign/cli@latest`, needs a hosted account, and sends
+codebase context to superdesign.dev. `treg` (hosted, paid per call, uploads `.env`
+keys) and `loopany` (credentialed scheduled-agent daemon) are not installed. All
+three hosts are blocked in cloud sessions.
