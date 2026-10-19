@@ -413,4 +413,6 @@ which is **blocked in cloud sessions**, so it only works from a desktop. Never
 point it at confidential or customer data. `DO_NOT_TRACK=1` (already in
 `.claude/settings.json`) turns off the CLI's usage tracking. `treg` (hosted, paid
 per call, uploads `.env` keys) and `loopany` (credentialed scheduled-agent
-daemon) were reviewed and not installed. Details: `ai-tools/README.md`.
+daemon) were reviewed and not installed. The CC0 `superdesign-prompts` library (140
+specs, text only) is vendored at `.claude/skills/superdesign/prompt-library/` and
+works offline; `INDEX.md` is the entry point. Details: `ai-tools/README.md`.
