@@ -443,10 +443,12 @@ ARTEMIS `351ca84`, VoiceStudio `18bf05a`, OpenTerminal `aed097c`, Anatomy
 
 | Tool | Verified | Not verified / blocked |
 |---|---|---|
-| WordCraft | `wordcraft-cli` built; `.md` -> `.docx` -> `.pdf` and `info` ran | Desktop app and web build (`trunk`) not built; MCP mode not run |
-| SolidCraft | `solidcraft-cli` built; `examples/bracket.json` -> valid-size `.step` | Desktop app, web build and MCP mode not run |
+| WordCraft | `wordcraft-cli` built; `.md` -> `.docx` -> `.pdf` and `info` ran | `trunk build --release` of `apps/wordcraft-web` succeeded (output `dist/web`, 43 MB); served over HTTP, the home screen (templates, Recent) rendered in headless Chromium with no console errors | Desktop app and MCP mode not run; editing in the browser not exercised |
+| SolidCraft | `solidcraft-cli` built; `examples/bracket.json` -> valid-size `.step` | `trunk build --release --public-url ./` of `apps/solidcraft-web` succeeded (output `dist/web`, 48 MB) | The page loads but then panics in headless Chromium: wgpu `create_render_pipeline 'sc_tris'` fails because the GL fallback cannot do `textureLoad` on depth textures. Headless Chromium here has no WebGPU, so this is likely an environment limit, not confirmed; try a WebGPU browser. Desktop app and MCP mode not run |
 | XERJ | `xerj` built; node started on 127.0.0.1 (`--insecure`), `autoindex` of 4 files, `search` returned a lexical hit | `xerj init` (MCP wiring) not run; it edits client config |
 | OpenTerminal | `npm run dev`: API `/api/status` ok, web `:3000` returns 200 | No AI assistant (no `ANTHROPIC_API_KEY`); data endpoints not checked |
 | ARTEMIS | `uv sync`; web console serves on `:8000` after building the Angular UI | No device: no task run. The UI build needs Node >= 22.22.3 (container has 22.22.0; used `npx node@24 ... ng build`) |
 | Anatomy | `node examples/dial-indicator/build.mjs` wrote its HTML | Browser checks and the 3D mode not run |
 | VoiceStudio | `bun install` | **Blocked:** `bun run setup:api` fails fetching torch wheels; the network policy denies `download-r2.pytorch.org`, `download.pytorch.org` and `huggingface.co`. Allow those hosts in the environment's network settings, or run it on a desktop |
+
+Web builds need `cargo install trunk --locked` (about 7 min) and the `wasm32-unknown-unknown` target; trunk then downloads `wasm-bindgen` and `wasm-opt` itself. Each `trunk build --release` took about 8-10 min.
