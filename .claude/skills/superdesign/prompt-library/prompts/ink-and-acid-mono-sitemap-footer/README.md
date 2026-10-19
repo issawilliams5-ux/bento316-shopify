@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/ink-and-acid-mono-sitemap-footer?utm_s
 
 A near-black ink footer with acid-green accents and mono labels: four link columns, a newsletter, a live status pill, and a giant ghost wordmark.
 
-<img src="preview.png" alt="Ink & Acid Mono Sitemap Footer" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/ink-and-acid-mono-sitemap-footer/preview.png)
 
 ## Prompt
 

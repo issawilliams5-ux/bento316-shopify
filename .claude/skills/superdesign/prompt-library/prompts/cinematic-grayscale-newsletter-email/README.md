@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/cinematic-grayscale-newsletter-email?u
 
 A premium dark-mode creative newsletter email in a centered 600px column: near-black surface, crisp white Libre Franklin type, and full-bleed grayscale cinematic photography. A masthead + issue meta, a hero photo with a 1px hairline title box over it, an intro, two stacked 'selected work' blocks (grayscale still + title + caption + Watch link), an authority pull-quote, a high-contrast white CTA block, and a monochrome footer with unsubscribe. Reusable for filmmakers, photographers, and creative studios sending a 'new work' digest.
 
-<img src="preview.png" alt="Cinematic Grayscale Newsletter Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/cinematic-grayscale-newsletter-email/preview.png)
 
 ## Prompt
 

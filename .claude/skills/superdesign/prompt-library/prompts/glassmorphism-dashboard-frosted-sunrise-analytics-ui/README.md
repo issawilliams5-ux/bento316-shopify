@@ -16,7 +16,7 @@ A light, warm, high-contrast glassmorphism SaaS analytics dashboard (desktop). F
 
 Source: https://templatemo.com/tm-607-glass-admin
 
-<img src="preview.png" alt="Glassmorphism Dashboard: Frosted Sunrise Analytics UI" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/glassmorphism-dashboard-frosted-sunrise-analytics-ui/preview.png)
 
 ## Prompt
 

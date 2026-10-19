@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/cinematic-noir-style?utm_source=github
 
 A high-end 'Cinematic Noir' design system characterized by dramatic dark-mode aesthetics, high-contrast editorial typography, and immersive scroll-driven parallax effects. Suitable for creative agencies, luxury fashion, fintech, and high-end portfolios. Features include grain overlays, radial gradients with subtle warm tints, and brutalist-scale headings that blur the line between digital interface and cinematic experience.
 
-<img src="preview.png" alt="Cinematic Noir Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/cinematic-noir-style/preview.png)
 
 ## Prompt
 

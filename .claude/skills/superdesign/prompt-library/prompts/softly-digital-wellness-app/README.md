@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/softly-digital-wellness-app?utm_source
 
 A soft-aesthetic, Gen-Z oriented design system optimized for wellness, meditation, journaling, and lifestyle brands. Features a warm off-white foundation (#FDFCF8) layered with soft pastel accents (Coral #FFB7B2, Sage #E8EFE8, Lavender #EFEDF4), grain-textured overlays, and a mix of modern geometric sans-serif ('Outfit') and organic handwriting ('Reenie Beanie') typography. The layout emphasizes breathing room, gentle scroll-triggered reveals, and 'floating' organic shapes to reduce cognitive load and evoke a sense of calm.
 
-<img src="preview.png" alt="Softly - Digital Wellness App" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/softly-digital-wellness-app/preview.png)
 
 ## Prompt
 

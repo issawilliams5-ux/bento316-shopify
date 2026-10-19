@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/disruptor-beta-launch?utm_source=githu
 
 A high-impact Neo-Brutalist design system designed for product launches and disruptive SaaS platforms. Characterized by stark color contrasts, industrial typography, and heavy geometric borders. The aesthetic utilizes a dark mode base (#121212) punctuated by vibrant 'Volt' accents (#CCFF00) and crisp white containers. Key features include 'sticker-style' rotated elements, massive display type, solid 8px offsets (Neo-shadows), and vertical navigation elements. Ideal for high-growth tech, developer tools, fintech, and creative agencies looking for an aggressive, authoritative, and innovative brand presence.
 
-<img src="preview.jpg" alt="Disruptor Beta Launch" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/disruptor-beta-launch/preview.jpg)
 
 ## Prompt
 

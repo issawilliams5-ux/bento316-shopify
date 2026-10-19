@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/verdance-agency-website-design-studio-
 
 A dark-emerald design-studio / agency website with a single brass metallic accent: two forest-green surfaces (#0d1f17 / #0a1711), cream #f1ede3 text, an emerald/emeraldSoft green pair, and brass #c9a227 for all hairlines, bracketed labels, award diamonds and primary pills. A fixed glass nav over a hero whose giant tight Inter display headline (AGENCY / WEBSITES) carries an italic Fraunces serif accent (that win), a full-bleed palette-tinted feature photo, an infinite award marquee, a serif studio statement with a brass-gridline stat grid, an asymmetric work grid, a thin numbered services list, a recognition strip, a grain CTA, and a 4-column footer. High-craft editorial Awwwards-studio energy.
 
-<img src="preview.png" alt="Verdance — Agency Website Design Studio (Dark Emerald)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/verdance-agency-website-design-studio-dark-emerald/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/b16eea19-8eaf-43b8-ac65-ca86e94d7833"
 
 A Swiss-grid SaaS marketing homepage: stark white paper, near-black ink, one signal-red accent, an oversized two-line hero, an embedded prompt-to-canvas product mock, a hover-invert feature grid, a dark variant-tile workflow split, a 3-tier pricing block with an inverted Pro card, and a hairline-celled mega footer.
 
-<img src="preview.png" alt="Gridwright — Design the web, type the prompt (Swiss Grid / Signal Red)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/gridwright-design-the-web-type-the-prompt-swiss-grid-signal-red/preview.png)
 
 ## Prompt
 

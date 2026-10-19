@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/laboratory-skincare?utm_source=github&
 
 Laboratory Skincare is a warm academic, methodical design system inspired by research journals and clinical lab notebooks. It features a grid-based, disciplined layout with generous white space and a restrained color palette of off-whites, warm grays, and soft blacks. Ideal for medical-grade skincare, high-tech beauty, pharmaceutical brands, or scientific SaaS, the design focuses on data-driven trust, factual evidence, and structural clarity over luxury tropes. Key features include tabular data presentation, formula sheets, and a 'Protocol' approach to content organization.
 
-<img src="preview.png" alt="Laboratory Skincare" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/laboratory-skincare/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/bold-editorial-style?utm_source=github
 
 A high-contrast, editorial-style SaaS landing page design optimized for designers and creative tools. It features bold Anton display typography, a sophisticated palette of golden yellow (#ffe17c) and deep charcoal (#171e19), and a structured layout combining grid patterns and bento-box feature blocks. This style is characterized by aggressive visual hierarchy, oversized headlines, and a minimalist yet punchy aesthetic suitable for high-velocity startups, fintech, or creative agency portfolios.
 
-<img src="preview.png" alt="Bold Editorial Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/bold-editorial-style/preview.png)
 
 ## Prompt
 

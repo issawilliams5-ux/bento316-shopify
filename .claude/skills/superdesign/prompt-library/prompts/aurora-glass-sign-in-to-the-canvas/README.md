@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/c98899b2-32ee-4564-afb4-b914e4da709c"
 
 Dark aurora-glass split sign-in screen: frosted glassmorphic auth card with a glowing aqua focus ring and an aqua-to-magenta gradient CTA, floating over neon aurora blobs on near-black ink, beside a product pitch column. Space Grotesk + Inter.
 
-<img src="preview.png" alt="Aurora Glass — Sign in to the canvas" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/aurora-glass-sign-in-to-the-canvas/preview.png)
 
 ## Prompt
 

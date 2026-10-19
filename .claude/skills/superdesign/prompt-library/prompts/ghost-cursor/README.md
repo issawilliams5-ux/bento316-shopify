@@ -14,9 +14,9 @@ try_url: "https://superdesign.dev/library/ghost-cursor?utm_source=github&utm_med
 
 A fluid, smoky cursor trail effect using Three.js shader materials and post-processing bloom.
 
-<img src="preview.mp4" alt="Ghost Cursor" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/ghost-cursor/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/ghost-cursor/preview.mp4)** (MP4)
 
 ## Prompt
 

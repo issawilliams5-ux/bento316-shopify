@@ -39,7 +39,7 @@ Animation Types: Scanline sweep (continuous screen effect), mechanical snap (bu
 Accessibility: WCAG AAA contrast ratio compliance. High contrast between acid green (#D4FF00) and dark backgrounds ensures readability for color-blind users. Monospaced fonts aid focus and reduce cognitive load.
 Responsive: Fluid layout with 8px grid unit. Left panel (65%) canvas + right panel (35%) inspector adapts from desktop to tablet seamlessly.
 
-<img src="preview.png" alt="AI System Configuration Console" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/ai-system-configuration-console/preview.png)
 
 ## Prompt
 

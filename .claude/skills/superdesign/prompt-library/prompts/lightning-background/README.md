@@ -16,9 +16,9 @@ A high-performance WebGL-powered lightning/electric discharge background effect.
 
 Source: ReactBits
 
-<img src="preview.mp4" alt="Lightning Background" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/lightning-background/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/lightning-background/preview.mp4)** (MP4)
 
 ## Prompt
 

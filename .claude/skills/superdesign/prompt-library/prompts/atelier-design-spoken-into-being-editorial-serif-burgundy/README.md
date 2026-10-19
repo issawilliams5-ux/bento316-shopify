@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/atelier-design-spoken-into-being-edito
 
 An editorial, print-magazine CTA: an oversized Fraunces serif statement with a single burgundy italic line on warm cream paper, closed by an understated text-link call to action and a no-card trust line, framed by a sticky nav and a newsletter footer.
 
-<img src="preview.png" alt="Atelier — Design, Spoken Into Being (editorial serif / burgundy)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/atelier-design-spoken-into-being-editorial-serif-burgundy/preview.png)
 
 ## Prompt
 

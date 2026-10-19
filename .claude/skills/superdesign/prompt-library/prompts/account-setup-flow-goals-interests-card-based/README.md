@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/account-setup-flow-goals-interests-car
 
 A sleek, minimalist, and highly interactive 4-step onboarding flow designed for mobile-first experiences. Features high-contrast black and white aesthetics, modern typography using General Sans, and fluid motion using the View Transitions API. Ideal for SaaS, fintech, or lifestyle apps needing a premium, frictionless user registration or configuration sequence. Key elements include a persistent progress bar, springy micro-interactions, and clear, bold editorial typography.
 
-<img src="preview.png" alt="Account Setup Flow — Goals / Interests (Card-Based)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/account-setup-flow-goals-interests-card-based/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/chrome-extension-landing-page?utm_sour
 
 A browser-native developer tool aesthetic characterized by a 'system interface' look rather than a marketing landing page. This style features a light-neutral base with a vibrant cyan (#06B6D4) accent, mimicking the layout of Chrome DevTools or a workspace IDE. It uses a combination of Inter for primary readability and JetBrains Mono for technical labels and commands. Suitable for SaaS, developer tools, extensions, and technical platforms requiring a high-density, utility-focused layout with scroll-triggered panel reveals and simulated interactive environments.
 
-<img src="preview.png" alt="Chrome Extension Landing Page" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/chrome-extension-landing-page/preview.png)
 
 ## Prompt
 

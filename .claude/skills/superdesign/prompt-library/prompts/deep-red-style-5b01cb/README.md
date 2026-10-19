@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/deep-red-style-5b01cb?utm_source=githu
 
 A deep red/orange atmospheric gradients, elegant serif typography, and complex scroll-triggered animations, with floating parallax cards and a dot-grid background.
 
-<img src="preview.png" alt="Deep Red Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/deep-red-style-5b01cb/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/3d6be993-d468-4d67-bd54-e49c3545796d"
 
 A two-column desktop sign-up page: focused email + Google/GitHub social form on a bright white left half, dark emerald 'brand-mesh' panel with a floating product mock and testimonial on the right; sticky translucent nav, Inter, slate neutrals with a single emerald accent.
 
-<img src="preview.png" alt="Create your account · Promptly — split-image emerald sign-up" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/create-your-account-promptly-split-image-emerald-sign-up/preview.png)
 
 ## Prompt
 

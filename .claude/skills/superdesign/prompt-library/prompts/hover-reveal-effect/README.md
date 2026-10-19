@@ -14,9 +14,9 @@ try_url: "https://superdesign.dev/library/hover-reveal-effect?utm_source=github&
 
 Source: https://x.com/emilylambert/status/2005113433780617713
 
-<img src="preview.png" alt="Hover reveal effect" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/hover-reveal-effect/preview.png)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/hover-reveal-effect/preview.mp4)** (MP4)
 
 ## Prompt
 

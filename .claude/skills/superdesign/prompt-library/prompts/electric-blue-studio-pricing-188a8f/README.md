@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/electric-blue-studio-pricing-188a8f?ut
 
 A frameless, near-black dev-tool SaaS pricing page with one electric-blue accent, oversized outlined-type headline, and a single-plan card (monthly/annual toggle + optional power-up add-ons) instead of a tier wall.
 
-<img src="preview.png" alt="Electric-Blue Studio Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/electric-blue-studio-pricing-188a8f/preview.png)
 
 ## Prompt
 

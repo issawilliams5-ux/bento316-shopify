@@ -16,9 +16,9 @@ A minimalist showcase of a high-end WebGL light rays background effect with mous
 
 Source: ReactBits
 
-<img src="preview.mp4" alt="Light Rays Background" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/light-rays-background/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/light-rays-background/preview.mp4)** (MP4)
 
 ## Prompt
 

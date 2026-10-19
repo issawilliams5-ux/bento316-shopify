@@ -16,9 +16,9 @@ An interactive, premium folder component with a playful opening animation and dr
 
 Source: ReactBits
 
-<img src="preview.mp4" alt="Interactive Folder" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/interactive-folder/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/interactive-folder/preview.mp4)** (MP4)
 
 ## Prompt
 

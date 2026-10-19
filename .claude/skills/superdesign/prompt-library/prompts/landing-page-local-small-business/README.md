@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/landing-page-local-small-business?utm_
 
 Best practice high conversion page for local small business like Service, Restaurant, etc.
 
-<img src="preview.png" alt="Landing Page / Local Small Business" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/landing-page-local-small-business/preview.png)
 
 ## Prompt
 

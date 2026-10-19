@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/validar-forms-that-catch-mistakes-befo
 
 A teal-on-paper SaaS landing page for an inline form-validation tool: a sticky glass nav, a split hero with a live account-creation card showing all four field states (idle, active, valid, error) at once, a four-up state-model band, a dark-teal 'submit unlocks itself' section, a benefit grid, and a footer. Color + icon + plain-words validation, Inter, soft layered shadows.
 
-<img src="preview.png" alt="Validar — Forms that catch mistakes before they cost you" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/validar-forms-that-catch-mistakes-before-they-cost-you/preview.png)
 
 ## Prompt
 

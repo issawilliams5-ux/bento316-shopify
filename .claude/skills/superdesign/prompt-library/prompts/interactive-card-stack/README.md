@@ -14,9 +14,9 @@ try_url: "https://superdesign.dev/library/interactive-card-stack?utm_source=gith
 
 A premium, interactive card stack component with drag-to-back physics, random rotations, and smooth motion transitions. Features autoplay, mobile-optimized interactions, and highly customizable animation configurations.
 
-<img src="preview.mp4" alt="Interactive Card Stack" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/interactive-card-stack/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/interactive-card-stack/preview.mp4)** (MP4)
 
 ## Prompt
 

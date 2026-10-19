@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/coral-gradient-product-launch-email?ut
 
 A modern product-launch / feature-announcement email in a centered 600px column: a heavy Sora headline with a cobalt pill CTA, a coral-to-pink gradient hero card framing a product-UI vignette, three alternating feature blocks each with a designed mini-UI (a prompt bar to a live preview, a component-token grid, a syntax-highlighted code snippet) and an outline button, a dark closing CTA band, and a minimal legal footer. Sora + Inter, ink on white with a warm coral gradient and a single cobalt accent. Reusable as any SaaS feature or launch announcement email.
 
-<img src="preview.png" alt="Coral Gradient Product-Launch Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/coral-gradient-product-launch-email/preview.png)
 
 ## Prompt
 

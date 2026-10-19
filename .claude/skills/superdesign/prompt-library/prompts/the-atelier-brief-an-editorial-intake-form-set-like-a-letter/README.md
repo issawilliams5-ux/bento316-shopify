@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/the-atelier-brief-an-editorial-intake-
 
 An editorial intake form set like a letter: a warm cream page in Fraunces serif + Inter with a single burgundy accent, borderless underline inputs with serif labels (Name / E-mail, Project / Budget, Message), structured by full-bleed cream/ink/cream bands and hairline rules instead of cards, and a quiet ink 'Submit the brief' button.
 
-<img src="preview.png" alt="The Atelier Brief — an editorial intake form, set like a letter" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/the-atelier-brief-an-editorial-intake-form-set-like-a-letter/preview.png)
 
 ## Prompt
 

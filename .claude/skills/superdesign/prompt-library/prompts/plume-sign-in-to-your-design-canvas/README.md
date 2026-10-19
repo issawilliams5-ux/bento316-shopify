@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/plume-sign-in-to-your-design-canvas?ut
 
 Warm, illustrated AI design-agent sign-in landing in sky-blue and coral: a sticky frosted nav over a two-panel side-panel login card (gradient illustration aside plus email, password and social auth), floating blobs, dot-grid texture and rounded-everything Nunito type.
 
-<img src="preview.png" alt="Plume · Sign in to your design canvas" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/plume-sign-in-to-your-design-canvas/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/hyper-saturated-fluid?utm_source=githu
 
 A landing page featuring a Hyper-Saturated Fluid design style. It uses a 'Cyber Yellow' primary color with organic 'liquid' sectioning, contrasting against a 'Deep Onyx' dark void. Includes glassmorphic data cards, massive typography, and pill-shaped interactive elements.
 
-<img src="preview.png" alt="Hyper-Saturated Fluid" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/hyper-saturated-fluid/preview.png)
 
 ## Prompt
 

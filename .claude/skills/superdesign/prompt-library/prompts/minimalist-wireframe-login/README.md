@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/minimalist-wireframe-login?utm_source=
 
 A high-contrast, minimalist mobile login wireframe optimized for thumb reach and ergonomic ergonomics. It features a slate-heavy palette, industrial-style grid textures, and clean 'General Sans' typography. Suitable for SaaS dashboard entry, fintech authentication, developer tools, and high-end enterprise mobile applications requiring a professional, focus-oriented interface.
 
-<img src="preview.png" alt="Minimalist Wireframe Login" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/minimalist-wireframe-login/preview.png)
 
 ## Prompt
 

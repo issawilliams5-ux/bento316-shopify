@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/sectioned-index-page?utm_source=github
 
 Features a mixed-media layout including horizontal snap-scrolling cards, vertical activity feeds, and a bento-style recommendation grid. Ideal for content aggregators, interior design apps, portfolio indexes, or minimalist fintech dashboards.
 
-<img src="preview.png" alt="Sectioned Index Page" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/sectioned-index-page/preview.png)
 
 ## Prompt
 

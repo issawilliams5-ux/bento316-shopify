@@ -16,7 +16,7 @@ An interactive, particle-based force field background effect that reacts to mous
 
 Source: https://codepen.io/vainsan/pen/ByoXMoB
 
-<img src="preview.png" alt="Force Field Background" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/force-field-background/preview.png)
 
 ## Prompt
 

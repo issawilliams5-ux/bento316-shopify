@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/graphic-comparison-report?utm_source=g
 
 A highly visual, typography-driven comparison report design. This style eschews traditional tables and icons for a bold, editorial layout inspired by graphic posters. Featuring a brutalist-lite aesthetic with high-contrast 'ink' and 'paper' tones, it utilizes oversized headlines, a strict 12-column grid, and structural 2px borders. Suitable for technical comparisons, whitepapers, B2B SaaS decision pages, fintech analysis, and deep-dive product evaluations where clarity and authority are paramount.
 
-<img src="preview.png" alt="Graphic Comparison Report" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/graphic-comparison-report/preview.png)
 
 ## Prompt
 

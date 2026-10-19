@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/modal-design-success-celebration-paste
 
 A joyful pastel success-celebration modal as the live centerpiece of a light SaaS page: a cream rounded-5xl dialog with a pulsing-ring animated checkmark badge, a gradient 'Continue to dashboard' CTA and a ghost secondary, floating over a full-bleed confetti layer on a cream-to-sky radial field. Below it a 3-up pattern-library card band, a starter-kit split with a stacked mini upgrade modal, a dark-ink CTA band and a cream footer. Pastel sky + coral are decorative-only; all colored text uses darkened >=4.5:1 tokens (#0369a1 / #be123c) and every gradient button runs deep stops behind white — legibility fixed. Poppins throughout.
 
-<img src="preview.png" alt="Modal Design · success-celebration (pastel) — legibility fixed" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/modal-design-success-celebration-pastel-legibility-fixed/preview.png)
 
 ## Prompt
 

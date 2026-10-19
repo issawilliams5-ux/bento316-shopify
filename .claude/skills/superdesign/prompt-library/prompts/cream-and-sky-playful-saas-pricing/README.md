@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/cream-and-sky-playful-saas-pricing?utm
 
 A warm, friendly light-mode SaaS pricing page on a cream paper canvas with sky-blue accents, serif display type, rounded cards, a monthly/yearly toggle, and a highlighted middle tier.
 
-<img src="preview.png" alt="Cream & Sky Playful SaaS Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/cream-and-sky-playful-saas-pricing/preview.png)
 
 ## Prompt
 

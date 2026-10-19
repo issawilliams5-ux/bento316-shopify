@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/slate-roi-calculator-pricing?utm_sourc
 
 A frameless dark SaaS pricing page in inky slate with one electric mint accent: an interactive ROI savings calculator, a 4-tier plan grid with a highlighted Pro card and monthly/annual toggle, a comparison table, and an accordion FAQ.
 
-<img src="preview.png" alt="Slate ROI-Calculator Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/slate-roi-calculator-pricing/preview.png)
 
 ## Prompt
 

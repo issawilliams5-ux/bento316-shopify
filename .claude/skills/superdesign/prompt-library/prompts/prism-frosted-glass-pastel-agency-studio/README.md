@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/prism-frosted-glass-pastel-agency-stud
 
 A light, frosted-glass pastel agency studio homepage on a soft mesh-gradient canvas (off-white #fbfcff washed with peach #ffd8c2, sky #cfe3ff, and mint #d3f5e3 radial blooms): a floating pill-shaped glass sticky nav, a centered black-on-pastel hero (huge Inter-black headline, glass pill badges, a dark pill CTA + a glass 'See the work' pill) over fanned, overlapping translucent glass UI cards, a faded trust logo strip, a frosted bento work grid with one dark stat card (+240%), a big glass services panel with a dark featured 'Most loved' card, a three-up testimonial row with a dark feature quote, a frosted closing CTA, and a clean glass-divided footer. Award-winning soft-pastel glassmorphism with near-black #15161b ink.
 
-<img src="preview.png" alt="Prism — Frosted-Glass Pastel Agency Studio" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/prism-frosted-glass-pastel-agency-studio/preview.png)
 
 ## Prompt
 

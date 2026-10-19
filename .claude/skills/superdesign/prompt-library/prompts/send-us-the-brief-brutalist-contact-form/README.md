@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/bad82511-e092-4ab8-9545-ddef49dbb75d"
 
 Loud neo-brutalist contact page for a design-tool brand (Formcast), built around a blunt two-field 'brief box'. A paper-and-ink base (paper #f4f1ea canvas, ink #0a0a0a text/borders) with exactly one high-voltage acid-yellow accent (#e8ff00), thick 2px/4px ink borders, hard offset drop shadows (zero blur, e.g. 8px 8px 0 0 #0a0a0a), depress-on-press chunky buttons, and an acid focus shadow on the fields, in a heavy Archivo (up to 900) + Space Mono pairing. A sticky paper nav (an ink+acid logo tile + a FORMCAST wordmark, How it works/Library/Brief us hover-fill links and an acid 'Start' button) sits over a scrolling ink marquee strip and a hero (an acid eyebrow pill, a giant uppercase 'SEND US THE BRIEF.' headline with 'brief.' highlighted in acid, and a '38s' avg-turnaround stat card). The centerpiece is a contact section split into a left rail of three numbered instruction tiles and a big bordered FORM CARD with an oversized E-Mail input + Message textarea, a Brutalist/Editorial/Minimal/Surprise-me style-chip row, and a chunky Cancel + acid 'Send' button row. A 'Three blunt steps' card row and a dark ink footer with an acid CTA close the page. The reusable signature is the neo-brutalist contact form: thick ink borders + hard offset shadows + one acid accent + a heavy Archivo/Space Mono voice.
 
-<img src="preview.png" alt="Send Us the Brief — Brutalist Contact Form" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/send-us-the-brief-brutalist-contact-form/preview.png)
 
 ## Prompt
 

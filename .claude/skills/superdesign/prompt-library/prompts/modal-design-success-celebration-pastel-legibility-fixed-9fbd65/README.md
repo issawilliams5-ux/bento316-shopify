@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/modal-design-success-celebration-paste
 
 A joyful pastel success-celebration modal as the live hero centerpiece of a product page: a rounded-5xl cream dialog with an animated deep-sky checkmark badge (pulsing rings + a drawn check), a 'You're all set! 🎉' headline and a deep-sky gradient CTA, floating over a soft sky-to-cream field full of gently floating multicolor confetti, a frosted-glass sticky nav, a 3-up pattern-library grid, a starter-kit split with a stacked upgrade-dialog preview, and a dark ink CTA band. Legibility-fixed: bright sky/coral stay decorative while every text + CTA tone uses deepened >=4.5:1 variants. All Poppins, Phosphor icons.
 
-<img src="preview.png" alt="Modal Design · success-celebration (pastel) — legibility fixed" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/modal-design-success-celebration-pastel-legibility-fixed-9fbd65/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/landing-page-real-estate?utm_source=gi
 
 Different layout structure for best converting real-estate companies
 
-<img src="preview.png" alt="Landing Page / Real-Estate" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/landing-page-real-estate/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/swiss-grid-agency-layout?utm_source=gi
 
 A Swiss / International-Typographic-Style agency homepage on a strict 12-column grid: pure black ink #0a0a0a on paper white #ffffff with one electric cobalt #1f4fff accent, a sticky paper nav with an ink hairline, an editorial index row over a 2px cobalt rule, a giant disciplined 'AGENCY SITES.' display headline (Inter) with a 2x2 stat block, an inverted black auto-scroll marquee of disciplines, a numbered Selected-Work index list with hover-cobalt titles and a nudging out-arrow, a 4-up hairline services grid (4th card inverted to solid cobalt), a large studio statement, a giant mailto contact line, and a 3-up hairline footer. JetBrains Mono micro-labels index every section.
 
-<img src="preview.png" alt="Swiss Grid Agency Layout" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/swiss-grid-agency-layout/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/teal-on-ink-newsletter-mega-footer?utm
 
 A dark near-black footer with a teal accent, prominent newsletter capture, three link columns, social row, status pill and language switch, fully responsive.
 
-<img src="preview.png" alt="Teal-on-Ink Newsletter Mega Footer" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/teal-on-ink-newsletter-mega-footer/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/fintech-wallet-mobile-home-screen?utm_
 
 A mobile fintech wallet home screen: a teal gradient hero with a frosted balance card, four quick-action buttons, and a clean recent-activity list, on an off-white sheet with a center-FAB tab bar.
 
-<img src="preview.png" alt="Fintech Wallet — Mobile Home Screen" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/fintech-wallet-mobile-home-screen/preview.png)
 
 ## Prompt
 

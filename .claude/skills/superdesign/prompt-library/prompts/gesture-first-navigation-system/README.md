@@ -17,7 +17,7 @@ A content-first navigation system that minimizes visible chrome and relies prima
 Best Suitable For
 Media apps, reading apps, gallery-style products, experimental consumer experiences.
 
-<img src="preview.png" alt="Gesture First Navigation System" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/gesture-first-navigation-system/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/the-quote-set-in-burgundy?utm_source=g
 
 A magazine-style single-slide testimonial on a warm cream canvas: one oversized Fraunces serif pull-quote with burgundy italic emphasis, a ghosted giant quote mark, an avatar trust cluster, a portrait byline, and prev/next carousel chrome with progress dots.
 
-<img src="preview.png" alt="The Quote, Set in Burgundy" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/the-quote-set-in-burgundy/preview.png)
 
 ## Prompt
 

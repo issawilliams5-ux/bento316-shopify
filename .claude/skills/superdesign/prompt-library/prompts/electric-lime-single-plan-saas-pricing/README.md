@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/electric-lime-single-plan-saas-pricing
 
 A bold editorial single-plan pricing page with a giant toggling price card, a tilted sky-blue feature card, and one electric-lime accent on warm paper inside a charcoal frame.
 
-<img src="preview.png" alt="Electric-Lime Single-Plan SaaS Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/electric-lime-single-plan-saas-pricing/preview.png)
 
 ## Prompt
 

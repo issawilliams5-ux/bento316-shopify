@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-feature-announcement?utm_sou
 
 A high-end technical editorial design system tailored for feature announcements, changelogs, and whitepapers. It features a sophisticated 'paper and ink' color palette (#F7F5F0 background), high-contrast typography pairing (Fraunces serif and Inter sans), and an asymmetric 12-column grid layout. Suitable for developer tools, fintech, research institutions, and SaaS companies that prioritize credibility and deep readability. The style emphasizes content hierarchy through vertical reading rhythms, monospace technical markers, and minimal visual noise.
 
-<img src="preview.png" alt="Editorial Feature Announcement" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-feature-announcement/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/volt-electric-lime-fitness-dashboard-a
 
 An electric-lime fitness/health dashboard on near-black: a big animated step-progress ring, stat chips, a weekly-activity bar chart, health insights, a workouts list, a challenge card, and an achievements grid with a bottom nav.
 
-<img src="preview.png" alt="Volt — Electric-Lime Fitness Dashboard" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/volt-electric-lime-fitness-dashboard-a7544c/preview.png)
 
 ## Prompt
 

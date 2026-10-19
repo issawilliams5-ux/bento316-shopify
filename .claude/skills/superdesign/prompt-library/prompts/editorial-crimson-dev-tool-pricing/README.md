@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-crimson-dev-tool-pricing?utm
 
 A light, serif-accented SaaS pricing page on white with a single crimson accent, audience segmented tabs, a monthly/annual toggle, and a 4-tier grid with one elevated 'most popular' card.
 
-<img src="preview.png" alt="Editorial Crimson Dev-Tool Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-crimson-dev-tool-pricing/preview.png)
 
 ## Prompt
 

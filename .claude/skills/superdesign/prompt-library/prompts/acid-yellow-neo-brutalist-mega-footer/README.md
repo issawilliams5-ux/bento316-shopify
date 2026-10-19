@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/acid-yellow-neo-brutalist-mega-footer?
 
 Neo-brutalist acid-yellow mega footer with hard offset shadows, a giant hollow-stroke wordmark, a marquee, three link columns, and a newsletter card.
 
-<img src="preview.png" alt="Acid-Yellow Neo-Brutalist Mega Footer" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/acid-yellow-neo-brutalist-mega-footer/preview.png)
 
 ## Prompt
 

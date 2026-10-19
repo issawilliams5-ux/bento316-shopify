@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-image-lightbox?utm_source=gi
 
 An editorial image lightbox modal as the live hero of a product page: a near-black coal (#0c0a09) figure with a top rail (serif 04/28 plate counter + 'Aperture Series' label, scrollable category filter pills, a circular close), a full-bleed photograph with circular glass prev/next carets and a bottom legibility gradient, and a cream (#faf6ef) caption panel (burgundy location eyebrow, a Fraunces headline, a description, Save / Copy-prompt actions), floated over a vignetted grain stage with a faded 3-up gallery echo behind and an 'Esc / arrows / 28 plates' keyboard ticker beneath. Around it: a frosted sticky cream nav, a hero with a stats card, a 3-up library grid, a four-cell anatomy band, a dark CTA band and a coal footer. Ink-on-cream editorial with a single reserved burgundy #7b2d3b accent; Fraunces + Inter, Phosphor icons.
 
-<img src="preview.png" alt="Editorial Image Lightbox" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-image-lightbox/preview.png)
 
 ## Prompt
 

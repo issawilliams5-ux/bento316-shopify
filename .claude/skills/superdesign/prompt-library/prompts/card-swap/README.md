@@ -16,9 +16,9 @@ An elegant card swapping animation component with depth perception and perspecti
 
 Source: ReactBits
 
-<img src="preview.png" alt="Card Swap" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/card-swap/preview.png)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/card-swap/preview.mp4)** (MP4)
 
 ## Prompt
 

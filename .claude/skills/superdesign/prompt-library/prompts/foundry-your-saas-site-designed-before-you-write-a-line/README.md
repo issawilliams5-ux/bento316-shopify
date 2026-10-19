@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/ca3f16bf-3779-43c6-98b6-031c60e7c77e"
 
 A warm editorial SaaS landing page on cream paper: big Fraunces serif headline with a terracotta italic highlight, a split hero with a dark infinite-canvas product mock, staggered feature cards, a real-reference library showcase, a pull quote, a dark palette/craft story, three-tier pricing, and an olive CTA banner.
 
-<img src="preview.png" alt="Foundry: Your SaaS Site, Designed Before You Write a Line" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/foundry-your-saas-site-designed-before-you-write-a-line/preview.png)
 
 ## Prompt
 

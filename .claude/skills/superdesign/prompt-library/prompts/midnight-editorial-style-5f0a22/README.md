@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/midnight-editorial-style-5f0a22?utm_so
 
 A premium, ultra-modern dark aesthetic featuring deep black backgrounds (#050505), massive 'Satoshi' typography for impact, and striking coral (#FF6B50) accents. Designed for high-end agencies and portfolios that prioritize storytelling and visual drama.
 
-<img src="preview.png" alt="Midnight Editorial Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/midnight-editorial-style-5f0a22/preview.png)
 
 ## Prompt
 

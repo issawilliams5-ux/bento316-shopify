@@ -15,7 +15,7 @@ try_url: "https://superdesign.dev/library/neumorphism?utm_source=github&utm_medi
 Neumorphism creates the illusion of physical depth through carefully balanced dual shadows
 Source: designprompts.dev
 
-<img src="preview.png" alt="Neumorphism" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/neumorphism/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/9e290f56-a3b4-48f2-ad8a-67c14e1843db"
 
 Minimal monochrome graphite-on-paper waitlist / early-access landing for an AI design tool: a warm off-white ground with near-black ink and one platinum grey (no color accent), a big tight black-weight headline, a centered single-field email + button waitlist form with overlapping social-proof avatars, scattered graphite confetti strokes, a logo trust strip, a 3-step how-it-works grid and an inverted full-bleed dark closing CTA.
 
-<img src="preview.png" alt="Atelier · Early Access (waitlist-minimal-graphite)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/atelier-early-access-waitlist-minimal-graphite/preview.png)
 
 ## Prompt
 

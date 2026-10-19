@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/super-shampoo-high-conversion-lp?utm_s
 
 A premium, high-conversion e-commerce style guide optimized for D2C beauty and wellness brands. Features a sophisticated 'clinical luxury' aesthetic with a palette of sage green (#E2E8E4), off-white beige (#F5F5F0), and deep charcoal (#1C1C1C). The typography balances bold 'General Sans' headings with clean 'Switzer' body text. Includes specialized conversion elements like scarcity-driven promo bars, trust badge grids, comparison tables, and a sticky mobile 'Add to Cart' bar. Ideal for skincare, haircare, or luxury lifestyle products requiring a mix of editorial imagery and performance-driven UI.
 
-<img src="preview.png" alt="Super Shampoo - High Conversion LP" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/super-shampoo-high-conversion-lp/preview.png)
 
 ## Prompt
 

@@ -1,6 +1,6 @@
 # Page type — Onboarding
 
-> Structure axis. Style-agnostic: pair with any [system](../../systems/) to render.
+> Structure axis. Style-agnostic: pair with any [system](https://github.com/superdesigndev/superdesign-prompts/tree/6c60906/systems) to render.
 > Aggregated from 8 prompts in this repo.
 
 ## What this page type is

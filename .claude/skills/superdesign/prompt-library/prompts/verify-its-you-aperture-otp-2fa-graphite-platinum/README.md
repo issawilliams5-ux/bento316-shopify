@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/a40c68d3-ca57-4c9f-834e-a4de361c7f1b"
 
 OTP / two-factor verification screen on warm paper with a graphite + platinum palette: a Two-factor eyebrow pill, a glass card with a lock icon, six single-digit code boxes, progress dots, a live resend countdown and a Verify code button. Inter, light mode, no saturated color.
 
-<img src="preview.png" alt="Verify it's you · Aperture (OTP / 2FA, graphite-platinum)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/verify-its-you-aperture-otp-2fa-graphite-platinum/preview.png)
 
 ## Prompt
 

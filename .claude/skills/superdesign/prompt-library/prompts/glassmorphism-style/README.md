@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/glassmorphism-style?utm_source=github&
 
 A high-tech glassmorphism design system featuring neon lime accents, deep obsidian surfaces, and a sophisticated blend of architectural grid patterns and organic glowing gradients. Optimized for high-end SaaS, AI product studios, and fintech platforms, this style uses JetBrains Mono for a developer-centric feel and Space Grotesk for bold, editorial headings. Key elements include backdrop-blur effects (glassmorphism), grain/noise overlays, and a 'floating shell' layout that gives the web interface a premium, app-like quality.
 
-<img src="preview.png" alt="Glassmorphism Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/glassmorphism-style/preview.png)
 
 ## Prompt
 

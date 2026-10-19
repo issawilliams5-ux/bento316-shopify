@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/minimalist-beta-capture?utm_source=git
 
 A high-end 'Editorial Brutalist' style guide optimized for SaaS waitlists, fintech, or premium developer tools. It features a dark-mode palette (#080808), high-contrast monochromatic typography (DM Serif Display + Geist Mono), and sophisticated glassmorphism. The layout utilizes a bento-grid structure and fluid width (92vw) with oversized hero typography. Key features include scroll-triggered slide-up animations, a silver-metallic gradient system, and a persistent floating mobile navigation bar.
 
-<img src="preview.png" alt="Minimalist Beta Capture" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/minimalist-beta-capture/preview.png)
 
 ## Prompt
 

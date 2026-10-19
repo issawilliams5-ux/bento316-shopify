@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/saas-landing-page-for-developer-tool?u
 
 A bold modernist design system inspired by exhibition poster aesthetics and technical documentation. Characterized by a high-contrast 'cream and cobalt' color palette, oversized aggressive typography, and a rigid 12-column grid layout with 1px border dividers. This style is ideal for technical SaaS, developer tools, high-end design agencies, or architectural portfolios. Key elements include tight line-heights (0.85), no rounded corners, and a unique vertical labeling system in a dedicated left-hand grid column.
 
-<img src="preview.png" alt="SaaS Landing Page for Developer Tool" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/saas-landing-page-for-developer-tool/preview.png)
 
 ## Prompt
 

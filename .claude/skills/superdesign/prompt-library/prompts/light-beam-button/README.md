@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/light-beam-button?utm_source=github&ut
 
 A high-performance button with a rotating light beam border effect using CSS @property and conic gradients. Features a shiny hover state and gradient border animation.
 
-<img src="preview.png" alt="Light Beam Button" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/light-beam-button/preview.png)
 
 ## Prompt
 

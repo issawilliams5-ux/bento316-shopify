@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/system-interface-feature-announcement?
 
 A brutalist, typography-driven system interface design optimized for technical documentation and feature announcements. Featuring a high-density information layout, rigid grid alignment, and a mechanical aesthetic, it uses JetBrains Mono for a terminal-like feel and Inter for readability. Perfect for developer tools, SaaS infrastructure updates, engineering blogs, and fintech platforms. Key elements include visible 1px borders, a 'system status' header, stepped animations, and a monochrome palette with terminal-green accents.
 
-<img src="preview.png" alt="System Interface Feature Announcement" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/system-interface-feature-announcement/preview.png)
 
 ## Prompt
 

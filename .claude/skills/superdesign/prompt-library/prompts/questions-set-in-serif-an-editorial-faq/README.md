@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/f68d678c-01ec-47a6-8217-61cea30dc224"
 
 Editorial magazine-style FAQ page on a warm cream canvas: an oversized sticky Fraunces serif 'Frequently Asked Questions' title beside a hairline-ruled column of serif Q/A rows (numbered, rotating plus-to-x, one pre-opened in wine), an ink context band and footer, with a 'Question not here?' contact card.
 
-<img src="preview.png" alt="Questions, Set in Serif — An Editorial FAQ" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/questions-set-in-serif-an-editorial-faq/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/gen-z-social-app?utm_source=github&utm
 
 A high-energy, Gen-Z-inspired design system with a 'Neo-Brutalist' aesthetic. This style features high-saturation colors like acid green (#ccff00), vibrant purple (#7000ff), and hot pink (#ff0099), paired with heavy black borders and hard shadows. It utilizes expressive, oversized typography and intentional layout chaos through asymmetrical sections and tilted elements. Ideal for social media apps, youth-oriented fintech, creative portfolios, and lifestyle products that prioritize attitude over corporate structure.
 
-<img src="preview.png" alt="Gen-Z Social App" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/gen-z-social-app/preview.png)
 
 ## Prompt
 

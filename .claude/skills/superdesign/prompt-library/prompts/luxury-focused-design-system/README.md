@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/luxury-focused-design-system?utm_sourc
 
 A refined, editorial-style design system characterized by heavy geometric sans-serif typography, a sophisticated dusty rose and charcoal palette, and staggered grid layouts. This aesthetic is optimized for high-end luxury services, boutique hospitality, premium fashion brands, or architectural portfolios. It features scroll-triggered reveal animations, grayscale-to-color image transitions, and a 'glassmorphism' navigation bar. The layout focuses on massive, bold headlines paired with hyper-minimalist utility text, creating a contrast that feels modern yet timeless.
 
-<img src="preview.png" alt="Luxury-focused Design System" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/luxury-focused-design-system/preview.png)
 
 ## Prompt
 

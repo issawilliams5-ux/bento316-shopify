@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/neon-velocity-countdown?utm_source=git
 
 A high-velocity, futuristic dark-mode design system characterized by neon accents, brutalist typography, and 3D glassmorphism. Featuring a 'Laser Green' and 'Navy Black' palette, it utilizes 'Plus Jakarta Sans' for high-impact headlines and 'Geist Mono' for technical metadata. This aesthetic is ideal for high-growth tech startups, SaaS platforms, developer tools, and fintech products that want to convey speed, precision, and cutting-edge innovation. The layout uses a bento-grid structure, fluid typography, and sophisticated scroll-triggered reveal animations.
 
-<img src="preview.png" alt="Neon Velocity Countdown" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/neon-velocity-countdown/preview.png)
 
 ## Prompt
 

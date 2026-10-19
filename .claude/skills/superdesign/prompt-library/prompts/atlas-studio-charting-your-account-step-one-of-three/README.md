@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/154ca8b6-894c-400f-97e8-4233cc0f405f"
 
 Premium dark-navy multi-step signup / onboarding screen (step 1 of 3) for an AI design tool: a 3-step progress tracker, glassy translucent cards on a midnight-navy ground with soft amber glows, a single warm amber accent, focus-reactive fields, a password strength meter, a role selector, and a 'what you unlock' value panel with a testimonial.
 
-<img src="preview.png" alt="Atlas Studio — Charting Your Account, Step One of Three" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/atlas-studio-charting-your-account-step-one-of-three/preview.png)
 
 ## Prompt
 

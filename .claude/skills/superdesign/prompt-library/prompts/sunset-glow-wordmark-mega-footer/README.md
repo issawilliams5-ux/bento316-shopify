@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/sunset-glow-wordmark-mega-footer?utm_s
 
 A dark mega footer with a radial orange-to-magenta sunset glow, a giant gradient wordmark, newsletter capture, three link columns, and a legal bar.
 
-<img src="preview.png" alt="Sunset Glow Wordmark Mega Footer" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/sunset-glow-wordmark-mega-footer/preview.png)
 
 ## Prompt
 

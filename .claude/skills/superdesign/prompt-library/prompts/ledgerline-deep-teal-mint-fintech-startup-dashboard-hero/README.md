@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/ledgerline-deep-teal-mint-fintech-star
 
 A trustworthy deep-teal fintech-startup landing page with a mint accent and cream text: a split hero with a product dashboard mock and a floating virtual card, a bento feature grid, a stats traction band, a security certifications grid, and a glowing CTA.
 
-<img src="preview.png" alt="Ledgerline — Deep-Teal + Mint Fintech Startup (Dashboard Hero)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/ledgerline-deep-teal-mint-fintech-startup-dashboard-hero/preview.png)
 
 ## Prompt
 

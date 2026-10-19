@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/3d366ad0-f8d3-462a-ad94-ac621f32b3bb"
 
 An editorial, magazine-style sign-up screen built as a full split-screen landing: a sticky translucent cream nav over a two-pane main. The LEFT is an oversized Fraunces-serif brand panel on a textured deep-burgundy ground (film grain, faint concentric arcs, a soft bloom) with an 'Issue 06 . The Design Agent' eyebrow, a 'Design at the speed of thought.' display headline (italic 'speed'), a value paragraph and a pull-quote testimonial with an initials avatar plus a three-icon feature row. The RIGHT is a near-black ink account-creation column: a 'Start designing, free.' heading, Google + GitHub OAuth buttons above an 'or with email' divider, white burgundy-focus-ring email + password fields (an eye toggle + a four-segment strength meter) and a burgundy 'Create account' CTA. Below the split: a full-bleed cream 'Trusted in the studios shipping fastest' proof strip and a dark ink FAQ/footer accordion. Cream + burgundy + ink palette, Fraunces serif + Inter.
 
-<img src="preview.png" alt="Design at the Speed of Thought — Editorial Split Sign-Up" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/design-at-the-speed-of-thought-editorial-split-sign-up/preview.png)
 
 ## Prompt
 

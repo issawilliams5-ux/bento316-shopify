@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/architectural-type-system-style?utm_so
 
 A high-contrast, architectural design system rooted in Swiss Modernism and Brutalist minimalism. Characterized by a monochrome palette, massive 'Inter Tight' display typography, and a rigid grid defined by 0.5px hairlines. Features a technical 'JetBrains Mono' font for metadata and system status indicators, creating an engineering-first aesthetic. Suitable for high-end SaaS, developer tools, fintech, architecture portfolios, and design agencies. Includes a persistent noise overlay for texture and grid-based layouts that utilize viewport-relative sizing for maximalist impact.
 
-<img src="preview.png" alt="Architectural Type System Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/architectural-type-system-style/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/mosaic-grid-architecture-style?utm_sou
 
 An architectural, technical-blueprint style design system featuring a minimalist mosaic grid, forest green (#1A3C2B) and light-gray paper-textured (#F7F7F5) palette. Optimized for B2B SaaS, developer tools, and high-end agency portfolios. Key features include editorial typography with Space Grotesk, JetBrains Mono labels, bento grid layouts, and 2D flat wireframe aesthetics with zero shadows.
 
-<img src="preview.png" alt="Mosaic Grid Architecture Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/mosaic-grid-architecture-style/preview.png)
 
 ## Prompt
 

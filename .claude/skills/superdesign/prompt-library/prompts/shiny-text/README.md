@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/shiny-text?utm_source=github&utm_mediu
 
 A text component with a customizable shining gradient animation effect that sweeps across the text.
 
-<img src="preview.png" alt="Shiny Text" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/shiny-text/preview.png)
 
 ## Prompt
 

@@ -14,9 +14,9 @@ try_url: "https://superdesign.dev/library/the-stacking-cards-effect?utm_source=g
 
 A portfolio section where cards stack sticky at the top as the user scrolls, creating a deck-of-cards effect using GSAP.
 
-<img src="preview.png" alt="The "Stacking Cards" Effect" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/the-stacking-cards-effect/preview.png)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/the-stacking-cards-effect/preview.mp4)** (MP4)
 
 ## Prompt
 

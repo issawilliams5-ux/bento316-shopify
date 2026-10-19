@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/e7ec15e8-44c6-499d-a711-25578a88b421"
 
 Light SaaS workspace-settings page (form builder): sticky app-bar, tinted header, sticky left section nav + stacked white settings cards, toggles, segmented control and a sticky save bar, on a single cobalt accent over a slate neutral system.
 
-<img src="preview.png" alt="Workspace Settings · Formcraft (two-column, cobalt)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/workspace-settings-formcraft-two-column-cobalt/preview.png)
 
 ## Prompt
 

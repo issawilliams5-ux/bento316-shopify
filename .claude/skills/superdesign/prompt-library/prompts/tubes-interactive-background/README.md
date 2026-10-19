@@ -16,7 +16,7 @@ A high-performance interactive 3D background featuring neon tubes that follow th
 
 Source: https://codepen.io/soju22/pen/qEbdVjK
 
-<img src="preview.png" alt="Tubes Interactive Background" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/tubes-interactive-background/preview.png)
 
 ## Prompt
 

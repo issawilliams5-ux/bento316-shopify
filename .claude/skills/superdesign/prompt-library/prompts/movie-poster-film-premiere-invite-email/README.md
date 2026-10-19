@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/movie-poster-film-premiere-invite-emai
 
 A dramatic film-premiere invitation email that acts as a digital movie poster, in a centered 600px column: a crimson-to-black field, a four-name cast row, a condensed Anton title ('EMPIRE OF SHADOWS') over a red-duotoned figure, the premiere date, two evenly-weighted CTAs (Claim tickets / Watch trailer), a line-separated 'Screenings' itinerary, and a dense movie-billing credit block. Reusable for premieres, VIP launches, and entertainment event invites.
 
-<img src="preview.png" alt="Movie-Poster Film Premiere Invite Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/movie-poster-film-premiere-invite-email/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/high-contrast-landing-page?utm_source=
 
 A high-contrast Swiss-style minimalist design system utilizing brutalist typography and editorial layouts. Characterized by a neutral palette of off-whites, deep blacks, and monochromatic grays, this style emphasizes rhythmic patterns through stacked text 'echo' effects and asymmetrical grids. Ideal for luxury travel, architecture portfolios, high-end fashion, and premium editorial content where typography acts as the primary visual driver.
 
-<img src="preview.png" alt="High Contrast Landing Page" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/high-contrast-landing-page/preview.png)
 
 ## Prompt
 

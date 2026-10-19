@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/neural-noir-interface-style?utm_source
 
 The Neural Noir Interface Style is a high-end, futuristic aesthetic characterized by a 'tech-noir' atmosphere. It blends deep dark backgrounds (#0a0a0a) with sophisticated gold and bronze accents (#a78b71, #e8d5b7) and editorial typography. Key features include glassmorphism, neural network-inspired SVG connection lines, and a bento-grid layout. This style is optimized for premium AI platforms, creative design engines, high-end SaaS, and editorial-driven tech portfolios. It utilizes a combination of sleek sans-serif (Inter) for functional elements and elegant serif italics (Playfair Display) for headlines, creating a contrast between high-tech performance and classic sophistication.
 
-<img src="preview.png" alt="Neural Noir Interface Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/neural-noir-interface-style/preview.png)
 
 ## Prompt
 

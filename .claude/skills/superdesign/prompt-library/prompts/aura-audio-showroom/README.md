@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/aura-audio-showroom?utm_source=github&
 
 Product Walkthrough is a product-first electronics landing page built around a Showroom Flow layout—product theater followed by guided model selection, scenario-based feature explanations, lightweight comparison, and a confident close—making it best suited for consumer electronics and DTC hardware brands with multiple models or configurations that want a clear, trust-building shopping experience without spec overload or lifestyle clichés.
 
-<img src="preview.png" alt="Aura Audio Showroom" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/aura-audio-showroom/preview.png)
 
 ## Prompt
 

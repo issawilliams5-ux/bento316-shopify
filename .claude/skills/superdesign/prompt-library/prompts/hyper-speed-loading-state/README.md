@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/hyper-speed-loading-state?utm_source=g
 
 Loading animation UI featuring a character-like loader with animated lines, a body made from geometric shapes, and moving horizontal lines across the background. The loader have smooth animations with multiple synchronized motion effects including rotation, translation, and opacity fades.
 
-<img src="preview.png" alt="Hyper-Speed Loading State" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/hyper-speed-loading-state/preview.png)
 
 ## Prompt
 

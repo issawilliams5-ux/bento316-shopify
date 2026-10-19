@@ -1,6 +1,6 @@
 # Page Types — the *structure* axis
 
-The counterpart to [`../systems/`](../systems/). Where a system carries **style**,
+The counterpart to [`../systems/`](https://github.com/superdesigndev/superdesign-prompts/tree/6c60906/systems). Where a system carries **style**,
 a page type carries **structure** — the sections and components a given kind of
 page needs, independent of how it looks.
 
@@ -14,7 +14,7 @@ contains) rather than one designer's take.
 
 ## Use a page type
 
-Pair it with a [system](../systems/):
+Pair it with a [system](https://github.com/superdesigndev/superdesign-prompts/tree/6c60906/systems):
 
 ```text
 Build a <page type> using the "<system-id>" design system.

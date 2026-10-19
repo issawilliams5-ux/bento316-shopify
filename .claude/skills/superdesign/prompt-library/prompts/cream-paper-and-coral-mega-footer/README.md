@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/cream-paper-and-coral-mega-footer?utm_
 
 A warm cream-paper mega footer with a coral hairline edge, Fraunces serif CTA band, newsletter capture, a five-column link grid, and a status-pill legal bar.
 
-<img src="preview.png" alt="Cream Paper & Coral Mega Footer" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/cream-paper-and-coral-mega-footer/preview.png)
 
 ## Prompt
 

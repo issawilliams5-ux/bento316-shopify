@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/2b5741c7-6122-40cf-a591-db3f6bf2a8a3"
 
 A clean centered-card sign-in page on a soft off-white canvas with a single true-cobalt accent: sticky nav, a white rounded-3xl auth card (Google + GitHub social, floating-label email/password with a show/hide toggle, remember-me + forgot, gradient Sign in CTA), and ambient cobalt glows.
 
-<img src="preview.png" alt="Welcome back · Lumen — centered-card (true cobalt)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/welcome-back-lumen-centered-card-true-cobalt/preview.png)
 
 ## Prompt
 

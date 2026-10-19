@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/cinematic-style?utm_source=github&utm_
 
 A high-end 'Cinematic' design system characterized by deep-space dark backgrounds, sophisticated 3D CSS transforms, and bold editorial typography. Optimized for premium portfolios, creative agencies, fintech, and high-tech SaaS. It features a signature 3D rolodex/cube hero section, glassmorphism elements, and smooth GSAP-driven scroll parallax. Key aesthetics include 'mix-blend-difference' navigation, vibrant neon gradients (cyan to pink), and a monochromatic 'Aspekta' font foundation with heavy weights and tight tracking.
 
-<img src="preview.png" alt="Cinematic Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/cinematic-style/preview.png)
 
 ## Prompt
 

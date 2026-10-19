@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/48f47524-1218-4b47-82bb-7eb64a3e47f0"
 
 A warm, playful illustrated contact page (Loop) in a sky-blue + coral two-accent palette on a cloud-white canvas: a sticky blurred nav, a centered two-tone "Let's chat about anything you're building" hero with a pulsing reply-time pill, and one giant rounded white card splitting a hand-drawn CSS+SVG illustration panel (floating sun, clouds, channel bubbles, grass) and copy on the left against a multi-field form with icon-prefixed sky-ring inputs, emoji topic chips and a gradient send button on the right, then a row of three alt-contact cards and a deep sky-ink footer. Heavy rounded Nunito (up to black 900), bubbly corners, cheerful and human, never a cold corporate form.
 
-<img src="preview.png" alt="Loop · Say hello, we don't bite (friendly illustrated sky)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/loop-say-hello-we-dont-bite-friendly-illustrated-sky/preview.png)
 
 ## Prompt
 

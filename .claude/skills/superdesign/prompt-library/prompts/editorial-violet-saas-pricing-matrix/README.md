@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-violet-saas-pricing-matrix?u
 
 A light, editorial SaaS pricing page led by a full-width grouped comparison matrix with a sticky 3-plan header, electric-violet accent, and a monthly/annual toggle.
 
-<img src="preview.png" alt="Editorial Violet SaaS Pricing Matrix" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-violet-saas-pricing-matrix/preview.png)
 
 ## Prompt
 

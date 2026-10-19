@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/babybites-sophisticated-palette?utm_so
 
 BabyBites style guide featuring a sophisticated high-contrast palette of dark charcoal, vibrant red, and sage-green. Characterized by playful but professional editorial typography, oversized rounded corners (up to 40px), and a clean, card-based layout. Ideal for parenting, nutrition, healthcare, and educational SaaS platforms. Includes scroll-triggered animations and custom view transitions for fluid mobile-first navigation.
 
-<img src="preview.png" alt="BabyBites - Sophisticated Palette" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/babybites-sophisticated-palette/preview.png)
 
 ## Prompt
 

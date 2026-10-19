@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/60697ec6-b6f8-4d17-8b48-3729600554c2"
 
 A two-column SaaS workspace-settings screen: sticky app nav, left section nav, grouped settings cards with toggles, a segmented control, selectable delivery cards, and a fixed save bar, in Inter on slate with one cobalt accent.
 
-<img src="preview.png" alt="Formcraft — Workspace Settings (cobalt two-column)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/formcraft-workspace-settings-cobalt-two-column/preview.png)
 
 ## Prompt
 

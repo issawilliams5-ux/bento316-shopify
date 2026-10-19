@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/technical-system-onboarding?utm_source
 
 A technical, research-backed onboarding system design using a dark slate palette with high-visibility signal orange accents. Optimized for high-fidelity AI systems, data science dashboards, fintech terminals, and developer tools. Features editorial modern grotesk typography, monospace metadata, grid-based layouts, and a modular 'Capabilities Matrix' structure. Emphasizes reliability, transparency, and deterministic control through structured information hierarchy and a professional, no-nonsense aesthetic.
 
-<img src="preview.png" alt="Technical System Onboarding" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/technical-system-onboarding/preview.png)
 
 ## Prompt
 

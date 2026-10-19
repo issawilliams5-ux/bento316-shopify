@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/superdesign-editorial-waitlist?utm_sou
 
 Editorial waiting list landing page with a cinematic, high-fashion aesthetic. Features a deep matte #181818 background, warm beige #EBDCC4 typography, and a brutalist yet refined grid. Key elements include oversized edge-to-edge display type, subtle noise textures, and a layered text depth effect. Ideal for luxury tech, creative agency portfolios, high-end SaaS tools, architecture firms, and invite-only exclusivity campaigns. Layout utilizes strong typographic hierarchy and generous negative space with accent tones in coral, rust, and sage.
 
-<img src="preview.png" alt="Superdesign Editorial Waitlist" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/superdesign-editorial-waitlist/preview.png)
 
 ## Prompt
 

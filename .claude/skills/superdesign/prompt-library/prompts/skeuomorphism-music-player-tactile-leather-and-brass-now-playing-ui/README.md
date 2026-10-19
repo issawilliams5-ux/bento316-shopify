@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/skeuomorphism-music-player-tactile-lea
 
 A dark, tactile skeuomorphism mobile now-playing music player ("RESONANT"). A brushed graphite and gunmetal chassis frames an inset screen: an embossed metal back and options chip flank a brass "NOW PLAYING" label; a glossy dusk-gradient album panel (copper to oxblood) has a real diagonal sheen, a thin brass frame, and a vinyl disc peeking from the edge; the track title sits in warm off-white over a muted artist and a brass-lit heart chip. A debossed dark scrubber carries a brass fill and a knurled metal thumb between amber LED-style elapsed and remaining digits. The transport row lives on a cognac-leather panel with a dashed brass stitch: embossed metal shuffle, previous, next, and repeat buttons around a large raised brass play knob. Everything is top-lit with real drop and inset shadows, subtle grain, and machined bevels: unmistakably skeuomorphic, and deliberately not flat, not pastel, not glassmorphism, not neumorphism. Reusable for any tactile player (music, podcast, audiobook, radio).
 
-<img src="preview.png" alt="Skeuomorphism Music Player: Tactile Leather and Brass Now Playing UI" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/skeuomorphism-music-player-tactile-leather-and-brass-now-playing-ui/preview.png)
 
 ## Prompt
 

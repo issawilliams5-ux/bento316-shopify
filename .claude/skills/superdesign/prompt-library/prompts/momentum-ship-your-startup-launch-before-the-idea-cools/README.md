@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/e423cafb-2ab1-40a1-85aa-7482ca362471"
 
 Bold optimistic startup launch / waitlist landing page: teal-to-lime gradient brand on warm-white paper, sticky blurred nav, gradient-aura hero with an inline email-capture form and a frameless prompt-to-page preview, feature cards, a gradient traction band, launch-template cards, a dark ink CTA, and a 4-column footer.
 
-<img src="preview.png" alt="Momentum — Ship Your Startup Launch Before the Idea Cools" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/momentum-ship-your-startup-launch-before-the-idea-cools/preview.png)
 
 ## Prompt
 

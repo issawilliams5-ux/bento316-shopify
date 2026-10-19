@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/champagne-noir-paywall-65a2fd?utm_sour
 
 A premium dark subscription paywall: champagne/gold accents on near-black, an italic-serif value headline, a Free-vs-Pro feature table, a yearly(best-value)/monthly plan toggle, and a gold "Start free trial" CTA.
 
-<img src="preview.png" alt="Champagne Noir Paywall" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/champagne-noir-paywall-65a2fd/preview.png)
 
 ## Prompt
 

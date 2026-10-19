@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/claymorphism-mobile-app-pastel-habit-t
 
 A light claymorphism mobile app home screen for a friendly habit and wellness tracker. Soft, inflated pastel "clay" cards (sage, peach, butter-yellow, sky-blue) on a cool cream-grey ground, with the signature dual soft shadow plus inset highlight that makes every surface look puffy. A rounded Nunito type scale, a tracked-caps date over a single bold greeting, a sage progress hero card with a rounded-cap progress bar and a streak chip, two puffy stat tiles, a scannable habit list with clear done-versus-pending toggle states, and an in-flow floating tab bar with a raised peach round add button. Light mode, real phone proportions, no dark neumorphism and no purple gradient. Reusable for any friendly consumer app home (habit, wellness, mood, budgeting, language learning).
 
-<img src="preview.png" alt="Claymorphism Mobile App: Pastel Habit Tracker Home" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/claymorphism-mobile-app-pastel-habit-tracker-home/preview.png)
 
 ## Prompt
 

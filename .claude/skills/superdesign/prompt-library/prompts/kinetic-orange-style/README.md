@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/kinetic-orange-style?utm_source=github
 
 A high-energy brutalist design system characterized by a high-contrast 'Kinetic Orange' (#FF4D00) and black palette. It features bold, oversized editorial typography, technical monospace accents, and rhythmic motion through marquees and rotating elements. Ideal for creative agencies, fintech, modern portfolios, or AI-driven startups looking for a 'loud' and confident brand presence.
 
-<img src="preview.png" alt="Kinetic Orange Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/kinetic-orange-style/preview.png)
 
 ## Prompt
 

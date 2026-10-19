@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/1e008422-dd41-414e-aa04-f6b300ad210d"
 
 A stacked, multi-section account-settings form on a white card: top-aligned labels, helper text, a 6-column responsive grid, custom checkboxes and radios, and one disciplined emerald accent for focus and the primary action.
 
-<img src="preview.png" alt="Forms that feel effortless to fill — Fieldcraft" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/forms-that-feel-effortless-to-fill-fieldcraft/preview.png)
 
 ## Prompt
 

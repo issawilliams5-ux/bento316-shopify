@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/coverflow-carousels-that-turn-heads-da
 
 A dark, aurora-lit 3D coverflow carousel landing page: a sticky frosted-ink nav, then a centered hero (a 'depth-aware coverflow engine' status pill, a big 'Carousels that turn heads, not stomachs.' heading whose 'turn heads' is teal-to-magenta gradient text, and a soft lead) wrapping a real CSS 3D coverflow stage. Seven gradient cards sit on a 1600px perspective stage: the active card faces front with a teal glow ring while neighbours rotate ~42-48deg and recede in Z, scaling and fading by distance, each card carrying a top-left sheen and a bottom gradient label. Below the stage, a round glass prev button, pill dots (active = a wide teal-to-magenta gradient bar), and a next button; clicks, dots, arrows and the left/right keys re-lay the stage. Then a CTA pair, a grayscale logo strip, a 3-up glass feature grid, a 'from prompt to motion' showcase split with a faux terminal card, a gradient-thumb templates grid, a dark gradient CTA, and a social footer. Inter + Space Grotesk fonts, near-black ink #0b0f14 ground, aqua #2dd4bf + magenta #e879f9 accents, glass panels and aurora blobs, Iconify Phosphor icons; responsive geometry drops far cards on small screens and collapses the nav into a hamburger.
 
-<img src="preview.png" alt="Coverflow — Carousels that turn heads (dark coverflow aurora)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/coverflow-carousels-that-turn-heads-dark-coverflow-aurora/preview.png)
 
 ## Prompt
 

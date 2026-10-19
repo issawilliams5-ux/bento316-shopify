@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/brutalist-style-ecommerce-page?utm_sou
 
 A brutalist editorial design system for high-fashion, streetwear, or luxury brands. Featuring a raw, industrial aesthetic with massive typography, high-contrast photography, and utilitarian components. Key elements include a noise-grain texture overlay, a monochromatic palette with burnt orange and neon green accents, and asymmetrical layout grids. The style uses 'Clash Grotesk' for aggressive impact and 'General Sans' for technical clarity. Ideal for product launches, lookbooks, and fashion portfolios looking for a 'Raw Campaign' or 'Modern Brutalist' feel with scroll-triggered visual impact.
 
-<img src="preview.png" alt="Brutalist Style Ecommerce Page" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/brutalist-style-ecommerce-page/preview.png)
 
 ## Prompt
 

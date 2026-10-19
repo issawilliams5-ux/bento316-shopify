@@ -16,7 +16,7 @@ A warm, editorial AI chat interface (chatbot UI) that ditches the default dark-p
 
 Source: https://dribbble.com/shots/26274219-AI-Assistant-Sidebar-Interaction
 
-<img src="preview.png" alt="Warm Terracotta AI Chat Interface" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/warm-terracotta-ai-chat-interface/preview.png)
 
 ## Prompt
 

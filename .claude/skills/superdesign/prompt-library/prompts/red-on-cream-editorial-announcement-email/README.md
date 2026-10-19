@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/red-on-cream-editorial-announcement-em
 
 A bold, design-forward announcement email in a centered 600px column: a warm cream (#ddd8d0) surface with ONE ink colour, vermillion (#c72a09), applied to every element. A giant Archivo headline ('WE MADE SOMETHING.'), a short dek, an object photo, a parenthetical (01) section index with hairline label/value metadata rows (Client / Scope / Shipped), and a massive solid-vermillion CTA band ('READ THE CASE STUDY') anchoring the design. Reusable for design agencies, type foundries, and studios announcing a case study or launch.
 
-<img src="preview.png" alt="Red-on-Cream Editorial Announcement Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/red-on-cream-editorial-announcement-email/preview.png)
 
 ## Prompt
 

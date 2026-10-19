@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/lumina-saas-landing-page?utm_source=gi
 
 Lumina is a high-energy, Neo-Brutalist B2C SaaS design characterized by its bold #ffe17c yellow primary color, heavy 2px black borders, and zero-blur hard shadows. It utilizes a striking combination of 'Cabinet Grotesk' for display-heavy typography and 'Satoshi' for body copy. This style is ideal for the creator economy, modern fintech, edtech, or any startup looking to break the 'clean corporate blue' mold with a confident, high-contrast interface. The layout features bento-style grids, marquee animations, and playful asymmetric card shapes.
 
-<img src="preview.png" alt="Lumina SaaS Landing Page" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/lumina-saas-landing-page/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-serif-receipt-email?utm_sour
 
 A premium, editorial order-confirmation / receipt email in a centered 600px column: a condensed all-caps wordmark + order number, a serif 'Thank you for your order' headline, a solid-navy primary + outline secondary button pair, then an itemized order summary where each product row uses a thumbnail and a dotted leader line running to a right-aligned price, a subtotal / shipping / big Total block, a two-column shipping + billing address grid, a shipping method line, an italic help prompt, and a link-column footer with a serif tagline. Oswald condensed + Spectral serif, ink on warm paper with a single deep-navy accent. Reusable for any e-commerce receipt or transactional email.
 
-<img src="preview.png" alt="Editorial Serif Receipt Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-serif-receipt-email/preview.png)
 
 ## Prompt
 

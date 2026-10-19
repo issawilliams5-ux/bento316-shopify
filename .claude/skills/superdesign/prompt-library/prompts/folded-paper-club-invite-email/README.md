@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/folded-paper-club-invite-email?utm_sou
 
 An edgy, underground event RSVP email in a centered 600px column: a deep-black surface framing a bright-red hero panel that reads like a folded-paper flyer or ticket stub, with fold-crease grid lines and flat near-black type. The flyer embeds the key info (host, music, doors, date, location) plus an RSVP button; brief 'The Night' / 'Entry' text blocks sit below on black. Reusable for nightclubs, secret gigs, limited-capacity events, and streetwear drops.
 
-<img src="preview.png" alt="Folded-Paper Club Invite Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/folded-paper-club-invite-email/preview.png)
 
 ## Prompt
 

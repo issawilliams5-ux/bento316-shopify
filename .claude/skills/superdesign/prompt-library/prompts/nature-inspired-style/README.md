@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/nature-inspired-style?utm_source=githu
 
 A nature-inspired 'Organic Brutalist' design system perfect for wellness, sustainable CPG, eco-friendly lifestyle brands, or high-end nutrition. Characterized by a palette of deep forest greens and earthy sages, the style utilizes massive editorial typography (Anton) paired with functional sans-serifs (Inter). The layout features 'bento-adjacent' rounded grids, floating organic elements with parallax effects, and a subtle film grain noise overlay that gives the digital experience a tactile, premium paper-like feel. Key elements include oversized headings, ultra-rounded corners (up to 5rem), and fluid reveal animations.
 
-<img src="preview.png" alt="Nature Inspired Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/nature-inspired-style/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-saas-onboarding?utm_source=g
 
 An editorial SaaS onboarding experience featuring a calm, sophisticated aesthetic. It uses a muted warm stone palette with terracotta accents, high-contrast serif headlines (Crimson Pro) paired with clean sans-serif UI text (Inter). The layout follows a natural document flow within a product shell, avoiding scroll-locks or overlays. Suitable for premium B2B SaaS, design tools, publishing platforms, and luxury fintech applications that prioritize a confident, professional, and non-intrusive user experience.
 
-<img src="preview.png" alt="Editorial SaaS Onboarding" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-saas-onboarding/preview.png)
 
 ## Prompt
 

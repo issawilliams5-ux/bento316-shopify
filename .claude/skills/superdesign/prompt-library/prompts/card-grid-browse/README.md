@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/card-grid-browse?utm_source=github&utm
 
 A sophisticated, mobile-first product browsing layout emphasizing whitespace, clean typography, and a stable 2-column grid. The design utilizes a monochrome base with slate-toned neutrals to create a high-end 'boutique' feel, prioritizing product imagery and effortless navigation. Suitable for premium furniture, fashion, architecture, or design-focused platforms.
 
-<img src="preview.png" alt="Card Grid Browse" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/card-grid-browse/preview.png)
 
 ## Prompt
 

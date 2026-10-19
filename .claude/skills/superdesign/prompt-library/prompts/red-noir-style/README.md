@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/red-noir-style?utm_source=github&utm_m
 
 A bold, dark-themed landing page featuring high-contrast red accents, glassmorphism, and smooth scroll animations. Designed for AI and tech products with a futuristic aesthetic.
 
-<img src="preview.png" alt="Red Noir Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/red-noir-style/preview.png)
 
 ## Prompt
 

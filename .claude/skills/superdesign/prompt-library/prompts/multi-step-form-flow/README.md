@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/multi-step-form-flow?utm_source=github
 
 A modular, step-based mobile flow designed for creating or editing content with clarity and momentum, where each screen presents a single logical input group, guided by a top progress indicator and a bottom-anchored primary action. Users can move forward or backward without data loss, with progress automatically saved between steps, while the reusable layout system supports optional and conditional steps across different flows. Presented in a minimal wireframe style, visual progression is communicated through spacing and hierarchy rather than visual decoration, making this approach best for onboarding, multi-step setup, preference configuration, and any mobile experience where reducing cognitive load and maximizing completion rate are critical.
 
-<img src="preview.png" alt="Multi-step Form Flow" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/multi-step-form-flow/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/ce5771e8-084d-4a35-a72d-97d816f7133e"
 
 Warm earthy organic agency / studio website: sand + terracotta palette, Fraunces serif display type, organic leaf-blob shapes, sticky blurred nav, project-card grid, numbered services list, and a terracotta contact block with a mock prompt form.
 
-<img src="preview.png" alt="Loam — Warm Earthy Organic Agency Website" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/loam-warm-earthy-organic-agency-website/preview.png)
 
 ## Prompt
 

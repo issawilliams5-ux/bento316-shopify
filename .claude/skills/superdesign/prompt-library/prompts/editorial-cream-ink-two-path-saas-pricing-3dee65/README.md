@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-cream-ink-two-path-saas-pric
 
 A warm editorial SaaS pricing page on a cream canvas: a serif headline with an electric-blue italic accent, two self-serve plan cards (one highlighted) beside a dark near-black Enterprise contact-sales panel with gold accents, plus a monthly/annual toggle.
 
-<img src="preview.png" alt="Editorial Cream + Ink Two-Path SaaS Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-cream-ink-two-path-saas-pricing-3dee65/preview.png)
 
 ## Prompt
 

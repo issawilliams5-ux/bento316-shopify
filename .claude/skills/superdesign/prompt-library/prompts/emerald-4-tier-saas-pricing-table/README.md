@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/emerald-4-tier-saas-pricing-table?utm_
 
 A light-mode emerald-accented SaaS pricing page with a Monthly/Annual toggle and four tiers fused into one bordered table, the Pro column lifted and ring-highlighted as 'Most popular'.
 
-<img src="preview.png" alt="Emerald 4-Tier SaaS Pricing Table" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/emerald-4-tier-saas-pricing-table/preview.png)
 
 ## Prompt
 

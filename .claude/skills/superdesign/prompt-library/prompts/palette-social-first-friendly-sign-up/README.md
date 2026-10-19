@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/f2bffea5-4316-461c-a92d-8b8c0da35264"
 
 A warm, social-first sign-up screen on a cream canvas: a two-column hero+signup landing with a friendly product pitch on the left (hand-drawn underline, teal-check benefits, a 5-star social-proof cluster) and a white rounded card on the right that leads with three full-width stacked social-auth buttons (Google, GitHub, Apple) above an 'or sign up with email' divider and a single email field with a coral 'Create account' CTA. Coral + teal accents, Poppins, a sticky blurred nav, a logo marquee, a three-step how-it-works, and a dark gradient CTA band.
 
-<img src="preview.png" alt="Palette — Social-first friendly sign-up" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/palette-social-first-friendly-sign-up/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/77cc5332-fcd8-484a-a80a-513daef7d5b5"
 
 Dense light-mode admin data table (Tablekit): blurred sticky nav, dotted-grid hero, a cobalt-on-white panel with a filter bar, bulk-action bar, sticky-header scroll table with colored status/priority/type badges and avatar chips, and a full pagination footer.
 
-<img src="preview.png" alt="Tablekit — The data table your team actually wants to live in" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/tablekit-the-data-table-your-team-actually-wants-to-live-in/preview.png)
 
 ## Prompt
 

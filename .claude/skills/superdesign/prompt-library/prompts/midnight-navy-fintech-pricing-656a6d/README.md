@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/midnight-navy-fintech-pricing-656a6d?u
 
 A deep-navy, teal-accented SaaS/fintech pricing page with a sticky blurred nav, monthly/annual toggle, and a glowing 'Most popular' middle tier across three cards.
 
-<img src="preview.png" alt="Midnight Navy Fintech Pricing" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/midnight-navy-fintech-pricing-656a6d/preview.png)
 
 ## Prompt
 

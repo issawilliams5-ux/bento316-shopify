@@ -16,9 +16,9 @@ A premium, high-performance rolling counter component with smooth mechanical-sty
 
 Source: ReactBits
 
-<img src="preview.mp4" alt="Counter" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/counter/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/counter/preview.mp4)** (MP4)
 
 ## Prompt
 

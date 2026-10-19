@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/electric-dark-usage-based-pricing-calc
 
 An electric dark dev-tool pricing page built around an interactive slider calculator that live-computes included quota plus tiered pay-as-you-go overage, with a lime accent, a highlighted plan card row, and an FAQ accordion.
 
-<img src="preview.png" alt="Electric Dark Usage-Based Pricing Calculator" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/electric-dark-usage-based-pricing-calculator-20e556/preview.png)
 
 ## Prompt
 

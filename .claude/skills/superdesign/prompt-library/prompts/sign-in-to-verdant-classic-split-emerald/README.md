@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/63d017c1-25c3-4fb6-9a31-b480f207098a"
 
 A full-bleed classic split sign-in page: white emerald-accented auth form on the left (social + email login, gradient Sign in CTA), a dark slate brand panel with ambient glows and a floating showcase card on the right, and a sticky nav above both.
 
-<img src="preview.png" alt="Sign in to Verdant — Classic Split (Emerald)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/sign-in-to-verdant-classic-split-emerald/preview.png)
 
 ## Prompt
 

@@ -14,9 +14,9 @@ try_url: "https://superdesign.dev/library/horizontal-gallery?utm_source=github&u
 
 A sticky section that locks vertical scroll and translates it into horizontal movement to showcase a gallery. Features robust GSAP ScrollTrigger initialization.
 
-<img src="preview.mp4" alt="Horizontal Gallery" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/horizontal-gallery/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/horizontal-gallery/preview.mp4)** (MP4)
 
 ## Prompt
 

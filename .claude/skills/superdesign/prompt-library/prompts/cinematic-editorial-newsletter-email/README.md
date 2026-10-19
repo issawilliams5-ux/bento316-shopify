@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/cinematic-editorial-newsletter-email?u
 
 A cinematic, magazine-style editorial newsletter / digest email in a centered 640px column: a black masthead with issue metadata, a centered italic serif wordmark and a Boutique / Magazine nav, a full-bleed art-directed hero photo, an 'Originals' eyebrow + large serif headline + byline, a two-image split, and a cream 'Read more' button, all on black. Below, a warm-cream light section carries a 'What's new' two-up story grid, a deeper-cream pull-quote band, and a spacious 2x2 'Boutique' product grid with an espresso 'Shop' button, closing on a black footer. Fraunces serif display + Archivo tracked caps, black + warm cream + espresso. Reusable for any media, studio, or creator newsletter.
 
-<img src="preview.png" alt="Cinematic Editorial Newsletter Email" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/cinematic-editorial-newsletter-email/preview.png)
 
 ## Prompt
 

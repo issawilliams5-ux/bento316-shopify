@@ -12,9 +12,9 @@ try_url: "https://superdesign.dev/library/glow-cursor-button?utm_source=github&u
 
 # Glow Cursor Button
 
-<img src="preview.mp4" alt="Glow Cursor Button" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/glow-cursor-button/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/glow-cursor-button/preview.mp4)** (MP4)
 
 ## Prompt
 

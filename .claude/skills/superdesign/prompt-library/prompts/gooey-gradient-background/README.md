@@ -14,9 +14,9 @@ try_url: "https://superdesign.dev/library/gooey-gradient-background?utm_source=g
 
 A mesmerizing, interactive gooey liquid gradient background with animated blobs and mouse-following effect. Perfect for immersive landing pages.
 
-<img src="preview.png" alt="Gooey Gradient Background" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/gooey-gradient-background/preview.png)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/gooey-gradient-background/preview.mp4)** (MP4)
 
 ## Prompt
 

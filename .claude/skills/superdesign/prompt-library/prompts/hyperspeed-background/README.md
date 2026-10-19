@@ -16,9 +16,9 @@ A high-performance, Three.js-based warp speed/hyperspeed background effect with 
 
 Source: ReactBits
 
-<img src="preview.mp4" alt="Hyperspeed Background" width="640">
+[Preview video (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/hyperspeed-background/preview.mp4)
 
-▶ **[Watch the animated preview](preview.mp4)** (MP4)
+▶ **[Watch the animated preview](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/hyperspeed-background/preview.mp4)** (MP4)
 
 ## Prompt
 

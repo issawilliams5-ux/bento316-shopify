@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/bold-editorial-studio-style?utm_source
 
 Bold Editorial Studio Style is a high-impact, minimalist design system characterized by massive typography, a strict monochromatic palette, and sophisticated micro-interactions. It features a signature 'editorial' look using ultra-large display fonts (up to 12vw), custom cursor logic, and fluid marquee animations. Ideal for creative agencies, high-end portfolios, fashion brands, and premium fintech products, the system leverages white space and motion to create a premium, curated feel. Key elements include mix-blend-mode navigation, staggered text reveals, and asymmetrical image containers with varied border radii.
 
-<img src="preview.png" alt="Bold Editorial Studio Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/bold-editorial-studio-style/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/bold-editorial-design-style?utm_source
 
 A premium, bold editorial design system characterized by high-contrast brutalist typography and a sophisticated dark navy and sage color palette. Optimized for creative agencies, design portfolios, luxury architecture, and high-end digital studios. Features include 'Anton' display headers, a custom crosshair cursor, floating ambient gradients, asymmetric masonry layouts, and smooth scroll-triggered reveal animations. The aesthetic balances minimalist white space with massive, impactful type and subtle micro-interactions like mix-blend-mode navigation and grayscale-to-color image transitions.
 
-<img src="preview.png" alt="Bold Editorial Design Style" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/bold-editorial-design-style/preview.png)
 
 ## Prompt
 

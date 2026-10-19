@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/editorial-music-player-now-playing?utm
 
 A high-contrast editorial "Now Playing" mobile music player: a light cream top with a warm sunset gradient album art, bold track title + scrubber, dark high-contrast transport controls on cream circles, over a deep forest-green "Up Next" playlist with a coral now-playing highlight.
 
-<img src="preview.png" alt="Editorial Music Player (Now Playing)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/editorial-music-player-now-playing/preview.png)
 
 ## Prompt
 

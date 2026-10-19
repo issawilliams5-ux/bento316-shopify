@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/superdesign-setup-inline-preview?utm_s
 
 A minimalist, developer-centric configuration interface featuring a monochrome technical aesthetic. It utilizes a high-contrast dark/light mode, JetBrains Mono for system labels, and Inter for UI elements. Key features include an inline state-preview logging system, custom range sliders for AI intervention thresholds, and segmented controls for workspace density. Suitable for SaaS setup wizards, developer tools, AI configuration panels, and fintech dashboards that prioritize functional clarity and a 'terminal-lite' feel.
 
-<img src="preview.png" alt="Superdesign Setup - Inline Preview" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/superdesign-setup-inline-preview/preview.png)
 
 ## Prompt
 

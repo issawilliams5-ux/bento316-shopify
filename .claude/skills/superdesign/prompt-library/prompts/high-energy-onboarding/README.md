@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/high-energy-onboarding?utm_source=gith
 
 A maximalist, neobrutalist design system featuring unconventional geometric typography, high-contrast colors, and interactive card stacking. Built for energetic SaaS onboarding, creative platforms, or experimental fintech interfaces. Uses Clash Display and Satoshi fonts with hard shadows (#2D1B4E), vibrant accents in orange (#FF7D2E) and cyan (#00D4FF), and a signature noise-textured background overlay.
 
-<img src="preview.png" alt="High energy onboarding" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/high-energy-onboarding/preview.png)
 
 ## Prompt
 

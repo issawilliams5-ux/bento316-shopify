@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/system-initialization-trust-and-transp
 
 A high-trust, technical briefing design system for AI onboarding and system initialization. Featuring an editorial typography approach with a warm, neutral color palette (Stone and Amber), it utilizes a two-column grid to balance user configuration with technical evidence. Ideal for fintech, cybersecurity, AI safety, or enterprise SaaS where transparency, data privacy, and ethical alignment are core product values. The layout emphasizes vertical rhythm, semantic depth, and clear decision-making through structured guidance and live-updating evidence cards.
 
-<img src="preview.png" alt="System Initialization - Trust & Transparency" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/system-initialization-trust-and-transparency/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://p.superdesign.dev/draft/b2872932-7c44-4ec1-8128-99a65fb985f1"
 
 Dark, warm-ember startup launch / waitlist landing page: near-black ink base with a single hot coral accent, Space Grotesk display + Inter body, blurred coral/amber ambient glows, a floating glass pill nav, a centered gradient headline, a glassmorphic email-capture waitlist card, a 'backed by' logo row, and a sticky-titled editorial 3-step feature spread.
 
-<img src="preview.png" alt="Forge — Launch Waitlist (dark, warm-ember)" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/forge-launch-waitlist-dark-warm-ember/preview.png)
 
 ## Prompt
 

@@ -14,7 +14,7 @@ try_url: "https://superdesign.dev/library/calendar-ui-warm-editorial-week-planne
 
 A warm editorial take on the calendar UI: an ivory week-planner scheduler with a serif month title, muted color-coded events, and a terracotta "today" marker. The layout is a full 7-day week time-grid (hourly rows, an all-day row, a live current-time line, and side-by-side blocks for conflicts) beside a left sidebar holding a mini-month picker, a "My calendars" color-dot checklist, and an "Up next" agenda. One warm accent (terracotta) over cream, four muted event families (terracotta, sage, dusty blue, amber), and a Fraunces-serif + Inter-sans pairing give it a "paper planner meets modern software" feel. Copy this calendar app design for any scheduler, booking tool, planning dashboard, or agenda view that wants to feel human and premium instead of cold and generic. Responsive: reflows to a single-day timeline on mobile.
 
-<img src="preview.png" alt="Calendar UI: Warm Editorial Week Planner" width="640">
+[Preview image (upstream)](https://github.com/superdesigndev/superdesign-prompts/blob/6c60906/prompts/calendar-ui-warm-editorial-week-planner/preview.png)
 
 ## Prompt
 
