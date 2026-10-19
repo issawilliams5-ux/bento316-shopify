@@ -402,11 +402,15 @@ telemetry is on by default: run `mcpproxy telemetry disable`. `context-mode`
 hooks (the plugin route was blocked as self-modification); `ruflo` (rewrites
 hooks and settings) was vetted and not installed. Details: `ai-tools/README.md`.
 
-# Superdesign / treg / loopany (read, not installed)
+# Superdesign skill (vendored, CLI pinned); treg and loopany not installed
 
-Reviewed 2026-10-19; details and licenses in `ai-tools/README.md`. The Superdesign
-skill (MIT) is cloned to `~/ai-tools/superdesign-skill` but **not** vendored: it
-runs an unpinned `npx @superdesign/cli@latest`, needs a hosted account, and sends
-codebase context to superdesign.dev. `treg` (hosted, paid per call, uploads `.env`
-keys) and `loopany` (credentialed scheduled-agent daemon) are not installed. All
-three hosts are blocked in cloud sessions.
+[superdesign-skill](https://github.com/superdesigndev/superdesign-skill) (MIT,
+upstream `f9f05cd`) is vendored at `.claude/skills/superdesign/` with every CLI
+call pinned to `@superdesign/cli@0.14.0` instead of `@latest` (see its
+`PINNED.md`; bump deliberately). It needs a `superdesign login` account and sends
+prompts, context files, codebase context (`init`) and URLs to superdesign.dev,
+which is **blocked in cloud sessions**, so it only works from a desktop. Never
+point it at confidential or customer data. `DO_NOT_TRACK=1` (already in
+`.claude/settings.json`) turns off the CLI's usage tracking. `treg` (hosted, paid
+per call, uploads `.env` keys) and `loopany` (credentialed scheduled-agent
+daemon) were reviewed and not installed. Details: `ai-tools/README.md`.
