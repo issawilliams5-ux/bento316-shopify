@@ -222,6 +222,27 @@ step_website_cloner() {
   npm run typecheck
 }
 
+step_seven_tools() {
+  cd "$WORKDIR" || return 1
+  local r n
+  for r in storytold/wordcraft google/artemis debpalash/VoiceStudio ErTasselli/OpenTerminal \
+           wheresryan22/anatomy tangency-labs/solidcraft xerj-org/xerj; do
+    n="${r#*/}"
+    clone_once "https://github.com/$r.git" "$n" || return 1
+  done
+  ( cd OpenTerminal && npm install --no-audit --no-fund ) || return 1
+  if command -v uv >/dev/null 2>&1; then ( cd artemis && uv sync ) || return 1
+  else SKIPPED="$SKIPPED artemis(uv)"; fi
+  # Rust builds take many minutes each, so they are opt-in.
+  if [ "${BUILD_RUST:-0}" = 1 ] && command -v cargo >/dev/null 2>&1; then
+    ( cd wordcraft && cargo build --release -p wordcraft-cli ) || return 1
+    ( cd solidcraft && cargo build --release -p solidcraft-cli ) || return 1
+    ( cd xerj/engine && cargo build --release -p xerj-server ) || return 1
+  else
+    echo "    Rust builds skipped (BUILD_RUST=1 for wordcraft-cli, solidcraft-cli, xerj)"
+  fi
+}
+
 run_step() {
   echo "==> $1"
   if ( set -e; "$2" ); then :; else
@@ -230,11 +251,12 @@ run_step() {
   fi
 }
 
-run_step "1/5 OpenManus"           step_openmanus          OpenManus
-run_step "2/5 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
-run_step "3/5 OpenUI"              step_openui             openui
-run_step "4/5 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
-run_step "5/5 ai-website-cloner"  step_website_cloner     ai-website-cloner
+run_step "1/6 OpenManus"           step_openmanus          OpenManus
+run_step "2/6 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
+run_step "3/6 OpenUI"              step_openui             openui
+run_step "4/6 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
+run_step "5/6 ai-website-cloner"  step_website_cloner     ai-website-cloner
+run_step "6/6 seven-tool batch"    step_seven_tools        seven-tool-batch
 
 cat <<EOF
 

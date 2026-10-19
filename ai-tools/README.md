@@ -417,3 +417,24 @@ copy, imagery, logos or trade dress and publishing it is infringement, and
 Shopify's terms forbid it on a storefront. Output is a Next.js app, not a
 Shopify theme: treat it as a first draft and port what you keep, re-adding
 validation and accessibility per the Ponytail rules.
+
+## Seven-tool batch (2026-10-19)
+
+All cloned shallow into `~/ai-tools` by `setup.sh` step 5, never vendored
+(except Anatomy, which is a Claude skill and lives in `.claude/skills/anatomy/`).
+
+| Tool | What | License | Run |
+|---|---|---|---|
+| [WordCraft](https://github.com/storytold/wordcraft) | Rust Word clone, reads/writes .docx, alpha | MIT/Apache-2.0 | `cargo run --release -p wordcraft -- --sample`; `wordcraft-cli` converts to PDF |
+| [ARTEMIS](https://github.com/google/artemis) (Google) | Natural-language Android automation, MCP server | Apache-2.0 | `uv sync`, then `./start.sh` or `uv run artemis ui` (:8000). Needs a phone/emulator with `adb`; neither is in the cloud container |
+| [VoiceStudio](https://github.com/debpalash/VoiceStudio) | Local voice cloning/dubbing/TTS/transcription | **AGPL-3.0** | `bun install && bun run setup:api && bun run dev`. Downloads models, wants a GPU; run on a desktop. Voice cloning only with the speaker's permission |
+| [OpenTerminal](https://github.com/ErTasselli/OpenTerminal) | Terminal-style market dashboard on free public data | MIT | `npm install && npm run dev` (web :3000, API :4000). Data is unofficial and may be wrong: not for investment decisions. Optional `ANTHROPIC_API_KEY` |
+| [Anatomy](https://github.com/wheresryan22/anatomy) | Claude skill: explains an idea as an interactive isometric SVG | MIT | `/anatomy <idea>`; examples build with `node examples/<name>/build.mjs` |
+| [SolidCraft](https://github.com/tangency-labs/solidcraft) | Rust parametric CAD, CLI + MCP server, early | MIT/Apache-2.0 | `cargo run --release -p solidcraft-cli -- commands` |
+| [XERJ](https://github.com/xerj-org/xerj) | Local search engine for agents, Elasticsearch-compatible | Apache-2.0 | Upstream: `curl -fsSL https://xerj.org/get \| sh` (blocked by the cloud proxy; build from `engine/` with `cargo build --release -p xerj-server`), then `xerj --insecure --data-dir ./data`, `xerj autoindex <dir>`, `xerj init` for MCP. `--insecure` = no auth, localhost only |
+
+Roadmaps: each repo's `ROADMAP.md` (WordCraft, SolidCraft, XERJ) or README
+(ARTEMIS: iOS, on-device vision, voice; OpenTerminal: drawing tools, Greeks,
+alerts, Postgres). Pinned at clone time (2026-10-19): WordCraft `117aea3`,
+ARTEMIS `351ca84`, VoiceStudio `18bf05a`, OpenTerminal `aed097c`, Anatomy
+`1482e84`, SolidCraft `3b4db52`, XERJ `e6216b6`.

@@ -366,3 +366,27 @@ re-export): ESLint, `next build`'s type check and editors load that.
   which support ESLint 10 (react crashes on the removed
   `context.getFilename`). Upgrade once they do; don't drop the a11y rules to
   get there.
+
+# Seven-tool batch: WordCraft, ARTEMIS, VoiceStudio, OpenTerminal, Anatomy, SolidCraft, XERJ (2026-10-19)
+
+Cloned on demand into `~/ai-tools` by `./ai-tools/setup.sh` (step 6); not
+vendored, not part of any build or deploy. **Anatomy is the exception**: it is a
+Claude skill, vendored at `.claude/skills/anatomy/` (MIT, pinned `1482e84`).
+Use `/anatomy <idea>` for an interactive isometric SVG explainer (needs Node
+20.10+, Chrome/Chromium for its checks).
+
+- **WordCraft** (Rust, .docx word processor, alpha) and **SolidCraft** (Rust
+  parametric CAD, early, has an MCP server): MIT/Apache-2.0. Builds are long;
+  `BUILD_RUST=1 ./ai-tools/setup.sh` builds the CLIs.
+- **XERJ** (Apache-2.0): local agent search engine, Elasticsearch API, MCP via
+  `xerj init`. The `xerj.org` installer is blocked by the cloud proxy, so build
+  from `engine/`. `--insecure` means no auth: localhost dev only.
+- **ARTEMIS** (Google, Apache-2.0): Android automation from natural language,
+  MCP server. Needs `adb` and a device/emulator: desktop only.
+- **VoiceStudio** (**AGPL-3.0**): local voice cloning/dubbing. Desktop with a
+  GPU; clone voices only with the speaker's permission; keep it a standalone
+  tool and do not import its code here.
+- **OpenTerminal** (MIT): market dashboard on unofficial public data. Never use
+  it for investment decisions; `ANTHROPIC_API_KEY` stays in the environment.
+
+Details, run commands and roadmaps: `ai-tools/README.md`.
