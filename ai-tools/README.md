@@ -493,5 +493,6 @@ Added with `claude mcp add --scope local context-mode -- npx -y context-mode@1.0
 
 - **No hooks.** The plugin route (six hooks on every tool call) was blocked as self-modification and not used; MCP-only means it only helps when a tool is called on purpose, with no automatic routing of tool output.
 - **License is ELv2**, source-available, free to use, not open source.
-- Event forwarding to a remote service is off unless `~/.context-mode` config with an API key exists (it does not). `ctx_upgrade` pulls from GitHub and `ctx_insight` opens a hosted dashboard: avoid both on anything sensitive. `ctx_fetch_and_index` fetches URLs.
+- **Where its data lives:** `~/.claude/context-mode/sessions` (session database) and `~/.claude/context-mode/content` (indexed content), both local. Verified 2026-10-19 after indexing this README through `ctx_index`.
+- Event forwarding to a remote service is off unless a `platform.json` with an API key exists at `$XDG_CONFIG_HOME/context-mode/` (or `~/.context-mode/` when that variable is unset). Neither exists here. `ctx_upgrade` pulls from GitHub and `ctx_insight` opens a hosted dashboard: avoid both on anything sensitive. `ctx_fetch_and_index` fetches URLs.
 - To remove: `claude mcp remove --scope local context-mode`. Re-run the add command after a container reset.
