@@ -199,7 +199,8 @@ prompt on *every* turn, so this file is a budget, not a wishlist.
 
 Not here, on purpose: `supabase` (already a session connector — a second copy
 only duplicates its tool list), `playwright` (`chrome-devtools` already
-navigates, clicks and fills, and there are no e2e tests here),
+navigates, clicks and fills, and the e2e suite drives Chromium through the
+`playwright` library directly, which needs no MCP server),
 `desktop-commander` (duplicates the agent's own shell and file tools),
 `firecrawl` (needs a paid key; `ai-tools/` already covers crawling), and
 `sequential-thinking` (a scaffold for models without native extended thinking).
@@ -416,3 +417,22 @@ per call, uploads `.env` keys) and `loopany` (credentialed scheduled-agent
 daemon) were reviewed and not installed. The CC0 `superdesign-prompts` library (140
 specs, text only) is vendored at `.claude/skills/superdesign/prompt-library/` and
 works offline; `INDEX.md` is the entry point. Details: `ai-tools/README.md`.
+
+# End-to-end tests (`npm run test:e2e`)
+
+`tests/e2e/auth.test.mjs` covers login, signup, the dashboard gate and logout:
+10 tests on Node's built-in runner plus `playwright` (pinned `1.56.1` to match the
+cloud container's preinstalled Chromium; on a new machine run `npx playwright
+install chromium` once). It needs no Supabase project or network: it builds the
+app against `tests/e2e/mock-supabase.mjs`, a local stand-in for the auth
+endpoints whose test emails pick each outcome, serves it with `next start` on
+:3199 (stand-in on :54329), and drives it headless. About 30 s.
+
+- The build it leaves in `.next` points at the stand-in. Run `npm run build`
+  again before `next start` for real.
+- It checks behaviour, not looks: busy state, announced errors and notices,
+  4.5:1 contrast on messages, keyboard submit, one request per submit, 320 px
+  reflow. Verified 2026-10-19 that it fails when the password hint or the
+  readable network error is removed.
+- The stand-in mirrors Supabase's error wording but is not Supabase; check new
+  auth behaviour against a real project too.

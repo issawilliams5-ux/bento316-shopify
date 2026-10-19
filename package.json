@@ -3,7 +3,8 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint .",
-    "typecheck": "node node_modules/typescript7/bin/tsc --noEmit"
+    "typecheck": "node node_modules/typescript7/bin/tsc --noEmit",
+    "test:e2e": "node --test tests/e2e/auth.test.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.1",
@@ -26,6 +27,7 @@
     "@types/three": "^0.186.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.3.8",
+    "playwright": "1.56.1",
     "postcss": "latest",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@6.0.2",

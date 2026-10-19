@@ -8,6 +8,7 @@ npm install
 npm run dev
 npm run build
 npm run lint
+npm run test:e2e   # login/signup end-to-end; first time: npx playwright install chromium
 ```
 
 ## Environment
