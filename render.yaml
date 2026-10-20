@@ -1,0 +1,25 @@
+# Render Blueprint: Dashboard -> New -> Blueprint -> pick this repo.
+# Values marked sync: false are asked for in the dashboard and never stored here.
+services:
+  - type: web
+    name: bento316-app
+    runtime: node
+    plan: free
+    branch: ccr-17c86019-ynzndm
+    buildCommand: npm ci && npm run build
+    startCommand: npx next start -p $PORT
+    healthCheckPath: /login
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      # Public by design (shipped to every browser); the AIW-engine project.
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        value: https://gefpswtccdpgtoumovhz.supabase.co
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        value: sb_publishable_l-9rUXJY8HadIjZyd20A5w_c9rNC07d
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
