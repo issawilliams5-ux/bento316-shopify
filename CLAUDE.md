@@ -422,7 +422,7 @@ works offline; `INDEX.md` is the entry point. Details: `ai-tools/README.md`.
 
 `tests/e2e/auth.test.mjs` covers login, signup, the dashboard gate and logout,
 plus generating a saved pack, Save/Regenerate, the swipe file and the 401 on
-the generation APIs: 13 tests on Node's built-in runner plus `playwright` (pinned `1.56.1` to match the
+the generation APIs, and the admin-only deploys page: 14 tests on Node's built-in runner plus `playwright` (pinned `1.56.1` to match the
 cloud container's preinstalled Chromium; on a new machine run `npx playwright
 install chromium` once). It needs no Supabase project or network: it builds the
 app against `tests/e2e/mock-supabase.mjs`, a local stand-in for the auth

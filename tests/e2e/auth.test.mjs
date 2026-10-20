@@ -233,3 +233,13 @@ test('the swipe file saves an item and lists it', async () => {
   assert.equal(mock.tables.swipe_file_items.at(-1).ad_link, 'https://example.com/ad/42');
   assert.equal(await page.getByLabel('Product', { exact: true }).inputValue(), '', 'form resets after saving');
 });
+
+test('deploy status needs a session and an admin email', async () => {
+  assert.equal((await fetch(`${APP}/api/deploys`)).status, 401);
+  const page = await newPage();
+  await logIn(page);
+  await page.goto(`${APP}/dashboard/deploys`);
+  const alert = page.locator('[aria-live=polite] [role=alert]');
+  await alert.waitFor();
+  assert.equal((await alert.textContent()).trim(), 'Deploy status is limited to admins');
+});
