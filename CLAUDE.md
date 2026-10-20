@@ -420,13 +420,14 @@ works offline; `INDEX.md` is the entry point. Details: `ai-tools/README.md`.
 
 # End-to-end tests (`npm run test:e2e`)
 
-`tests/e2e/auth.test.mjs` covers login, signup, the dashboard gate and logout:
-10 tests on Node's built-in runner plus `playwright` (pinned `1.56.1` to match the
+`tests/e2e/auth.test.mjs` covers login, signup, the dashboard gate and logout,
+plus generating a saved pack, Save/Regenerate, the swipe file and the 401 on
+the generation APIs: 13 tests on Node's built-in runner plus `playwright` (pinned `1.56.1` to match the
 cloud container's preinstalled Chromium; on a new machine run `npx playwright
 install chromium` once). It needs no Supabase project or network: it builds the
 app against `tests/e2e/mock-supabase.mjs`, a local stand-in for the auth
-endpoints whose test emails pick each outcome, serves it with `next start` on
-:3199 (stand-in on :54329), and drives it headless. About 30 s.
+endpoints whose test emails pick each outcome plus an in-memory PostgREST (no RLS), serves it with `next start` on
+:3199 (stand-in on :54329), and drives it headless. About 75 s.
 
 - The build it leaves in `.next` points at the stand-in. Run `npm run build`
   again before `next start` for real.

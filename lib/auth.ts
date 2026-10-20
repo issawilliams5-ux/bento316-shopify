@@ -1,7 +1,7 @@
 import { createClient, isAuthApiError, isAuthRetryableFetchError } from '@supabase/supabase-js';
 import { isSupabaseConfigured } from './supabase';
 
-export type AuthedUser = { id: string; email?: string };
+export type AuthedUser = { id: string; email?: string; token: string };
 
 export class AuthError extends Error {
   constructor(message: string, readonly status: number) { super(message); }
@@ -44,7 +44,7 @@ export async function requireUser(request: Request): Promise<AuthedUser> {
 
   if (!data.user) throw new AuthError('Invalid or expired token', 401);
 
-  return { id: data.user.id, email: data.user.email };
+  return { id: data.user.id, email: data.user.email, token };
 }
 
 /** True when the auth server answered with a verdict on the token. */

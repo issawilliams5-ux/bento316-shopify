@@ -1,3 +1,26 @@
-import { mockAdPack, demoInput } from '@/lib/demo';import { AdPackSection } from '@/components/AdPackSection';import { CopyButton } from '@/components/CopyButton';
-export const metadata = { title: `${demoInput.productName} ad pack` };
-export default async function PackPage(){const pack=mockAdPack(demoInput);return <div className="space-y-5"><div className="glass rounded-2xl p-6"><h1 className="text-3xl font-bold">{demoInput.productName} Ad Pack</h1><p className="mt-2 text-slate-300">{pack.productSummary}</p><div className="mt-4"><CopyButton text={JSON.stringify(pack,null,2)}/></div></div><AdPackSection title="50 Hooks" items={pack.hooks}/><AdPackSection title="10 TikTok/Reels Scripts" items={pack.tiktokScripts}/><AdPackSection title="10 Meta Ad Variations" items={pack.metaAds}/><AdPackSection title="10 Instagram Captions" items={pack.instagramCaptions}/><AdPackSection title="10 Static Ad Concepts" items={pack.staticAdConcepts}/><AdPackSection title="5 UGC Scripts" items={pack.ugcScripts}/><AdPackSection title="Product Page Audit" items={pack.productPageAudit}/><AdPackSection title="FAQs" items={pack.faqs}/><AdPackSection title="SEO" items={[pack.seo.title, pack.seo.metaDescription]}/><AdPackSection title="7-Day Testing Plan" items={pack.testingPlan}/></div>}
+import { mockAdPack, demoInput } from '@/lib/demo';
+import { AdPackSection } from '@/components/AdPackSection';
+import { CopyButton } from '@/components/CopyButton';
+import { SavedPack } from '@/components/SavedPack';
+import { SECTIONS, sectionItems } from '@/lib/pack';
+
+const DEMO_ID = 'demo-1';
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return { title: id === DEMO_ID ? `${demoInput.productName} ad pack (demo)` : 'Ad pack' };
+}
+
+export default async function PackPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  if (id !== DEMO_ID) return <SavedPack id={id} />;
+  const pack = mockAdPack(demoInput);
+  return <div className="space-y-5">
+    <div className="glass rounded-2xl p-6">
+      <h1 className="text-3xl font-bold">{demoInput.productName} Ad Pack</h1>
+      <p className="mt-2 text-slate-300">{pack.productSummary}</p>
+      <div className="mt-4"><CopyButton text={JSON.stringify(pack, null, 2)} /></div>
+    </div>
+    {SECTIONS.map((s) => <AdPackSection key={s.key} sectionKey={s.key} items={sectionItems(pack, s.key)} />)}
+  </div>;
+}

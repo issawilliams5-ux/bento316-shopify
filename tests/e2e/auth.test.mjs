@@ -23,6 +23,9 @@ const env = {
   ...process.env,
   NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${MOCK_PORT}`,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: 'e2e-dummy-anon-key',
+  SUPABASE_SERVICE_ROLE_KEY: 'e2e-dummy-service-role-key', // the rate limiter fails closed without one
+  OPENAI_API_KEY: '', // generation falls back to the local template pack
+  TYPESAFE_API_KEY: '',
   NEXT_TELEMETRY_DISABLED: '1',
 };
 
@@ -176,4 +179,57 @@ test('both forms reflow at 320px without horizontal scrolling', async () => {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     assert.equal(overflow, 0, `${path} overflows by ${overflow}px`);
   }
+});
+
+async function logIn(page) {
+  await submit(page, '/login', { Email: 'user@example.com', Password: 'right-password' });
+  await page.waitForURL('**/dashboard');
+}
+
+test('the generate and regenerate APIs refuse callers without a session', async () => {
+  for (const path of ['/api/generate', '/api/regenerate']) {
+    const res = await fetch(APP + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    assert.equal(res.status, 401, path);
+  }
+});
+
+test('generating a pack saves it; Save and Regenerate persist', async () => {
+  const page = await newPage(1280, 900);
+  await logIn(page);
+  await page.goto(`${APP}/dashboard/new`);
+  const brief = { 'Product name': 'Test Lamp', Category: 'Home', Price: '$40', 'Target customer': 'renters',
+    'Main problem solved': 'dim rooms', 'Main benefit': 'warm light anywhere', 'Key features': 'cordless, dimmable' };
+  for (const [label, value] of Object.entries(brief)) await page.getByLabel(label, { exact: true }).fill(value);
+  await page.getByRole('button', { name: 'Generate Ad Pack' }).click();
+  await page.waitForURL(/\/dashboard\/packs\/[0-9a-f-]{36}$/, { timeout: 30_000 });
+  await page.getByRole('heading', { level: 1, name: 'Test Lamp ad pack' }).waitFor();
+  assert.equal(mock.tables.generated_sections.length, 10);
+  assert.equal(mock.tables.usage_events.filter((e) => e.event_type === 'ad_pack_generation').length, 1);
+
+  const hooks = page.locator('section', { has: page.getByRole('heading', { name: '50 Hooks' }) });
+  const save = hooks.getByRole('button', { name: 'Save' });
+  await save.click();
+  await hooks.getByRole('button', { name: 'Saved' }).waitFor();
+  assert.equal(await hooks.getByRole('button', { name: 'Saved' }).getAttribute('aria-pressed'), 'true');
+  assert.equal(mock.tables.generated_sections.find((r) => r.section_key === 'hooks').saved, true);
+
+  const faqs = page.locator('section', { has: page.getByRole('heading', { name: 'FAQs' }) });
+  await faqs.getByRole('button', { name: 'Regenerate' }).click();
+  await faqs.getByRole('button', { name: 'Regenerate' }).waitFor({ timeout: 30_000 });
+  assert.equal(await faqs.getByRole('alert').count(), 0);
+  assert.equal(mock.tables.usage_events.filter((e) => e.event_type === 'ad_pack_generation').length, 2);
+});
+
+test('the swipe file saves an item and lists it', async () => {
+  const page = await newPage(1280, 900);
+  await logIn(page);
+  await page.goto(`${APP}/dashboard/swipe-file`);
+  await page.getByText('Nothing saved yet.').waitFor();
+  await page.getByLabel('Ad link', { exact: true }).fill('https://example.com/ad/42');
+  await page.getByLabel('Product', { exact: true }).fill('Desk Fan');
+  await page.getByLabel('Hook', { exact: true }).fill('It is quieter than my laptop.');
+  await page.getByRole('button', { name: 'Save inspiration' }).click();
+  await page.getByRole('heading', { level: 2, name: 'Desk Fan' }).waitFor();
+  assert.equal(mock.tables.swipe_file_items.at(-1).ad_link, 'https://example.com/ad/42');
+  assert.equal(await page.getByLabel('Product', { exact: true }).inputValue(), '', 'form resets after saving');
 });

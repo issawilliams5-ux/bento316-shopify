@@ -7,10 +7,12 @@ import { getSupabaseAdminClient } from './supabase';
 
 export const IMAGE_EVENT_TYPE = 'image_generation';
 export const LEGAL_EVENT_TYPE = 'legal_review';
+export const GENERATE_EVENT_TYPE = 'ad_pack_generation';
 
 const limits = {
   [IMAGE_EVENT_TYPE]: { env: 'IMAGE_RATE_LIMIT', fallback: 10, noun: 'images' },
-  [LEGAL_EVENT_TYPE]: { env: 'LEGAL_RATE_LIMIT', fallback: 20, noun: 'legal reviews' }
+  [LEGAL_EVENT_TYPE]: { env: 'LEGAL_RATE_LIMIT', fallback: 20, noun: 'legal reviews' },
+  [GENERATE_EVENT_TYPE]: { env: 'GENERATE_RATE_LIMIT', fallback: 10, noun: 'ad pack generations' }
 } as const;
 type EventType = keyof typeof limits;
 
