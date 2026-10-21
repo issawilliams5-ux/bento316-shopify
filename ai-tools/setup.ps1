@@ -228,6 +228,30 @@ function Step-WebsiteCloner {
   if ($LASTEXITCODE -ne 0) { throw "typecheck failed." }
 }
 
+# -------------------------------------------------------------- FreeLLMAPI --
+# Gateway over ~34 free LLM tiers. ENCRYPTION_KEY is generated into
+# $WorkDir\freellmapi\.env and never printed or committed; provider keys are
+# added later in the dashboard.
+function Step-FreeLLMAPI {
+  $miss = @()
+  if (-not (Have git)) { $miss += "git(https://git-scm.com/download/win)" }
+  if (-not (Have npm)) { $miss += "node(https://nodejs.org, 20.18-24)" }
+  if ($miss.Count) { Write-Host "    skipped - missing: $($miss -join ' ')"; $script:Skipped += "freellmapi"; return }
+
+  $repo = Join-Path $WorkDir "freellmapi"
+  Clone-Once "https://github.com/tashfeenahmed/freellmapi.git" $repo
+  Set-Location $repo
+  npm ci --no-audit --no-fund
+  if ($LASTEXITCODE -ne 0) { throw "npm ci failed." }
+  if (-not (Test-Path ".env")) {
+    $key = node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+    "ENCRYPTION_KEY=$key`nPORT=3001" | Out-File -Encoding ascii .env
+    Write-Host "    .env written with a fresh ENCRYPTION_KEY (back it up: it unlocks stored provider keys)"
+  } else { Write-Host "    .env already exists - left untouched" }
+  npm run build
+  if ($LASTEXITCODE -ne 0) { throw "build failed." }
+}
+
 function Run-Step($label, $name, $fn) {
   if ($Only -and $Only -ne $name) { return }
   Write-Host "==> $label" -ForegroundColor Cyan
@@ -239,10 +263,11 @@ function Run-Step($label, $name, $fn) {
 }
 
 New-Item -ItemType Directory -Force -Path $WorkDir | Out-Null
-Run-Step "1/4 OpenManus"          "OpenManus"          ${function:Step-OpenManus}
-Run-Step "2/4 screenshot-to-code" "screenshot-to-code" ${function:Step-ScreenshotToCode}
-Run-Step "3/4 OpenUI"             "openui"             ${function:Step-OpenUI}
-Run-Step "4/4 ai-website-cloner"  "ai-website-cloner"  ${function:Step-WebsiteCloner}
+Run-Step "1/5 OpenManus"          "OpenManus"          ${function:Step-OpenManus}
+Run-Step "2/5 screenshot-to-code" "screenshot-to-code" ${function:Step-ScreenshotToCode}
+Run-Step "3/5 OpenUI"             "openui"             ${function:Step-OpenUI}
+Run-Step "4/5 ai-website-cloner"  "ai-website-cloner"  ${function:Step-WebsiteCloner}
+Run-Step "5/5 FreeLLMAPI"         "freellmapi"         ${function:Step-FreeLLMAPI}
 
 Write-Host ""
 Write-Host "------------------------------------------------------------------"
@@ -258,6 +283,9 @@ Write-Host "  cd `"$WorkDir\openui\backend`"; .\.venv\Scripts\python.exe -m open
 Write-Host ""
 Write-Host "ai-website-cloner - Next.js app, open http://localhost:3000"
 Write-Host "  cd `"$WorkDir\ai-website-cloner-template`"; claude  (then /clone-website <url>); npm run dev"
+Write-Host ""
+Write-Host "FreeLLMAPI - one process (API + dashboard), open http://localhost:3001"
+Write-Host "  cd `"$WorkDir\freellmapi`"; npm run dev   (or build + `$env:NODE_ENV='production'; npm run start -w server)"
 Write-Host ""
 Write-Host "Both UI tools need a vision-capable model key to generate anything."
 Write-Host "See ai-tools\README.md and .env.example."

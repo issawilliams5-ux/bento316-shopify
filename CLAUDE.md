@@ -173,6 +173,36 @@ placeholder var this repo expects if/when Skyvern is wired in.
 - Skyvern is AGPL-3.0 — review license implications before shipping it as
   part of a commercial product.
 
+# Free LLM gateway: FreeLLMAPI (installed on demand)
+
+[FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) (MIT) pools the free
+tiers of ~34 LLM providers behind one OpenAI- and Anthropic-compatible endpoint
+(`/v1/chat/completions`, `/v1/messages`, embeddings, images, audio) with
+automatic fallover and per-key quota tracking. Installed by
+`./ai-tools/setup.sh` into `~/ai-tools/freellmapi`; **not vendored**, not part of
+any build or deploy. Verified 2026-10-21 (upstream `ecdc9cb`): builds and boots
+on :3001 in the cloud container.
+
+- **Run:** `cd ~/ai-tools/freellmapi && set -a && . ./.env && set +a &&
+  NODE_ENV=production npm run start -w server`, then open http://localhost:3001,
+  create the dashboard account, add provider keys (Keys page) and copy the
+  unified key. That step needs the user's own provider accounts: do not invent
+  keys or accounts.
+- **Wire agents:** `npx freellmapi setup-claude|setup-codex|setup-aider|... --url
+  http://localhost:3001 --api-key <unified-key>`. Claude Code uses the server
+  root, OpenAI clients use `/v1`. For n8n use an OpenAI-compatible Chat Model
+  node on that base URL; OpenRouter stays the default LLM slot.
+- **Fit:** bulk, low-stakes, non-customer-facing work only. Free tiers are
+  rate-limited, quality varies per request, and prompts go to third-party
+  providers whose free-tier terms may allow training (e.g. Kilo logs for training): no secrets, customer data
+  or unpublished legal copy through it.
+- **Secrets:** `~/ai-tools/freellmapi/.env` (`ENCRYPTION_KEY`, 0600) and the
+  unified key never go in a repo, a paste or a commit. Keep the server on
+  localhost; it is single-user and guarded only by the unified key.
+- It polls `api.freellmapi.co` for a signed model catalog every 12 h (version + IP only, no prompts; off with `CATALOG_SYNC_DISABLED=1`). Upstream binds all interfaces by default: use `ai-tools/freellmapi/start.sh`, which forces `HOST=127.0.0.1`.
+
+Details, first-run steps and gotchas: `ai-tools/README.md`.
+
 # MCP servers (`.mcp.json`)
 
 Four, deliberately. Every connected server injects its tool list into the
