@@ -417,3 +417,58 @@ copy, imagery, logos or trade dress and publishing it is infringement, and
 Shopify's terms forbid it on a storefront. Output is a Next.js app, not a
 Shopify theme: treat it as a first draft and port what you keep, re-adding
 validation and accessibility per the Ponytail rules.
+
+## FreeLLMAPI (2026-10-21)
+
+[tashfeenahmed/freellmapi](https://github.com/tashfeenahmed/freellmapi) (MIT) —
+a self-hosted gateway that stacks the free tiers of ~34 LLM providers (Groq,
+Cerebras, Gemini, OpenRouter, Mistral, NVIDIA, …) behind one endpoint: OpenAI
+`/v1/chat/completions`, `/v1/responses`, `/v1/embeddings`, images/audio, the
+Anthropic `/v1/messages` API (so Claude Code can run on it) and Gemini/Ollama
+surfaces. A router ranks models, fails over on 429/5xx and tracks per-key
+quota. Installed by `ai-tools/setup.sh` / `setup.ps1` into `~/ai-tools/freellmapi`
+(cloned at HEAD; verified at upstream `ecdc9cb`); not vendored.
+
+- **Install:** clone, `npm ci`, generate `.env` (`ENCRYPTION_KEY`, `PORT=3001`,
+  mode 0600), `npm run build`. Verified in a cloud session on 2026-10-21: build
+  passes and the server boots on :3001 (`/v1/models` answers 401 until a key
+  exists, as designed). Node 20.18–24 (this container: 22).
+- **Run:** `cd ~/ai-tools/freellmapi && set -a && . ./.env && set +a &&
+  NODE_ENV=production npm run start -w server` → http://localhost:3001. Docker
+  alternative: upstream's `docker compose up -d`.
+- **First run (you, in a browser):** create the dashboard account (same-machine
+  browsers need no code; from another device use the one-time setup code the
+  server logs at startup), add free provider keys on **Keys**, reorder the
+  **Fallback Chain**, copy the **unified API key**. Nothing here can do this
+  step for you: it needs your accounts at each provider.
+- **Use it:**
+  - Any OpenAI client: base URL `http://localhost:3001/v1`, key = the unified key.
+  - Claude Code / Codex / Aider / Cline / Goose / …: `npx freellmapi setup-<agent>
+    --url http://localhost:3001 --api-key <unified-key>` (backs up and merges
+    the agent's config; `npx freellmapi launch` runs Claude Code with no
+    credentials written to disk; `doctor` checks the wiring). Claude Code takes
+    the server **root**, OpenAI clients take `/v1`.
+  - n8n: use an OpenAI-compatible Chat Model node with that base URL. This
+    repo's default LLM slot is OpenRouter (see `CLAUDE.md`); FreeLLMAPI is the
+    free-tier option for bulk or low-stakes work, not a replacement.
+  - Usage and quota: `GET /v1/usage`, dashboard Analytics; API docs at `/v1/docs`.
+
+**Guardrails:**
+- **Free tiers are rate-limited and change weekly.** Latency and model quality
+  vary request to request, so keep it off anything customer-facing, anything
+  needing a stable model, and anything with private data: prompts go to whichever
+  third-party provider the router picks, under that provider's free-tier terms
+  (which often allow training on prompts).
+- **Provider terms:** one person stacking free tiers on their own keys is the
+  intended use; do not register extra accounts to multiply quota.
+- **Keys:** provider keys live in its SQLite DB encrypted with `ENCRYPTION_KEY`.
+  Keep `.env` in `~/ai-tools` (never in a repo) and back it up; losing it makes
+  stored keys undecryptable. The unified key is a bearer secret: the server is
+  single-user, so keep it bound to localhost (`HOST=127.0.0.1`) unless you also
+  put auth and TLS in front. Never expose :3001 to the internet as-is.
+- **Phones home:** the router polls `api.freellmapi.co` for the signed model
+  catalog every 12 h (free installs get the monthly snapshot; premium is $19/yr
+  upstream and optional). No prompts go there. Review upstream's docs before
+  pointing it at anything sensitive.
+- **Cloud sessions:** it runs here, but a container is ephemeral and has no
+  browser for the dashboard. Run it on your desktop for real use.

@@ -222,6 +222,34 @@ step_website_cloner() {
   npm run typecheck
 }
 
+# -------------------------------------------------------------- FreeLLMAPI --
+# One OpenAI/Anthropic-compatible gateway over ~34 free LLM tiers. The encryption
+# key is generated here into $WORKDIR/freellmapi/.env (0600) and never printed or
+# committed; provider keys are added later in the dashboard, not by this script.
+step_freellmapi() {
+  local dir="$WORKDIR/freellmapi"
+  local miss
+  miss="$(missing_of "git|git" "npm|node(https://nodejs.org, 20.18-24)")"
+  if [ -n "$miss" ]; then
+    echo "    skipped - missing:$miss"
+    SKIPPED="$SKIPPED freellmapi"
+    return 0
+  fi
+
+  clone_once https://github.com/tashfeenahmed/freellmapi.git "$dir" || return 1
+  cd "$dir" || return 1
+  npm ci --no-audit --no-fund || return 1
+  if [ ! -f .env ]; then
+    printf 'ENCRYPTION_KEY=%s\nPORT=3001\n' \
+      "$(node -e 'console.log(require("crypto").randomBytes(32).toString("hex"))')" > .env || return 1
+    echo "    .env written with a fresh ENCRYPTION_KEY (back it up: it unlocks stored provider keys)"
+  else
+    echo "    .env already exists - left untouched"
+  fi
+  chmod 600 .env
+  npm run build
+}
+
 run_step() {
   echo "==> $1"
   if ( set -e; "$2" ); then :; else
@@ -230,11 +258,11 @@ run_step() {
   fi
 }
 
-run_step "1/5 OpenManus"           step_openmanus          OpenManus
-run_step "2/5 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
-run_step "3/5 OpenUI"              step_openui             openui
-run_step "4/5 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
-run_step "5/5 ai-website-cloner"  step_website_cloner     ai-website-cloner
+run_step "1/6 OpenManus"           step_openmanus          OpenManus
+run_step "2/6 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
+run_step "3/6 OpenUI"              step_openui             openui
+run_step "4/6 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
+run_step "5/6 ai-website-cloner"  step_website_cloner     ai-website-cloner
 
 cat <<EOF
 
@@ -267,6 +295,14 @@ ai-website-cloner - Next.js app, open http://localhost:3000
   cd $WORKDIR/ai-website-cloner-template
   claude                                      # then: /clone-website https://example.com
   npm run dev
+
+FreeLLMAPI - one process (API + dashboard), open http://localhost:3001
+  cd $WORKDIR/freellmapi
+  set -a; . ./.env; set +a; NODE_ENV=production npm run start -w server
+
+  First run: create the dashboard account, add free provider keys on the Keys
+  page, then point clients at http://localhost:3001/v1 with the unified key.
+  Wire Claude Code etc.: npx freellmapi setup-claude --url http://localhost:3001 --api-key <unified-key>
 
 Both UI tools need a vision-capable model key to generate anything.
 See ai-tools/README.md and .env.example.
