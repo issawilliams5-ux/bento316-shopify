@@ -433,6 +433,12 @@ quota. Installed by `ai-tools/setup.sh` / `setup.ps1` into `~/ai-tools/freellmap
   mode 0600), `npm run build`. Verified in a cloud session on 2026-10-21: build
   passes and the server boots on :3001 (`/v1/models` answers 401 until a key
   exists, as designed). Node 20.18–24 (this container: 22).
+  Also verified end to end with a local stub as a custom provider (no real
+  keys): upstream's server suite passes (4449 tests, 5 skipped, ~400 s), and
+  `/v1/chat/completions` (JSON and SSE), `/v1/messages` (Anthropic format) and
+  `/v1/models` all route to the stub, with 401 on a wrong key. `npx freellmapi
+  doctor` checks which coding clients point at the gateway, not the gateway
+  itself. Dashboard login locks out for 15 min after 5 failures.
 - **Run:** `ai-tools/freellmapi/start.sh` (`start.ps1` on Windows) / `stop.sh` → http://localhost:3001
   (binds 127.0.0.1 unless you set `HOST`; `PORT` overrides; pid file and
   `freellmapi.log` live in `~/ai-tools/freellmapi`). Manual equivalent:
