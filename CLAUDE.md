@@ -194,12 +194,12 @@ on :3001 in the cloud container.
   node on that base URL; OpenRouter stays the default LLM slot.
 - **Fit:** bulk, low-stakes, non-customer-facing work only. Free tiers are
   rate-limited, quality varies per request, and prompts go to third-party
-  providers whose free-tier terms may allow training: no secrets, customer data
+  providers whose free-tier terms may allow training (e.g. Kilo logs for training): no secrets, customer data
   or unpublished legal copy through it.
 - **Secrets:** `~/ai-tools/freellmapi/.env` (`ENCRYPTION_KEY`, 0600) and the
   unified key never go in a repo, a paste or a commit. Keep the server on
   localhost; it is single-user and guarded only by the unified key.
-- It polls `api.freellmapi.co` for a signed model catalog every 12 h (no prompts).
+- It polls `api.freellmapi.co` for a signed model catalog every 12 h (version + IP only, no prompts; off with `CATALOG_SYNC_DISABLED=1`). Upstream binds all interfaces by default: use `ai-tools/freellmapi/start.sh`, which forces `HOST=127.0.0.1`.
 
 Details, first-run steps and gotchas: `ai-tools/README.md`.
 

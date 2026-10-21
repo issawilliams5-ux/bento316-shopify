@@ -433,22 +433,29 @@ quota. Installed by `ai-tools/setup.sh` / `setup.ps1` into `~/ai-tools/freellmap
   mode 0600), `npm run build`. Verified in a cloud session on 2026-10-21: build
   passes and the server boots on :3001 (`/v1/models` answers 401 until a key
   exists, as designed). Node 20.18–24 (this container: 22).
-- **Run:** `cd ~/ai-tools/freellmapi && set -a && . ./.env && set +a &&
-  NODE_ENV=production npm run start -w server` → http://localhost:3001. Docker
-  alternative: upstream's `docker compose up -d`.
+- **Run:** `ai-tools/freellmapi/start.sh` (`start.ps1` on Windows) / `stop.sh` → http://localhost:3001
+  (binds 127.0.0.1 unless you set `HOST`; `PORT` overrides; pid file and
+  `freellmapi.log` live in `~/ai-tools/freellmapi`). Manual equivalent:
+  `cd ~/ai-tools/freellmapi && set -a && . ./.env && set +a &&
+  NODE_ENV=production npm run start -w server`. Docker alternative: upstream's
+  `docker compose up -d`.
 - **First run (you, in a browser):** create the dashboard account (same-machine
   browsers need no code; from another device use the one-time setup code the
   server logs at startup), add free provider keys on **Keys**, reorder the
   **Fallback Chain**, copy the **unified API key**. Nothing here can do this
   step for you: it needs your accounts at each provider.
 - **Use it:**
+  - Run `npx freellmapi ...` from inside the clone (a workspace bin, no
+    publish needed); `--api-key` falls back to `$FREELLMAPI_API_KEY`.
   - Any OpenAI client: base URL `http://localhost:3001/v1`, key = the unified key.
   - Claude Code / Codex / Aider / Cline / Goose / …: `npx freellmapi setup-<agent>
     --url http://localhost:3001 --api-key <unified-key>` (backs up and merges
     the agent's config; `npx freellmapi launch` runs Claude Code with no
     credentials written to disk; `doctor` checks the wiring). Claude Code takes
     the server **root**, OpenAI clients take `/v1`.
-  - n8n: use an OpenAI-compatible Chat Model node with that base URL. This
+  - n8n: OpenAI-compatible credential, base URL `http://127.0.0.1:3001/v1`
+    (from n8n in Docker use `host.docker.internal`), key = unified key, model
+    `auto` (router picks), `fusion` (multi-model synthesis) or a specific id. This
     repo's default LLM slot is OpenRouter (see `CLAUDE.md`); FreeLLMAPI is the
     free-tier option for bulk or low-stakes work, not a replacement.
   - Usage and quota: `GET /v1/usage`, dashboard Analytics; API docs at `/v1/docs`.
@@ -458,17 +465,25 @@ quota. Installed by `ai-tools/setup.sh` / `setup.ps1` into `~/ai-tools/freellmap
   vary request to request, so keep it off anything customer-facing, anything
   needing a stable model, and anything with private data: prompts go to whichever
   third-party provider the router picks, under that provider's free-tier terms
-  (which often allow training on prompts).
+  (some log prompts for training, e.g. Kilo's anonymous routes; check each provider's terms).
 - **Provider terms:** one person stacking free tiers on their own keys is the
   intended use; do not register extra accounts to multiply quota.
 - **Keys:** provider keys live in its SQLite DB encrypted with `ENCRYPTION_KEY`.
   Keep `.env` in `~/ai-tools` (never in a repo) and back it up; losing it makes
   stored keys undecryptable. The unified key is a bearer secret: the server is
-  single-user, so keep it bound to localhost (`HOST=127.0.0.1`) unless you also
-  put auth and TLS in front. Never expose :3001 to the internet as-is.
+  single-user. **Upstream binds all interfaces by default (`HOST=::`)**; the
+  `ai-tools/freellmapi/start.sh` launcher forces `HOST=127.0.0.1`, so set it
+  yourself if you start it another way, and use `127.0.0.1` rather than
+  `localhost` in URLs (it can resolve to `::1`). Behind a reverse proxy the
+  first-run setup code is required even on the same machine. Never expose
+  :3001 to the internet as-is.
 - **Phones home:** the router polls `api.freellmapi.co` for the signed model
-  catalog every 12 h (free installs get the monthly snapshot; premium is $19/yr
-  upstream and optional). No prompts go there. Review upstream's docs before
-  pointing it at anything sensitive.
+  catalog (first poll 10 s after boot, then every 12 h; free installs get the
+  monthly snapshot, premium is a paid upstream option). It sends only the
+  applied catalog version and your IP, plus a licence key if you enter one; no
+  prompts and no install id. Opt out with `CATALOG_SYNC_DISABLED=1` in `.env`.
+  Other outbound traffic: a key-health probe to your providers every ~5 min
+  (`COOLDOWN_PROBE_DISABLED=1` stops the recovery probe) and an anonymous
+  GitHub update check from the dashboard (`FREELLMAPI_UPDATE_CHECK=off`).
 - **Cloud sessions:** it runs here, but a container is ephemeral and has no
   browser for the dashboard. Run it on your desktop for real use.
