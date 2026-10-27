@@ -222,6 +222,28 @@ step_website_cloner() {
   npm run typecheck
 }
 
+# ----------------------------------------------------- ai-agent-data-apis --
+# A markdown catalog of Apify actors plus two playbooks: nothing to build or
+# run, so git is the only prerequisite and nothing is configured here. Running
+# an actor needs APIFY_TOKEN and the `apify` server in .mcp.json, not anything
+# this step installs.
+step_agent_data_apis() {
+  local dir="$WORKDIR/ai-agent-data-apis"
+  local miss
+  miss="$(missing_of "git|git")"
+  if [ -n "$miss" ]; then
+    echo "    skipped - missing:$miss"
+    SKIPPED="$SKIPPED ai-agent-data-apis"
+    return 0
+  fi
+
+  clone_once https://github.com/cporter202/ai-agent-data-apis.git "$dir" || return 1
+  # One row per actor, so a truncated clone shows up as a short (or zero) count.
+  local n
+  n="$(grep -c 'https://apify.com/' "$dir/catalog/README.md")" || return 1
+  echo "    catalog OK -> $n actors"
+}
+
 run_step() {
   echo "==> $1"
   if ( set -e; "$2" ); then :; else
@@ -230,11 +252,12 @@ run_step() {
   fi
 }
 
-run_step "1/5 OpenManus"           step_openmanus          OpenManus
-run_step "2/5 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
-run_step "3/5 OpenUI"              step_openui             openui
-run_step "4/5 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
-run_step "5/5 ai-website-cloner"  step_website_cloner     ai-website-cloner
+run_step "1/6 OpenManus"           step_openmanus          OpenManus
+run_step "2/6 screenshot-to-code"  step_screenshot_to_code screenshot-to-code
+run_step "3/6 OpenUI"              step_openui             openui
+run_step "4/6 MoneyPrinterV2"      step_moneyprinter       MoneyPrinterV2
+run_step "5/6 ai-website-cloner"  step_website_cloner     ai-website-cloner
+run_step "6/6 ai-agent-data-apis"  step_agent_data_apis    ai-agent-data-apis
 
 cat <<EOF
 
@@ -267,6 +290,11 @@ ai-website-cloner - Next.js app, open http://localhost:3000
   cd $WORKDIR/ai-website-cloner-template
   claude                                      # then: /clone-website https://example.com
   npm run dev
+
+ai-agent-data-apis - Apify actor catalog (markdown, no port)
+  grep -i '<keyword>' $WORKDIR/ai-agent-data-apis/catalog/README.md | cut -c1-300
+  Running an actor needs APIFY_TOKEN plus the apify server in .mcp.json - see
+  ai-tools/README.md. Actors bill per result.
 
 Both UI tools need a vision-capable model key to generate anything.
 See ai-tools/README.md and .env.example.

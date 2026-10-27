@@ -20,6 +20,13 @@
     "stripe": {
       "type": "http",
       "url": "https://mcp.stripe.com/"
+    },
+    "apify": {
+      "type": "http",
+      "url": "https://mcp.apify.com?tools=actors,docs&telemetry-enabled=false",
+      "headers": {
+        "Authorization": "Bearer ${APIFY_TOKEN:-}"
+      }
     }
   }
 }

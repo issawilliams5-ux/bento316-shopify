@@ -25,13 +25,14 @@
 .PARAMETER SkipBrowser
   Skip installing Browser Use + Chromium for OpenManus.
 .PARAMETER Only
-  Run just one step: OpenManus, screenshot-to-code, or openui.
+  Run just one step: OpenManus, screenshot-to-code, openui, or
+  ai-agent-data-apis (the lightweight one: git only, no build).
 #>
 param(
   [string]$WorkDir = "$HOME\ai-tools",
   [string]$Model = "anthropic/claude-sonnet-4.5",
   [switch]$SkipBrowser,
-  [ValidateSet("OpenManus", "screenshot-to-code", "openui")]
+  [ValidateSet("OpenManus", "screenshot-to-code", "openui", "ai-agent-data-apis")]
   [string]$Only
 )
 
@@ -228,6 +229,22 @@ function Step-WebsiteCloner {
   if ($LASTEXITCODE -ne 0) { throw "typecheck failed." }
 }
 
+# ----------------------------------------------------- ai-agent-data-apis --
+# A markdown catalog of Apify actors plus two playbooks: nothing to build or
+# run, so git is the only prerequisite and nothing is configured here. Running
+# an actor needs APIFY_TOKEN and the apify server in .mcp.json, not anything
+# this step installs.
+function Step-AgentDataApis {
+  if (-not (Have git)) { Write-Host "    skipped - missing: git(https://git-scm.com/download/win)"; $script:Skipped += "ai-agent-data-apis"; return }
+
+  $repo = Join-Path $WorkDir "ai-agent-data-apis"
+  Clone-Once "https://github.com/cporter202/ai-agent-data-apis.git" $repo
+  # One row per actor, so a truncated clone shows up as a short (or zero) count.
+  $n = @(Select-String -Path (Join-Path $repo "catalog\README.md") -Pattern "https://apify.com/" -SimpleMatch).Count
+  if (-not $n) { throw "catalog has no actor rows - the clone looks truncated." }
+  Write-Host "    catalog OK -> $n actors"
+}
+
 function Run-Step($label, $name, $fn) {
   if ($Only -and $Only -ne $name) { return }
   Write-Host "==> $label" -ForegroundColor Cyan
@@ -239,10 +256,11 @@ function Run-Step($label, $name, $fn) {
 }
 
 New-Item -ItemType Directory -Force -Path $WorkDir | Out-Null
-Run-Step "1/4 OpenManus"          "OpenManus"          ${function:Step-OpenManus}
-Run-Step "2/4 screenshot-to-code" "screenshot-to-code" ${function:Step-ScreenshotToCode}
-Run-Step "3/4 OpenUI"             "openui"             ${function:Step-OpenUI}
-Run-Step "4/4 ai-website-cloner"  "ai-website-cloner"  ${function:Step-WebsiteCloner}
+Run-Step "1/5 OpenManus"          "OpenManus"          ${function:Step-OpenManus}
+Run-Step "2/5 screenshot-to-code" "screenshot-to-code" ${function:Step-ScreenshotToCode}
+Run-Step "3/5 OpenUI"             "openui"             ${function:Step-OpenUI}
+Run-Step "4/5 ai-website-cloner"  "ai-website-cloner"  ${function:Step-WebsiteCloner}
+Run-Step "5/5 ai-agent-data-apis" "ai-agent-data-apis" ${function:Step-AgentDataApis}
 
 Write-Host ""
 Write-Host "------------------------------------------------------------------"
@@ -258,6 +276,10 @@ Write-Host "  cd `"$WorkDir\openui\backend`"; .\.venv\Scripts\python.exe -m open
 Write-Host ""
 Write-Host "ai-website-cloner - Next.js app, open http://localhost:3000"
 Write-Host "  cd `"$WorkDir\ai-website-cloner-template`"; claude  (then /clone-website <url>); npm run dev"
+Write-Host ""
+Write-Host "ai-agent-data-apis - Apify actor catalog (markdown, no port)"
+Write-Host "  Select-String -Path `"$WorkDir\ai-agent-data-apis\catalog\README.md`" -Pattern '<keyword>' | % { `$_.Line.Substring(0, [Math]::Min(300, `$_.Line.Length)) }"
+Write-Host "  Running an actor needs APIFY_TOKEN plus the apify server in .mcp.json - see ai-tools\README.md."
 Write-Host ""
 Write-Host "Both UI tools need a vision-capable model key to generate anything."
 Write-Host "See ai-tools\README.md and .env.example."
