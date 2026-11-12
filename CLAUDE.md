@@ -366,3 +366,14 @@ re-export): ESLint, `next build`'s type check and editors load that.
   which support ESLint 10 (react crashes on the removed
   `context.getFilename`). Upgrade once they do; don't drop the a11y rules to
   get there.
+
+
+# Third-party skill packs (vendored 2026-11-12)
+
+Six repos from a "7 repos" post were read through and vendored as **pinned copies** (nothing is fetched at runtime; "Repo 1" was not in the screenshots, so it is not installed). Commit pins, licences, every change from upstream, and removal steps: `.claude/skills/THIRD_PARTY_SKILLS.md`. The same copies exist in `bento316-shopify-store`.
+
+- **Automatic:** `humanizer`, `scroll-craft` and 24 `agent-skills` (addyosmani) with the commands `/spec /plan /build /test /review /code-simplify /ship /constraints /webperf`. About 2,500 tokens of skill descriptions per session; `test-driven-development` and `git-workflow-and-versioning` fire on most code changes.
+- **On demand only** (`disable-model-invocation`, nothing added to the prompt): `expo/skills` (24, start with `/expo-overview`; `expo-web-to-native` is the one relevant to this Next.js app) and `googleworkspace/cli` skills (19, e.g. `/gws-gmail`).
+- `.agents/skills/` mirrors `.claude/skills/` for Codex; `eslint.config.mjs` ignores both folders. `tsconfig` is unaffected (no `.ts` files were added). Upstream `allowed-tools` grants were stripped from 7 skills.
+- **Not installed:** Open SEO (hosted subscription or a paid DataForSEO key: owner decision), the hosted Expo and Open SEO MCP servers (this repo's MCP list is deliberately short), the `agent-skills` hooks, its `code-reviewer`/`security-auditor` personas and its `using-agent-skills` router.
+- `gws`, `eas-cli` and a kie.ai key are **not installed or configured** (`NO_RUNTIME_EVIDENCE`). No third-party script has been run. `scroll-craft` spends money only if `KIE_AI_API_KEY` is set; never set it without owner approval.
