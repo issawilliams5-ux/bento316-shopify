@@ -25,3 +25,7 @@ brag-output*/
 
 # motionmaxxing working folder (storyboard, renders, look/ reports)
 film/
+
+# vendored third-party skill runtime cache
+.claude/skills/eas-workflows/scripts/.cache/
+.agents/skills/eas-workflows/scripts/.cache/
